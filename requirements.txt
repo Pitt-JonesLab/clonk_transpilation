@@ -1,0 +1,16 @@
+dill==0.3.4
+mpmath==1.2.1
+numpy==1.22.1
+pbr==5.8.0
+ply==3.11
+psutil==5.9.0
+python-constraint==1.4.0
+python-dateutil==2.8.2
+qiskit-terra==0.20.0
+retworkx==0.10.2
+scipy==1.7.3
+six==1.16.0
+stevedore==3.5.0
+symengine==0.8.1
+sympy==1.9
+tweedledum==1.1.1
