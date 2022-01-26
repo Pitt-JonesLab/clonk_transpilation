@@ -16,9 +16,9 @@ import math
 from typing import List
 import numpy as np
 from qiskit.exceptions import QiskitError, MissingOptionalLibraryError
-from .matplotlib import HAS_MATPLOTLIB
-from .exceptions import VisualizationError
-from .utils import matplotlib_close_if_inline
+from qiskit.tools.visualization import HAS_MATPLOTLIB
+from qiskit.tools.visualization import VisualizationError
+from qiskit.visualization.utils import matplotlib_close_if_inline
 from qiskit.providers.backend import BackendV2
 
 

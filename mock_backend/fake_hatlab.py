@@ -4,7 +4,7 @@ Fake Hatlab device (16+4 qubit).
 
 import itertools
 from qiskit.test.mock.utils.configurable_backend import ConfigurableFakeBackend
-from qiskit.test.mock.utils.configurable_backend_v2 import ConfigurableFakeBackendV2
+from fakeutils.configurable_backend_v2 import ConfigurableFakeBackendV2
 from qiskit.providers.models import BackendProperties
 from qiskit.providers.models.backendproperties import Nduv, Gate
 from qiskit.exceptions import QiskitError
