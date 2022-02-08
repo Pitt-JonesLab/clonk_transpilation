@@ -28,6 +28,19 @@ cx = Operator(
 circuit.unitary(cx, [0, 1])
 rootSwap = circuit.to_gate()
 
+# define rootiswap
+circuit = qc.QuantumCircuit(2, name="rootiswap")
+cx = Operator(
+    [
+        [1, 0, 0, 0],
+        [0, 1 / np.sqrt(2), 1j / np.sqrt(2), 0],
+        [0, 1j / np.sqrt(2), 1 / np.sqrt(2), 0],
+        [0, 0, 0, 1],
+    ]
+)
+
+circuit.unitary(cx, [0, 1])
+rootiSwap = circuit.to_gate()
 
 # class rootiswap_gate(qe.UnitaryGate):
 #     def __init__(self):

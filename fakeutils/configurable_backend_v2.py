@@ -131,7 +131,8 @@ class ConfigurableFakeBackendV2(BackendV2):
             }
             if gate in parameterized_gates.keys():
                 self._target.add_instruction(
-                    gate(Parameter(parameterized_gates[gate])), temp_gate_props
+                    gate(*[Parameter(p) for p in parameterized_gates[gate]]),
+                    temp_gate_props,
                 )
             else:
                 self._target.add_instruction(gate(), temp_gate_props)
