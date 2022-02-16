@@ -1,3 +1,4 @@
+from cirq import cphase
 import qiskit.circuit.quantumcircuit as qc
 from qiskit.circuit.equivalence_library import SessionEquivalenceLibrary
 import qiskit.extensions as qe
@@ -38,9 +39,20 @@ cx = Operator(
         [0, 0, 0, 1],
     ]
 )
-
 circuit.unitary(cx, [0, 1])
 rootiSwap = circuit.to_gate()
+
+
+def iswap(alpha):
+    return np.matrix(
+        [
+            [1, 0, 0, 0],
+            [0, np.cos(np.pi * alpha / 2), 1j * np.sin(np.pi * alpha / 2), 0],
+            [0, 1j * np.sin(np.pi * alpha / 2), np.cos(np.pi * alpha / 2), 0],
+            [0, 0, 0, 1],
+        ]
+    )
+
 
 # class rootiswap_gate(qe.UnitaryGate):
 #     def __init__(self):
@@ -91,3 +103,8 @@ _rootSwapEquiv.cx(0, 1)
 _rootSwapEquiv.rz(-np.pi / 2, 0)
 _rootSwapEquiv.rz(np.pi / 2, 1)
 SessionEquivalenceLibrary.add_equivalence(rootSwap, _rootSwapEquiv)
+
+# add decomp rule for CZ out of Cphase
+_czEquiv = qc.QuantumCircuit(2)
+_czEquiv.append(g.CPhaseGate(np.pi), [0, 1])
+SessionEquivalenceLibrary.add_equivalence(g.CZGate(), _czEquiv)

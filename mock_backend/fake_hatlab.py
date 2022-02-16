@@ -8,13 +8,8 @@ from fakeutils.configurable_backend_v2 import ConfigurableFakeBackendV2
 from qiskit.providers.models import BackendProperties
 from qiskit.providers.models.backendproperties import Nduv, Gate
 from qiskit.exceptions import QiskitError
-from qiskit.circuit.library.standard_gates import (
-    IGate,
-    RXGate,
-    RYGate,
-    CZGate,
-    SwapGate,
-)
+from qiskit.circuit.library.standard_gates import *
+from fakeutils.riswap import RiSwapGate
 
 
 class FakeHatlab(ConfigurableFakeBackendV2):
@@ -69,10 +64,13 @@ class FakeHatlab(ConfigurableFakeBackendV2):
             [2, 1],
         ]
         gate_configuration = {}
-        gate_configuration[RXGate] = [(i,) for i in module_qubits]
-        gate_configuration[RYGate] = [(i,) for i in module_qubits]
+        gate_configuration[RZGate] = [(i,) for i in module_qubits]
+        gate_configuration[XGate] = [(i,) for i in module_qubits]
+        gate_configuration[YGate] = [(i,) for i in module_qubits]
+        gate_configuration[SXGate] = [(i,) for i in module_qubits]
+        gate_configuration[SXdgGate] = [(i,) for i in module_qubits]
         gate_configuration[IGate] = [(i,) for i in router_qubits + module_qubits]
-        gate_configuration[SwapGate] = [(i, j) for i, j in coupling_map]
+        gate_configuration[RiSwapGate] = [(i, j) for i, j in coupling_map]
         gate_configuration[CZGate] = [
             (i, j)
             for i, j in coupling_map
@@ -84,10 +82,26 @@ class FakeHatlab(ConfigurableFakeBackendV2):
             "hatlab 16+4 QC",
             20,
             gate_configuration,
-            parameterized_gates={RXGate: "theta", RYGate: "theta"},
+            parameterized_gates={
+                RZGate: ["theta"],
+                RiSwapGate: ["alpha"],
+            },
             measurable_qubits=module_qubits,
             qubit_coordinates=qubit_coordinates,
+            gate_durations={
+                IGate: 0,
+                RZGate: 0,
+                RYGate: 50e-9,
+                XGate: 50e-9,
+                YGate: 50e-9,
+                SXGate: 50e-9,
+                SXdgGate: 50e-9,
+                CXGate: 800e-9,
+                RiSwapGate: 400e-9,  # time of iSwap
+                U3Gate: 50e-9,
+            },
         )
+        self.plot_coupling_map = coupling_map
 
 
 class LegacyFakeHatlab(ConfigurableFakeBackend):

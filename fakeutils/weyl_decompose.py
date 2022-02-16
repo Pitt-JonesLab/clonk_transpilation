@@ -25,84 +25,126 @@ from qiskit.transpiler.layout import Layout
 from qiskit.dagcircuit import DAGCircuit
 from qiskit.converters import circuit_to_dag
 
+from fakeutils.fakeutils import BasisTranslator
+from fakeutils.equivalence_library import SessionEquivalenceLibrary
+
+from fakeutils.weyl import weyl_coordinates
+from qiskit.quantum_info.operators import Operator
+
+# from qiskit.circuit.library.standard_gates import *
+from fakeutils.riswap import RiSwapGate
+from qiskit.circuit import Parameter
+from qiskit import QuantumCircuit
+import numpy as np
+
+
+_sel = SessionEquivalenceLibrary
+
 
 class RootiSwapWeylDecomposition(TransformationPass):
     """Rewrite two-qubit gates using the Weyl decomposition.
-    This transpiler pass rewrites two-qubit gates in terms of echoed cross-resonance gates according
-    to the Weyl decomposition. A two-qubit gate will be replaced with at most six non-echoed RZXGates.
-    Each pair of RZXGates forms an echoed RZXGate.
+    This transpiler pass rewrites two-qubit gates in terms of root iswap gates according
+    to the Weyl decomposition. A two-qubit gate will be replaced with at most 3 root i swap gates.
     """
 
-    def __init__(self, instruction_schedule_map=None):
-        """EchoRZXWeylDecomposition pass.
+    def __init__(self, decompose_swaps=True):
+        """RootiSwapWeylDecomposition pass.
         Args:
             instruction_schedule_map (InstructionScheduleMap): the mapping from circuit
                 :class:`~.circuit.Instruction` names and arguments to :class:`.Schedule`\\ s.
         """
         super().__init__()
-        self._inst_map = instruction_schedule_map
-
-    def _is_native(self, qubit_pair: Tuple) -> bool:
-        """Return the direction of the qubit pair that is native, i.e. with the shortest schedule."""
-        if self._inst_map is None:
-            return True
-        cx1 = self._inst_map.get("cx", qubit_pair)
-        cx2 = self._inst_map.get("cx", qubit_pair[::-1])
-        return cx1.duration < cx2.duration
+        self.requires = [BasisTranslator(_sel, ["u3", "cp", "swap", "riswap"])]
+        self.decompose_swaps = decompose_swaps
 
     @staticmethod
-    def _echo_rzx_dag(theta):
-        rzx_dag = DAGCircuit()
-        qr = QuantumRegister(2)
-        rzx_dag.add_qreg(qr)
-        rzx_dag.apply_operation_back(RZXGate(theta / 2), [qr[0], qr[1]], [])
-        rzx_dag.apply_operation_back(XGate(), [qr[0]], [])
-        rzx_dag.apply_operation_back(RZXGate(-theta / 2), [qr[0], qr[1]], [])
-        rzx_dag.apply_operation_back(XGate(), [qr[0]], [])
-        return rzx_dag
+    def _improper_orthogonal_decomp(x, y, z):
+        alpha = np.arccos(
+            np.cos(2 * z) - np.cos(2 * y) + np.sqrt((np.cos(4 * z) + np.cos(4 * y)) / 2)
+        )
+        beta = np.arccos(
+            np.cos(2 * z) - np.cos(2 * y) - np.sqrt((np.cos(4 * z) + np.cos(4 * y)) / 2)
+        )
+        gamma = 0
+
+        psi = -np.arccos(np.sqrt((1 + np.tan(y - z)) / 2))
+        phi = np.arccos(np.sqrt((1 + np.tan(y + z)) / 2))
+
+        def_Lxyz = QuantumCircuit(2)
+        # CPhase
+        if np.isclose(y, 0) and np.isclose(z, 0):
+            def_Lxyz.rz(np.arcsin(np.tan(x)), 1)
+            def_Lxyz.rx(-np.pi / 2, 1)
+            def_Lxyz.append(RiSwapGate(0.5), [0, 1])
+            def_Lxyz.z(1)
+            def_Lxyz.ry(2 * np.arcsin(np.sqrt(2) * np.sin(x)), 1)
+            def_Lxyz.append(RiSwapGate(0.5), [0, 1])
+            def_Lxyz.rx(-np.pi / 2, 1)
+            def_Lxyz.rz(np.arcsin(np.tan(x)) - np.pi, 1)
+
+        # Canonicalized SWAP
+        elif np.isclose(x, np.pi / 4) and y + np.abs(z) <= np.pi / 4:
+            def_Lxyz.rx(phi + psi, 0)
+            def_Lxyz.rz(np.pi / 2, 1)
+            def_Lxyz.rx(phi - psi, 1)
+            def_Lxyz.append(RiSwapGate(0.5), [0, 1])
+            def_Lxyz.rx(alpha, 0)
+            def_Lxyz.rx(beta, 1)
+            def_Lxyz.append(RiSwapGate(0.5), [0, 1])
+            def_Lxyz.rx(phi + psi, 0)
+            def_Lxyz.rx(phi - psi, 1)
+            def_Lxyz.rz(-np.pi / 2, 1)
+        else:
+            raise NotImplementedError
+        return def_Lxyz
 
     @staticmethod
-    def _reverse_echo_rzx_dag(theta):
-        reverse_rzx_dag = DAGCircuit()
-        qr = QuantumRegister(2)
-        reverse_rzx_dag.add_qreg(qr)
-        reverse_rzx_dag.apply_operation_back(HGate(), [qr[0]], [])
-        reverse_rzx_dag.apply_operation_back(HGate(), [qr[1]], [])
-        reverse_rzx_dag.apply_operation_back(RZXGate(theta / 2), [qr[1], qr[0]], [])
-        reverse_rzx_dag.apply_operation_back(XGate(), [qr[1]], [])
-        reverse_rzx_dag.apply_operation_back(RZXGate(-theta / 2), [qr[1], qr[0]], [])
-        reverse_rzx_dag.apply_operation_back(XGate(), [qr[1]], [])
-        reverse_rzx_dag.apply_operation_back(HGate(), [qr[0]], [])
-        reverse_rzx_dag.apply_operation_back(HGate(), [qr[1]], [])
-        return reverse_rzx_dag
-
-    @staticmethod
-    def tempalibbadecomp(unitary):
-        from fakeutils.weyl import weyl_coordinates
-        from qiskit.quantum_info.operators import Operator
-
-        # from qiskit.circuit.library.standard_gates import *
-        from fakeutils.equivalence_library import rootiSwap
-        from qiskit.circuit import Parameter
-        from qiskit import QuantumCircuit
-        import numpy as np
-
-        # start with assuming unitary is a CU
-        theta = Parameter("theta")
+    def cphase_decomp(unitary):
+        # assuming unitary is a CPhase, is true per self.requires pass
+        # TODO function structure needs to be reoganized to use canonicalize function
         x, y, z = weyl_coordinates(Operator(unitary).data)
-        def_cphase = QuantumCircuit(2)
-        def_cphase.rz(np.arcsin(np.tan(x)), 1)
-        def_cphase.rx(-np.pi / 2, 1)
-        def_cphase.append(rootiSwap, [0, 1])
-        def_cphase.z(1)
-        def_cphase.ry(2 * np.arcsin(np.sqrt(2) * np.sin(x)), 1)
-        def_cphase.append(rootiSwap, [0, 1])
-        def_cphase.rx(-np.pi / 2, 1)
-        def_cphase.rz(np.arcsin(np.tan(x)) - np.pi, 1)
-        return def_cphase
+        def_CPhase = RootiSwapWeylDecomposition._improper_orthogonal_decomp(x, y, z)
+        return def_CPhase
+
+    # Note this is the way suggested by alibaba paper, but google has a swap->riswap(1/2) decomp rule that uses less 1Q gates
+    @staticmethod
+    def swap_decomp(unitary):
+        def_swap = QuantumCircuit(2)
+        def_swap.z(0)
+        def_swap.rx(np.pi / 2, 0)
+        def_swap.z(0)
+
+        def_swap.rx(-np.pi / 2, 1)
+
+        x, y, z = weyl_coordinates(Operator(unitary).data)
+        def_swap += RootiSwapWeylDecomposition._improper_orthogonal_decomp(
+            x, y - np.pi / 4, z - np.pi / 4
+        )
+
+        def_swap.z(0)
+        def_swap.rx(-np.pi / 2, 0)
+        def_swap.rz(np.pi / 2, 0)
+        def_swap.ry(-np.pi / 2, 0)
+        def_swap.z(0)
+
+        def_swap.rx(np.pi / 2, 1)
+        def_swap.rz(-np.pi / 2, 1)
+        def_swap.ry(np.pi / 2, 1)
+
+        def_swap.append(RiSwapGate(0.5), [0, 1])
+
+        def_swap.z(0)
+        def_swap.ry(np.pi / 2, 0)
+        def_swap.rz(-np.pi / 2, 0)
+        def_swap.z(0)
+
+        def_swap.ry(-np.pi / 2, 1)
+        def_swap.rz(np.pi / 2, 1)
+
+        return def_swap
 
     def run(self, dag: DAGCircuit):
-        """Run the EchoRZXWeylDecomposition pass on `dag`.
+        """Run the RootiSwapWeylDecomposition pass on `dag`.
         Rewrites two-qubit gates in an arbitrary circuit in terms of echoed cross-resonance
         gates by computing the Weyl decomposition of the corresponding unitary. Modifies the
         input dag.
@@ -113,7 +155,6 @@ class RootiSwapWeylDecomposition(TransformationPass):
         Raises:
             TranspilerError: If the circuit cannot be rewritten.
         """
-
         # pylint: disable=cyclic-import
         from qiskit.quantum_info import Operator
         from qiskit.quantum_info.synthesis.two_qubit_decompose import (
@@ -122,37 +163,23 @@ class RootiSwapWeylDecomposition(TransformationPass):
 
         if len(dag.qregs) > 1:
             raise TranspilerError(
-                "EchoRZXWeylDecomposition expects a single qreg input DAG,"
+                "RootiSwapWeylDecomposition expects a single qreg input DAG,"
                 f"but input DAG had qregs: {dag.qregs}."
             )
 
-        trivial_layout = Layout.generate_trivial_layout(*dag.qregs.values())
-
-        # decomposer = TwoQubitControlledUDecomposer(RZXGate)
-        decomposer = self.tempalibbadecomp
+        # trivial_layout = Layout.generate_trivial_layout(*dag.qregs.values())
 
         for node in dag.two_qubit_ops():
-
+            # denote 2 different decomp rules, either for swap gates, or for U gates in CPhase basis
+            if node.name == "riswap":
+                continue
             unitary = Operator(node.op).data
-            dag_weyl = circuit_to_dag(decomposer(unitary))
-            dag.substitute_node_with_dag(node, dag_weyl)
-
-        # for node in dag.two_qubit_ops():
-        #     if node.name == "rzx":
-        #         control = node.qargs[0]
-        #         target = node.qargs[1]
-
-        #         physical_q0 = trivial_layout[control]
-        #         physical_q1 = trivial_layout[target]
-
-        #         is_native = self._is_native((physical_q0, physical_q1))
-
-        #         theta = node.op.params[0]
-        #         if is_native:
-        #             dag.substitute_node_with_dag(node, self._echo_rzx_dag(theta))
-        #         else:
-        #             dag.substitute_node_with_dag(
-        #                 node, self._reverse_echo_rzx_dag(theta)
-        #             )
+            if node.name == "swap":
+                if self.decompose_swaps:
+                    dag_weyl = circuit_to_dag(self.swap_decomp(unitary))
+                    dag.substitute_node_with_dag(node, dag_weyl)
+            else:
+                dag_weyl = circuit_to_dag(self.cphase_decomp(unitary))
+                dag.substitute_node_with_dag(node, dag_weyl)
 
         return dag

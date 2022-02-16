@@ -37,6 +37,7 @@ class ConfigurableFakeBackendV2(BackendV2):
         measurable_qubits: List[int] = None,
         parameterized_gates: Optional[Dict[Gate, str]] = None,
         qubit_coordinates: Optional[List[List[int]]] = None,
+        gate_durations: Optional[Dict[Gate, int]] = None,
         qubit_t1: Optional[Union[float, List[float]]] = None,
         qubit_t2: Optional[Union[float, List[float]]] = None,
         qubit_frequency: Optional[Union[float, List[float]]] = None,
@@ -56,6 +57,7 @@ class ConfigurableFakeBackendV2(BackendV2):
             parameterized_gates: Dictionary with keys being Gate classes that take parameters and value contains string parameter name
             measurable_qubits: Optional specify which qubits can be measured, default is all.
             qubit_coordinates: Optional specification of grid for displaying gate maps.
+            gate_durations: Optional dict specifying gate keys with gate duration ints
             qubit_t1: Longitudinal coherence times.
             qubit_t2: Transverse coherence times.
             qubit_frequency: Frequency of qubits.
@@ -95,6 +97,7 @@ class ConfigurableFakeBackendV2(BackendV2):
                 loc=qubit_readout_error or 0.04, scale=std, size=n_qubits
             ).tolist()
 
+        # Qubit drive channel timestep in nanoseconds.
         if dt is None:
             dt = 0.2222222222222222e-9
 
@@ -105,6 +108,7 @@ class ConfigurableFakeBackendV2(BackendV2):
         self.description = description
         self.gate_configuration = gate_configuration
         self.measurable_qubits = measurable_qubits
+        self.gate_durations = gate_durations
         self.qubit_t1 = qubit_t1
         self.qubit_t2 = qubit_t2
         self.qubit_frequency = qubit_frequency
@@ -126,7 +130,11 @@ class ConfigurableFakeBackendV2(BackendV2):
         # TODO: dynamic instruction properties
         for gate, qubit_tuple_list in self.gate_configuration.items():
             temp_gate_props = {
-                qubit_tuple: InstructionProperties(duration=0.0, error=0)
+                qubit_tuple: InstructionProperties(
+                    duration=self.gate_durations[gate], error=0
+                )
+                if gate in self.gate_durations.keys()
+                else InstructionProperties(duration=0.0, error=0)
                 for qubit_tuple in qubit_tuple_list
             }
             if gate in parameterized_gates.keys():

@@ -1,0 +1,94 @@
+import itertools
+
+from cirq import XPowGate
+from fakeutils.configurable_backend_v2 import ConfigurableFakeBackendV2
+from qiskit.providers.models import BackendProperties
+from qiskit.providers.models.backendproperties import Nduv, Gate
+from qiskit.exceptions import QiskitError
+from qiskit.circuit.library.standard_gates import (
+    IGate,
+    RXGate,
+    RYGate,
+    CXGate,
+    U3Gate,
+    RZGate,
+    XGate,
+    YGate,
+    SXGate,
+    SXdgGate,
+)
+from fakeutils.riswap import RiSwapGate
+
+
+class FakeSurfaceCode(ConfigurableFakeBackendV2):
+    """A mock backendv2"""
+
+    def __init__(self, twoqubitgate="cx"):
+        qubits = list(range(20))
+        # assume 4 rows, 5 cols
+        row_length = 5
+        coupling_map = []
+        for u in qubits:
+            down = u + row_length
+            if down < len(qubits):
+                coupling_map.append([u, down])
+            up = u - row_length
+            if up >= 0:
+                coupling_map.append([u, up])
+            left = u - 1
+            if u % row_length != 0:
+                coupling_map.append([u, left])
+            right = u + 1
+            if (u + 1) % row_length != 0:
+                coupling_map.append([u, right])
+
+        # qubit_coordinates = [[0, 1], [1, 0], [1, 1], [1, 2]]
+
+        gate_configuration = {}
+        gate_configuration[IGate] = [(i,) for i in qubits]
+
+        # global RZ
+        gate_configuration[RZGate] = [(i,) for i in qubits]
+        # global X, Y, SX, SXdg
+        gate_configuration[XGate] = [(i,) for i in qubits]
+        gate_configuration[YGate] = [(i,) for i in qubits]
+        gate_configuration[SXGate] = [(i,) for i in qubits]
+        gate_configuration[SXdgGate] = [(i,) for i in qubits]
+
+        if twoqubitgate == "cx":
+            # can do CX on all pairs in coupling map
+            gate_configuration[CXGate] = [(i, j) for i, j in coupling_map]
+        if twoqubitgate == "iswap":
+            gate_configuration[RiSwapGate] = [(i, j) for i, j in coupling_map]
+
+        # global measure
+        measurable_qubits = qubits
+
+        super().__init__(
+            name="mock_example",
+            description="a mock backend",
+            n_qubits=len(qubits),
+            gate_configuration=gate_configuration,
+            parameterized_gates={
+                RZGate: ["theta"],
+                RYGate: ["theta"],
+                RiSwapGate: ["alpha"],
+                U3Gate: ["theta", "phi", "lambda"],
+            },
+            measurable_qubits=measurable_qubits,
+            gate_durations={
+                IGate: 0,
+                RZGate: 0,
+                RYGate: 50e-9,
+                XGate: 50e-9,
+                YGate: 50e-9,
+                SXGate: 50e-9,
+                SXdgGate: 50e-9,
+                CXGate: 400e-9,
+                RiSwapGate: 400e-9,  # time of iSwap
+                U3Gate: 50e-9,
+            },
+            single_qubit_gates=["rz", "x", "y", "sx", "sxdg"]
+            # qubit_coordinates=qubit_coordinates,
+        )
+        self.plot_coupling_map = coupling_map
