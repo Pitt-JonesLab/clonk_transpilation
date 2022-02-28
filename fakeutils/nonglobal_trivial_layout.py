@@ -55,36 +55,36 @@ class NonGlobalTrivialLayout(AnalysisPass):
             *(dag.qubits + list(dag.qregs.values()))
         )
 
-        for dag_node in dag.op_nodes():
-            gate_name = dag_node.op.name
-            if gate_name == "barrier":
-                continue
-            virtual_qubit_list = dag_node.qargs
-            if len(virtual_qubit_list) == 1:
+        # for dag_node in dag.op_nodes():
+        #     gate_name = dag_node.op.name
+        #     if gate_name == "barrier":
+        #         continue
+        #     virtual_qubit_list = dag_node.qargs
+        #     if len(virtual_qubit_list) == 1:
 
-                virtual_qubit = dag_node.qargs[0]
+        #         virtual_qubit = dag_node.qargs[0]
 
-                # if already found don't replace, also avoid double swaps
-                if (layout[virtual_qubit],) in self.backend_target._gate_map[
-                    gate_name
-                ].keys():
-                    continue
+        #         # if already found don't replace, also avoid double swaps
+        #         if (layout[virtual_qubit],) in self.backend_target._gate_map[
+        #             gate_name
+        #         ].keys():
+        #             continue
 
-                for key, value in self.backend_target._gate_map[gate_name].items():
-                    # key=(1,)
-                    if key[0] in self.remaining_physical_qubits:
-                        # swap new phyiscal location with virtuals old, this might not work for other than basic cases
-                        # needs testing
-                        layout.swap(layout[virtual_qubit], key[0])
-                        self.remaining_physical_qubits.remove(key[0])
-                        break
-            else:
-                virtual_qubit = [layout[dnq] for dnq in virtual_qubit_list]
-                if (
-                    tuple(virtual_qubit)
-                    in self.backend_target._gate_map[gate_name].keys()
-                ):
-                    continue
+        #         for key, value in self.backend_target._gate_map[gate_name].items():
+        #             # key=(1,)
+        #             if key[0] in self.remaining_physical_qubits:
+        #                 # swap new phyiscal location with virtuals old, this might not work for other than basic cases
+        #                 # needs testing
+        #                 layout.swap(layout[virtual_qubit], key[0])
+        #                 self.remaining_physical_qubits.remove(key[0])
+        #                 break
+        #     else:
+        #         virtual_qubit = [layout[dnq] for dnq in virtual_qubit_list]
+        #         if (
+        #             tuple(virtual_qubit)
+        #             in self.backend_target._gate_map[gate_name].keys()
+        #         ):
+        #             continue
 
         # # # layout = Layout()
         # # # for q in dag.qubits:

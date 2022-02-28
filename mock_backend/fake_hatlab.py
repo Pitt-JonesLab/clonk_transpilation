@@ -15,60 +15,118 @@ from fakeutils.riswap import RiSwapGate
 class FakeHatlab(ConfigurableFakeBackendV2):
     """A fake 16+4 qubit backend."""
 
-    def __init__(self):
+    def __init__(self, dimension=1, router_as_qubits=False):
+        if dimension == 1:
+            router_qubits = [0, 5, 10, 15]
+            module_qubits = list(set(range(20)).difference(set([0, 5, 10, 15])))
 
-        router_qubits = [0, 5, 10, 15]
-        module_qubits = list(set(range(20)).difference(set([0, 5, 10, 15])))
+            coupling_map = [
+                el
+                for el in itertools.product(router_qubits, router_qubits)
+                if el[0] != el[1]
+            ]
+            coupling_map += itertools.product(range(0, 5), repeat=2)
+            coupling_map += itertools.product(range(5, 10), repeat=2)
+            coupling_map += itertools.product(range(10, 15), repeat=2)
+            coupling_map += itertools.product(range(15, 20), repeat=2)
 
-        coupling_map = [
-            [0, 5],
-            [0, 10],
-            [0, 15],
-            [5, 0],
-            [5, 10],
-            [5, 15],
-            [10, 0],
-            [10, 5],
-            [10, 15],
-            [15, 0],
-            [15, 5],
-            [15, 10],
-        ]
-        coupling_map += itertools.product(range(0, 5), repeat=2)
-        coupling_map += itertools.product(range(5, 10), repeat=2)
-        coupling_map += itertools.product(range(10, 15), repeat=2)
-        coupling_map += itertools.product(range(15, 20), repeat=2)
+            coupling_map = [[q1, q2] for q1, q2 in coupling_map if q1 != q2]
 
-        coupling_map = [[q1, q2] for q1, q2 in coupling_map if q1 != q2]
+            qubit_coordinates = [
+                [2, 3],
+                [1, 2],
+                [0, 2],
+                [0, 4],
+                [1, 4],
+                [3, 4],
+                [2, 5],
+                [2, 6],
+                [4, 6],
+                [4, 5],
+                [4, 3],
+                [5, 4],
+                [6, 4],
+                [6, 2],
+                [5, 2],
+                [3, 2],
+                [4, 1],
+                [4, 0],
+                [2, 0],
+                [2, 1],
+            ]
+        if dimension == 2:
+            router1 = [0, 5, 10, 15]
+            router2 = [20, 25, 30, 80]
+            router3 = [35, 40, 45, 81]
+            router4 = [50, 55, 60, 82]
+            router5 = [65, 70, 75, 83]
+            router_qubits = router1 + router2 + router3 + router4 + router5
+            module_qubits = list(set(range(84)).difference(set(router_qubits)))
 
-        qubit_coordinates = [
-            [2, 3],
-            [1, 2],
-            [0, 2],
-            [0, 4],
-            [1, 4],
-            [3, 4],
-            [2, 5],
-            [2, 6],
-            [4, 6],
-            [4, 5],
-            [4, 3],
-            [5, 4],
-            [6, 4],
-            [6, 2],
-            [5, 2],
-            [3, 2],
-            [4, 1],
-            [4, 0],
-            [2, 0],
-            [2, 1],
-        ]
+            # router is all to all within itself
+            coupling_map = [
+                el for el in itertools.product(router1, router1) if el[0] != el[1]
+            ]
+            coupling_map += [
+                el for el in itertools.product(router2, router2) if el[0] != el[1]
+            ]
+            coupling_map += [
+                el for el in itertools.product(router3, router3) if el[0] != el[1]
+            ]
+            coupling_map += [
+                el for el in itertools.product(router4, router4) if el[0] != el[1]
+            ]
+            coupling_map += [
+                el for el in itertools.product(router5, router5) if el[0] != el[1]
+            ]
+
+            # connect modules
+            # set 1
+            coupling_map += itertools.product(range(0, 5), repeat=2)
+            coupling_map += itertools.product(range(5, 10), repeat=2)
+            coupling_map += itertools.product(range(10, 15), repeat=2)
+            coupling_map += itertools.product(range(15, 20), repeat=2)
+
+            # set 2
+            coupling_map += itertools.product(range(20, 25), repeat=2)
+            coupling_map += itertools.product(range(25, 30), repeat=2)
+            coupling_map += itertools.product(range(30, 35), repeat=2)
+
+            # set 3
+            coupling_map += itertools.product(range(35, 40), repeat=2)
+            coupling_map += itertools.product(range(40, 45), repeat=2)
+            coupling_map += itertools.product(range(45, 50), repeat=2)
+
+            # set 4
+            coupling_map += itertools.product(range(50, 55), repeat=2)
+            coupling_map += itertools.product(range(55, 60), repeat=2)
+            coupling_map += itertools.product(range(60, 65), repeat=2)
+
+            # set 5
+            coupling_map += itertools.product(range(65, 70), repeat=2)
+            coupling_map += itertools.product(range(70, 75), repeat=2)
+            coupling_map += itertools.product(range(75, 80), repeat=2)
+
+            # connecting module
+            coupling_map += itertools.product([1, 2, 3, 4, 80], repeat=2)
+            coupling_map += itertools.product([6, 7, 8, 9, 81], repeat=2)
+            coupling_map += itertools.product([11, 12, 13, 14, 82], repeat=2)
+            coupling_map += itertools.product([16, 17, 18, 19, 83], repeat=2)
+
+            # delete repeats
+            coupling_map = [[q1, q2] for q1, q2 in coupling_map if q1 != q2]
+
+            qubit_coordinates = []
+
         gate_configuration = {}
-        gate_configuration[RZGate] = [(i,) for i in module_qubits]
-        gate_configuration[XGate] = [(i,) for i in module_qubits]
-        gate_configuration[YGate] = [(i,) for i in module_qubits]
-        gate_configuration[SXGate] = [(i,) for i in module_qubits]
-        gate_configuration[SXdgGate] = [(i,) for i in module_qubits]
+        extra_qubits = []
+        if router_as_qubits:
+            extra_qubits = router_qubits
+        gate_configuration[RZGate] = [(i,) for i in module_qubits + extra_qubits]
+        gate_configuration[XGate] = [(i,) for i in module_qubits + extra_qubits]
+        gate_configuration[YGate] = [(i,) for i in module_qubits + extra_qubits]
+        gate_configuration[SXGate] = [(i,) for i in module_qubits + extra_qubits]
+        gate_configuration[SXdgGate] = [(i,) for i in module_qubits + extra_qubits]
         gate_configuration[IGate] = [(i,) for i in router_qubits + module_qubits]
         gate_configuration[RiSwapGate] = [(i, j) for i, j in coupling_map]
         gate_configuration[CZGate] = [
@@ -80,8 +138,8 @@ class FakeHatlab(ConfigurableFakeBackendV2):
         super().__init__(
             "fake_hatlab",
             "hatlab 16+4 QC",
-            20,
-            gate_configuration,
+            n_qubits=len(router_qubits + module_qubits),
+            gate_configuration=gate_configuration,
             parameterized_gates={
                 RZGate: ["theta"],
                 RiSwapGate: ["alpha"],
@@ -91,15 +149,16 @@ class FakeHatlab(ConfigurableFakeBackendV2):
             gate_durations={
                 IGate: 0,
                 RZGate: 0,
-                RYGate: 50e-9,
-                XGate: 50e-9,
-                YGate: 50e-9,
-                SXGate: 50e-9,
-                SXdgGate: 50e-9,
-                CXGate: 800e-9,
-                RiSwapGate: 400e-9,  # time of iSwap
-                U3Gate: 50e-9,
+                RYGate: 0,
+                XGate: 0,
+                YGate: 0,
+                SXGate: 0,
+                SXdgGate: 0,
+                CXGate: 2,
+                RiSwapGate: 2,  # time of iSwap
+                U3Gate: 0,
             },
+            single_qubit_gates=["rz", "x", "y", "sx", "sxdg"],
         )
         self.plot_coupling_map = coupling_map
 

@@ -176,6 +176,10 @@ class ConfigurableFakeBackendV2(BackendV2):
         return self._target
 
     @property
+    def meas_map(self):
+        return [self.measurable_qubits]
+
+    @property
     def max_circuits(self):
         return None
 
