@@ -10,6 +10,8 @@ from qiskit.transpiler.passes import (
     Collect2qBlocks,
     Optimize1qGatesDecomposition,
     UnrollCustomDefinitions,
+    ResourceEstimation,
+    Layout2qDistance,
 )
 from fakeutils.basis_translator import BasisTranslator
 from fakeutils.weyl_decompose import RootiSwapWeylDecomposition
@@ -36,10 +38,7 @@ from qiskit.circuit.library import CXGate
 
 
 def level_0_pass_manager(
-    backend,
-    basis_gate,
-    decompose_swaps=True,
-    decompose_1q=True,
+    backend, basis_gate, decompose_swaps=True, decompose_1q=True, critical_path=False
 ) -> PassManager:
 
     if basis_gate == "riswap":
@@ -85,6 +84,9 @@ def level_0_pass_manager(
         if foo:
             break
 
+        # # resource estimation before routing
+        # pm0.append(ResourceEstimation())
+
         """Stage 2. Routing"""
         # placement
         pm0.append(NonGlobalTrivialLayout(backend_target=backend.target))
@@ -96,6 +98,9 @@ def level_0_pass_manager(
         #         routing_pass=NonGlobalSwapPass(backend),
         #     )
         # )
+
+        # evaluate how good the layout is
+        pm0.append(Layout2qDistance(backend.coupling_map))
 
         # analysis prep
         _embed = [
@@ -112,6 +117,9 @@ def level_0_pass_manager(
         # from qiskit.transpiler.passes.routing import LookaheadSwap
         # pm0.append(LookaheadSwap(backend.coupling_map))
 
+        # resource estimation after routing
+        pm0.append(ResourceEstimation())
+
         """Stage 3. Decompose Movement Swaps"""
         # TODO: empty target movement?
 
@@ -119,8 +127,14 @@ def level_0_pass_manager(
         if not decompose_swaps:
             break
 
+    # final resource estimation
+    pm0.append(ResourceEstimation())
+
     # timing analysis
     if decompose_swaps and decompose_1q:
-        pm0.append(DurationCriticalPath(backend, False))
+        pm0.append(DurationCriticalPath(backend, critical_path))
+
+    # critical path estimation
+    pm0.append(ResourceEstimation())
 
     return pm0
