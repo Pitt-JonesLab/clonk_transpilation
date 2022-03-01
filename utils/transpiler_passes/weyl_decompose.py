@@ -25,15 +25,14 @@ from qiskit.transpiler.layout import Layout
 from qiskit.dagcircuit import DAGCircuit
 from qiskit.converters import circuit_to_dag
 
-from fakeutils.fakeutils import BasisTranslator
-from fakeutils.two_qubit_decompose import TwoQubitBasisDecomposer
-from fakeutils.equivalence_library import SessionEquivalenceLibrary
+from utils.qiskit_patch.two_qubit_decompose import TwoQubitBasisDecomposer
+from utils.riswap_gates.equivalence_library import SessionEquivalenceLibrary
 
-from fakeutils.weyl import weyl_coordinates
+from qiskit.quantum_info.synthesis.weyl import weyl_coordinates
 from qiskit.quantum_info.operators import Operator
 
 # from qiskit.circuit.library.standard_gates import *
-from fakeutils.riswap import RiSwapGate
+from utils.riswap_gates.riswap import RiSwapGate
 from qiskit.circuit import Parameter
 from qiskit import QuantumCircuit
 import numpy as np

@@ -1,39 +1,48 @@
 import itertools
-from qiskit.test.mock.utils.configurable_backend import ConfigurableFakeBackend
-from fakeutils.configurable_backend_v2 import ConfigurableFakeBackendV2
+
+from cirq import XPowGate
+from backend_utils.configurable_backend_v2 import ConfigurableFakeBackendV2
 from qiskit.providers.models import BackendProperties
 from qiskit.providers.models.backendproperties import Nduv, Gate
 from qiskit.exceptions import QiskitError
-from qiskit.circuit.library.standard_gates import *
-from fakeutils.riswap import RiSwapGate
+from qiskit.circuit.library.standard_gates import (
+    IGate,
+    RXGate,
+    RYGate,
+    CXGate,
+    U3Gate,
+    RZGate,
+    XGate,
+    YGate,
+    SXGate,
+    SXdgGate,
+)
+from utils.riswap_gates.riswap import RiSwapGate
 
 
-class FakeHyperCubeV2(ConfigurableFakeBackendV2):
+class FakeSurfaceCode(ConfigurableFakeBackendV2):
     """A mock backendv2"""
 
-    def __init__(self, n_dimension, twoqubitgate="cx"):
-        qubit_stack = list(range(2 ** n_dimension))
+    def __init__(self, twoqubitgate="cx", qubit_size=20, row_length=5):
+        qubits = list(range(qubit_size))
+        # assume 4 rows, 5 cols
+        row_length = row_length
+        coupling_map = []
+        for u in qubits:
+            down = u + row_length
+            if down < len(qubits):
+                coupling_map.append([u, down])
+            up = u - row_length
+            if up >= 0:
+                coupling_map.append([u, up])
+            left = u - 1
+            if u % row_length != 0:
+                coupling_map.append([u, left])
+            right = u + 1
+            if (u + 1) % row_length != 0:
+                coupling_map.append([u, right])
 
-        def foo(n_dimension):
-            if n_dimension == 1:
-                return [(qubit_stack.pop(0), qubit_stack.pop(0))]
-
-            # call previous dimension twice
-            ret1 = foo(n_dimension=n_dimension - 1)
-            ret2 = foo(n_dimension=n_dimension - 1)
-
-            # connect associated edges
-            coupling_map = ret1 + ret2
-            coupling_map.extend([(i[0], j[0]) for i, j in zip(ret1, ret2)])
-            coupling_map.extend([(i[1], j[1]) for i, j in zip(ret1, ret2)])
-
-            return coupling_map
-
-        qubits = list(range(2 ** n_dimension))
-        coupling_map = list(set(foo(n_dimension)))
-
-        qubit_coordinates = None
-        # TODO retworkx
+        # qubit_coordinates = [[0, 1], [1, 0], [1, 1], [1, 2]]
 
         gate_configuration = {}
         gate_configuration[IGate] = [(i,) for i in qubits]
@@ -56,7 +65,7 @@ class FakeHyperCubeV2(ConfigurableFakeBackendV2):
         measurable_qubits = qubits
 
         super().__init__(
-            name="mock hypercube",
+            name="mock_example",
             description="a mock backend",
             n_qubits=len(qubits),
             gate_configuration=gate_configuration,
@@ -79,8 +88,7 @@ class FakeHyperCubeV2(ConfigurableFakeBackendV2):
                 RiSwapGate: 2,  # time of iSwap
                 U3Gate: 0,
             },
-            single_qubit_gates=["rz", "x", "y", "sx", "sxdg"],
+            single_qubit_gates=["rz", "x", "y", "sx", "sxdg"]
+            # qubit_coordinates=qubit_coordinates,
         )
-
-
-# FakeHyperCubeV2(1)
+        self.plot_coupling_map = coupling_map

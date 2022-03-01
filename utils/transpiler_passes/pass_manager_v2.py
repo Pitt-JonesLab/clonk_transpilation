@@ -1,7 +1,3 @@
-import sys
-
-sys.path.append("..")
-
 # passes
 from qiskit.transpiler import PassManager
 
@@ -13,15 +9,15 @@ from qiskit.transpiler.passes import (
     ResourceEstimation,
     Layout2qDistance,
 )
-from fakeutils.basis_translator import BasisTranslator
-from fakeutils.weyl_decompose import RootiSwapWeylDecomposition
+from utils.qiskit_patch.basis_translator import BasisTranslator
+from utils.transpiler_passes.weyl_decompose import RootiSwapWeylDecomposition
 
 # placement pass
-from fakeutils.nonglobal_trivial_layout import NonGlobalTrivialLayout
+from utils.transpiler_passes.nonglobal_trivial_layout import NonGlobalTrivialLayout
 from qiskit.transpiler.passes import SabreLayout
 
 # routing passes
-from fakeutils.nonglobal_swap import NonGlobalSwapPass
+from utils.transpiler_passes.nonglobal_swap import NonGlobalSwapPass
 from qiskit.transpiler.passes import (
     FullAncillaAllocation,
     EnlargeWithAncilla,
@@ -29,11 +25,11 @@ from qiskit.transpiler.passes import (
 )
 
 # duration analysis
-from decomp_analysis.cost_analysis_pass import DurationCriticalPath
+from utils.transpiler_passes.cost_analysis_pass import DurationCriticalPath
 
 # utils
-from fakeutils.equivalence_library import StandardEquivalenceLibrary as _sel
-from fakeutils.riswap import RiSwapGate
+from utils.riswap_gates.equivalence_library import SessionEquivalenceLibrary as _sel
+from utils.riswap_gates.riswap import RiSwapGate
 from qiskit.circuit.library import CXGate
 
 
