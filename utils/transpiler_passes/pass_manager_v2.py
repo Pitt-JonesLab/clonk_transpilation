@@ -39,7 +39,8 @@ def level_0_pass_manager(
     decompose_swaps=True,
     decompose_1q=True,
     critical_path=False,
-    break_early=False,
+    consolidate_blocks_break_early=False,
+    shuffle=False,
 ) -> PassManager:
 
     if basis_gate == "riswap":
@@ -66,7 +67,9 @@ def level_0_pass_manager(
         # transformation pass to move to SU(4)
         pm0.append(ConsolidateBlocks(kak_basis_gate=basis_gate, force_consolidate=True))
 
-        if break_early:
+        # outputs a circuit of only 2Q SU(4) unitaries
+        # is useful for visualizing minimal DAGs
+        if consolidate_blocks_break_early:
             break
 
         # applies two qubit basis decomposition rule
@@ -85,15 +88,18 @@ def level_0_pass_manager(
             )
         )
 
-        if foo or break_early:
-            break
-
         # # resource estimation before routing
         # pm0.append(ResourceEstimation())
 
+        # only continue to place swaps after first iteration
+        if foo:
+            break
+
         """Stage 2. Routing"""
         # placement
-        pm0.append(NonGlobalTrivialLayout(backend_target=backend.target))
+        pm0.append(
+            NonGlobalTrivialLayout(backend_target=backend.target, shuffle=shuffle)
+        )
 
         # better layout -- very slow
         # pm0.append(
@@ -121,9 +127,6 @@ def level_0_pass_manager(
         # from qiskit.transpiler.passes.routing import LookaheadSwap
         # pm0.append(LookaheadSwap(backend.coupling_map))
 
-        # resource estimation after routing
-        pm0.append(ResourceEstimation())
-
         """Stage 3. Decompose Movement Swaps"""
         # TODO: empty target movement?
 
@@ -135,7 +138,7 @@ def level_0_pass_manager(
     pm0.append(ResourceEstimation())
 
     # timing analysis
-    if decompose_swaps and decompose_1q and not break_early:
+    if decompose_swaps and decompose_1q and not consolidate_blocks_break_early:
         pm0.append(DurationCriticalPath(backend, critical_path))
 
     # critical path estimation
