@@ -34,7 +34,12 @@ from qiskit.circuit.library import CXGate
 
 
 def level_0_pass_manager(
-    backend, basis_gate, decompose_swaps=True, decompose_1q=True, critical_path=False
+    backend,
+    basis_gate,
+    decompose_swaps=True,
+    decompose_1q=True,
+    critical_path=False,
+    break_early=False,
 ) -> PassManager:
 
     if basis_gate == "riswap":
@@ -61,6 +66,9 @@ def level_0_pass_manager(
         # transformation pass to move to SU(4)
         pm0.append(ConsolidateBlocks(kak_basis_gate=basis_gate, force_consolidate=True))
 
+        if break_early:
+            break
+
         # applies two qubit basis decomposition rule
         # TODO: rename, restructure, non-supercontroled
         pm0.append(RootiSwapWeylDecomposition(basis_gate=basis_gate))
@@ -77,7 +85,7 @@ def level_0_pass_manager(
             )
         )
 
-        if foo:
+        if foo or break_early:
             break
 
         # # resource estimation before routing
@@ -127,7 +135,7 @@ def level_0_pass_manager(
     pm0.append(ResourceEstimation())
 
     # timing analysis
-    if decompose_swaps and decompose_1q:
+    if decompose_swaps and decompose_1q and not break_early:
         pm0.append(DurationCriticalPath(backend, critical_path))
 
     # critical path estimation

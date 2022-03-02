@@ -104,6 +104,7 @@ class NonGlobalSwapPass(TransformationPass):
                     # FIXME can be improved with more context awareness
                     # if need_swap then assign physical_q1 to be the closest qubit that contains the gate we need
                     if need_swap:
+                        # has to be more than 1, otherwise only candidate is itself
                         if len(candidate_qubits) == 1:
                             raise InvalidStateError
                         physical_q1 = candidate_qubits[0]
