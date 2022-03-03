@@ -61,6 +61,9 @@ class NonGlobalSwapPass(TransformationPass):
         trivial_layout = Layout.generate_trivial_layout(canonical_register)
         current_layout = trivial_layout.copy()
 
+        # TODO
+        round_robin_queue = None
+
         for layer in dag.serial_layers():
             subdag = layer["graph"]
 
@@ -107,20 +110,30 @@ class NonGlobalSwapPass(TransformationPass):
                         # has to be more than 1, otherwise only candidate is itself
                         if len(candidate_qubits) == 1:
                             raise InvalidStateError
+
                         physical_q1 = candidate_qubits[0]
+
                         min_path = len(
                             self.coupling_map.shortest_undirected_path(
                                 physical_q0, physical_q1
                             )
                         )
+                        min_rr_index = round_robin_queue.index(physical_q1)
                         # minimize length of path to qubit that contains the instruction we need
+                        # round-robin, instead of always selecting candidate_qubit[0]
+                        # somehow track the last time this candidate was selected
+                        # use a global list - inefficent(?) but simple
                         for phys_qubit in candidate_qubits[1:]:
                             temp = self.coupling_map.shortest_undirected_path(
                                 physical_q0, phys_qubit
                             )
-                            if min_path > len(temp):
-                                min_path = len(temp)
-                                physical_q1 = phys_qubit
+                            temp_rr_index = round_robin_queue.index(phys_qubit)
+                            # check if equal lengths, then sort by last selected
+                            if min_path >= len(temp):
+                                if min_rr_index > temp_rr_index:
+                                    min_rr_index = temp_rr_index
+                                    min_path = len(temp)
+                                    physical_q1 = phys_qubit
 
                 if need_swap:
                     # Insert a new layer with the SWAP(s).

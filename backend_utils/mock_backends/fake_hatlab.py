@@ -144,7 +144,9 @@ class FakeHatlab(ConfigurableFakeBackendV2):
                 RZGate: ["theta"],
                 RiSwapGate: ["alpha"],
             },
-            measurable_qubits=module_qubits,
+            measurable_qubits=module_qubits + router_qubits
+            if router_as_qubits
+            else module_qubits,
             qubit_coordinates=qubit_coordinates,
             gate_durations={
                 IGate: 0,

@@ -26,14 +26,14 @@ class TopologyAnalysis(AnalysisPass):
         """
 
         # max distance between any pair of nodes
-        self.property_set["Diameter"] = np.max(self.distance_matrix)
+        self.property_set["Diameter"] = float(np.max(self.distance_matrix))
 
         # avg length of shortest paths between pairs
-        self.property_set["Avg_Distance"] = np.average(self.distance_matrix)
+        self.property_set["Avg_Distance"] = float(np.average(self.distance_matrix))
 
         # max number of edges incident on any vertex
         degrees = [sum(row == 1) for row in self.distance_matrix]
-        self.property_set["Degree"] = np.max(degrees)
+        self.property_set["Degree"] = float(np.max(degrees))
 
         # smallest number of edges whose removal splits network into 2 disconnected equally sized parts
-        self.property_set["Bisection Width"] = "NotImplementedError"
+        # self.property_set["Bisection Width"] = "NotImplementedError"
