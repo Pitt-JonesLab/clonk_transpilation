@@ -11,6 +11,7 @@ from qiskit.transpiler.passes import (
 )
 from utils.qiskit_patch.basis_translator import BasisTranslator
 from utils.transpiler_passes.weyl_decompose import RootiSwapWeylDecomposition
+from utils.transpiler_passes.dense_layout import DenseLayout
 
 # placement pass
 from utils.transpiler_passes.nonglobal_trivial_layout import NonGlobalTrivialLayout
@@ -40,7 +41,8 @@ def level_0_pass_manager(
     decompose_1q=True,
     critical_path=False,
     consolidate_blocks_break_early=False,
-    shuffle=False,
+    placement_strategy="trivial",
+    routing="basic",
 ) -> PassManager:
 
     if basis_gate == "riswap":
@@ -97,9 +99,14 @@ def level_0_pass_manager(
 
         """Stage 2. Routing"""
         # placement
-        pm0.append(
-            NonGlobalTrivialLayout(backend_target=backend.target, shuffle=shuffle)
-        )
+        if placement_strategy == "dense":
+            pm0.append(DenseLayout(backend.coupling_map))
+        else:
+            pm0.append(
+                NonGlobalTrivialLayout(
+                    backend_target=backend.target, strategy=placement_strategy
+                )
+            )
 
         # better layout -- very slow
         # pm0.append(
@@ -121,11 +128,13 @@ def level_0_pass_manager(
         pm0.append(_embed)
 
         # insert swaps
-        pm0.append(NonGlobalSwapPass(backend, decompose_1q=decompose_1q))
+        if routing == "basic":
+            pm0.append(NonGlobalSwapPass(backend, decompose_1q=decompose_1q))
+        elif routing == "lookahead":
+            # better swap? --very slow
+            from qiskit.transpiler.passes.routing import LookaheadSwap
 
-        # better swap --very slow
-        # from qiskit.transpiler.passes.routing import LookaheadSwap
-        # pm0.append(LookaheadSwap(backend.coupling_map))
+            pm0.append(LookaheadSwap(backend.coupling_map))
 
         """Stage 3. Decompose Movement Swaps"""
         # TODO: empty target movement?
@@ -140,8 +149,5 @@ def level_0_pass_manager(
     # timing analysis
     if decompose_swaps and decompose_1q and not consolidate_blocks_break_early:
         pm0.append(DurationCriticalPath(backend, critical_path))
-
-    # critical path estimation
-    pm0.append(ResourceEstimation())
 
     return pm0

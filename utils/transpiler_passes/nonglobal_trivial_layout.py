@@ -27,7 +27,7 @@ class NonGlobalTrivialLayout(AnalysisPass):
 
     """
 
-    def __init__(self, backend_target, shuffle=False):
+    def __init__(self, backend_target, strategy):
         """NonGlobalTrivialLayout initializer.
 
         Args:"
@@ -40,7 +40,7 @@ class NonGlobalTrivialLayout(AnalysisPass):
         self.backend_target = backend_target
         self.remaining_physical_qubits = backend_target.physical_qubits
         # self.gate_list = []
-        self.shuffle = shuffle
+        self.strategy = strategy
 
     def run(self, dag):
         """Run the NonGlobalTrivialLayout pass on 'dag'
@@ -52,16 +52,22 @@ class NonGlobalTrivialLayout(AnalysisPass):
         """
         if not True:
             raise TranspilerError("found something wrong!")
-        layout = Layout.generate_trivial_layout(
-            *(dag.qubits + list(dag.qregs.values()))
-        )
 
-        if self.shuffle:
+        if self.strategy == "trivial":
+            layout = Layout.generate_trivial_layout(
+                *(dag.qubits + list(dag.qregs.values()))
+            )
+
+        if self.strategy == "shuffle":
             from random import shuffle
 
             qubits = list(range(len(dag.qubits)))
             shuffle(qubits)
             layout = Layout.from_intlist(qubits, *dag.qregs.values())
+
+        if self.strategy == "visual":
+
+            raise NotImplementedError
 
         # for dag_node in dag.op_nodes():
         #     gate_name = dag_node.op.name

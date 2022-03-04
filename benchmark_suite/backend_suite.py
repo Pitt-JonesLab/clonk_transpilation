@@ -83,28 +83,69 @@ pm_hypercube = level_0_pass_manager(backend_hypercube, basis_gate="riswap")
 label = "Hypercube-Large-Riswap"
 backends[label] = BackendTranspilerBenchmark(backend_hypercube, pm_hypercube, label)
 
-# Large Hatlab - Breaks early for DAG
+# Large Hatlab
 backend_hatlab = FakeHatlab(dimension=2, router_as_qubits=True)
 pm_hatlab = level_0_pass_manager(
     backend_hatlab,
     basis_gate="riswap",
-    shuffle=True,
+    placement_strategy="shuffle",
+    consolidate_blocks_break_early=True,
 )
 label = "Hatlab-Large-Riswap-Shuffle"
 backends[label] = BackendTranspilerBenchmark(backend_hatlab, pm_hatlab, label)
 
+# Large Hatlab Nonshuffle
+backend_hatlab = FakeHatlab(dimension=2, router_as_qubits=True)
+pm_hatlab = level_0_pass_manager(
+    backend_hatlab, basis_gate="riswap", placement_strategy="trivial", routing="basic"
+)
+label = "Hatlab-Large-Riswap-Basic"
+backends[label] = BackendTranspilerBenchmark(backend_hatlab, pm_hatlab, label)
+
+# Large Hatlab Visualizer
 backend_hatlab = FakeHatlab(dimension=2, router_as_qubits=True)
 pm_hatlab = level_0_pass_manager(
     backend_hatlab,
     basis_gate="riswap",
-    shuffle=False,
+    placement_strategy="trivial",
+    routing="lookahead",
 )
-label = "Hatlab-Large-Riswap-NonShuffle"
+label = "Hatlab-Large-Riswap-Lookahead"
 backends[label] = BackendTranspilerBenchmark(backend_hatlab, pm_hatlab, label)
 
+
+# build some groups
 large_backends = [backend[1] for backend in backends.items() if "Large" in backend[0]]
 
-shuffle_test = [
-    backends["Hatlab-Large-Riswap-NonShuffle"],
-    backends["Hatlab-Large-Riswap-Shuffle"],
+# shuffle_test = [
+#     backends["Hatlab-Large-Riswap-NonShuffle"],
+#     backends["Hatlab-Large-Riswap-Shuffle"],
+#     backends["Hatlab-Large-Riswap-Dense"],
+# ]
+
+routing_test = [
+    backends["Hatlab-Large-Riswap-Basic"],
+    backends["Hatlab-Large-Riswap-Lookahead"],
 ]
+
+
+# Large Hatlab
+backend_hatlab = FakeHatlab(dimension=2, router_as_qubits=True)
+pm_hatlab = level_0_pass_manager(
+    backend_hatlab, basis_gate="riswap", placement_strategy="trivial", routing="basic"
+)
+label = "Hatlab-Large-Riswap-Trivial"
+backends[label] = BackendTranspilerBenchmark(backend_hatlab, pm_hatlab, label)
+
+# Large Hatlab
+backend_hatlab = FakeHatlab(dimension=2, router_as_qubits=True)
+pm_hatlab = level_0_pass_manager(
+    backend_hatlab,
+    basis_gate="riswap",
+    placement_strategy="dense",
+    routing="basic",
+)
+label = "Hatlab-Large-Riswap-Dense"
+backends[label] = BackendTranspilerBenchmark(backend_hatlab, pm_hatlab, label)
+
+placement_test = [backends["Hatlab-Large-Riswap-Trivial"], backends["Hatlab-Large-Riswap-Dense"]]
