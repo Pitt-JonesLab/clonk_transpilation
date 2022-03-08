@@ -59,8 +59,9 @@ class NonGlobalSwapPass(TransformationPass):
             )
 
         canonical_register = dag.qregs["q"]
-        trivial_layout = Layout.generate_trivial_layout(canonical_register)
-        current_layout = trivial_layout.copy()
+        # trivial_layout = Layout.generate_trivial_layout(canonical_register)
+        prev_layout = self.property_set["layout"]
+        current_layout = prev_layout.copy()
 
         # initalize to be qubits in order
         round_robin_queue = list(range(self.backend.num_qubits))
@@ -91,7 +92,8 @@ class NonGlobalSwapPass(TransformationPass):
                             instruction[0].name == gate.name
                             or (
                                 gate.name == "u3"
-                                and not instruction[0].name in ["id", "reset"]
+                                # this says if it has an rz, it can have a u3
+                                and instruction[0].name in ["rz"]
                                 and not self.decompose_1q
                             )
                         ) and instruction[1] == (physical_q0,):
@@ -99,13 +101,31 @@ class NonGlobalSwapPass(TransformationPass):
                             # break
                         elif instruction[0].name == gate.name or (
                             gate.name == "u3"
-                            and not instruction[0].name in ["id", "reset"]
+                            and instruction[0].name in ["rz"]
                             and not self.decompose_1q
                         ):
                             if instruction[1][0] != physical_q0:
                                 candidate_qubits.append(instruction[1][0])
 
-                    # FIXME can be improved with more context awareness
+                    # if was allowing u3, there ends up with repeats
+                    candidate_qubits = list(set(candidate_qubits))
+
+                    # try to look ahead for next 2Q and eliminate from candidate the pair
+                    # XXX I can't figure out the weird way the dag is ordering its successor nodes
+                    temp_layers = [
+                        layer["graph"].op_nodes() for layer in dag.serial_layers()
+                    ]
+                    for temp_layer in temp_layers:
+                        if len(temp_layer[0].qargs) == 2 and gate.qargs[0].index in [
+                            el.index for el in temp_layer[0].qargs
+                        ]:
+                            for bad_candidate in temp_layer[0].qargs:
+                                try:
+                                    candidate_qubits.remove(bad_candidate.index)
+                                except ValueError:
+                                    pass
+                            break
+
                     # if need_swap then assign physical_q1 to be the closest qubit that contains the gate we need
                     if need_swap:
                         # has to be more than 1, otherwise only candidate is itself
