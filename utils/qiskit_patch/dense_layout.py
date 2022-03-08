@@ -34,7 +34,7 @@ class DenseLayout(AnalysisPass):
         by being set in `property_set`.
     """
 
-    def __init__(self, coupling_map, backend=None):
+    def __init__(self, backend):
         """DenseLayout initializer.
 
         Args:
@@ -42,9 +42,8 @@ class DenseLayout(AnalysisPass):
             backend_prop (BackendProperties): backend properties object
         """
         super().__init__()
-        self.coupling_map = coupling_map
         self.backend = backend
-        self.backend_prop = True
+        self.coupling_map = backend.coupling_map
         self.cx_mat = None
         self.meas_arr = None
         self.num_cx = 0
@@ -68,44 +67,44 @@ class DenseLayout(AnalysisPass):
 
         # Get avg number of cx and meas per qubit
         ops = dag.count_ops()
-        if "cx" in ops.keys():
-            self.num_cx = ops["cx"]
+        self.num_twoqops = len(dag.two_qubit_ops())
+        # FIXME
+        if "cx" in self.backend.operation_names:
+            twoqop = "cx"
+        elif "riswap" in self.backend.operation_names:
+            twoqop = "riswap"
+        else:
+            raise NotImplementedError
+
         if "measure" in ops.keys():
             self.num_meas = ops["measure"]
 
         # Compute the sparse cx_err matrix and meas array
         device_qubits = self.coupling_map.size()
-        if self.backend_prop:
-            rows = []
-            cols = []
-            cx_err = []
 
-            for edge in self.coupling_map.get_edges():
-                for gate in self.backend:
-                    pass
-                # for gate in self.backend_prop.gates:
-                #     if gate.qubits == edge:
-                #         rows.append(edge[0])
-                #         cols.append(edge[1])
-                #         cx_err.append(gate.parameters[0].value)
-                #         break
-                else:
-                    continue
+        rows = []
+        cols = []
+        cx_err = []
 
-            self.cx_mat = sp.coo_matrix(
-                (cx_err, (rows, cols)), shape=(device_qubits, device_qubits)
-            ).tocsr()
+        for gate_edge, gate_properties in self.backend.target._gate_map[twoqop].items():
+            rows.append(gate_edge[0])
+            cols.append(gate_edge[1])
+            cx_err.append(gate_properties.error)
 
-            # Set measurement array
-            meas_err = []
-            for qubit_data in self.backend_prop.qubits:
-                for item in qubit_data:
-                    if item.name == "readout_error":
-                        meas_err.append(item.value)
-                        break
-                else:
-                    continue
-            self.meas_arr = np.asarray(meas_err)
+        self.cx_mat = sp.coo_matrix(
+            (cx_err, (rows, cols)), shape=(device_qubits, device_qubits)
+        ).tocsr()
+
+        # Set measurement array
+        meas_err = []
+        for qubit_data in self.backend_prop.qubits:
+            for item in qubit_data:
+                if item.name == "readout_error":
+                    meas_err.append(item.value)
+                    break
+            else:
+                continue
+        self.meas_arr = np.asarray(meas_err)
 
         best_sub = self._best_subset(num_dag_qubits)
         layout = Layout()

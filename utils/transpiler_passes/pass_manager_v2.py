@@ -11,7 +11,7 @@ from qiskit.transpiler.passes import (
 )
 from utils.qiskit_patch.basis_translator import BasisTranslator
 from utils.transpiler_passes.weyl_decompose import RootiSwapWeylDecomposition
-from utils.transpiler_passes.dense_layout import DenseLayout
+from utils.qiskit_patch.dense_layout import DenseLayout
 
 # placement pass
 from utils.transpiler_passes.nonglobal_trivial_layout import NonGlobalTrivialLayout
@@ -41,8 +41,8 @@ def level_0_pass_manager(
     decompose_1q=True,
     critical_path=False,
     consolidate_blocks_break_early=False,
-    placement_strategy="trivial",
-    routing="basic",
+    placement_strategy="dense",
+    routing="stochastic",
 ) -> PassManager:
 
     if basis_gate == "riswap":
@@ -100,7 +100,7 @@ def level_0_pass_manager(
         """Stage 2. Routing"""
         # placement
         if placement_strategy == "dense":
-            pm0.append(DenseLayout(backend.coupling_map))
+            pm0.append(DenseLayout(backend))
         else:
             pm0.append(
                 NonGlobalTrivialLayout(
@@ -135,6 +135,10 @@ def level_0_pass_manager(
             from qiskit.transpiler.passes.routing import LookaheadSwap
 
             pm0.append(LookaheadSwap(backend.coupling_map))
+        elif routing == "stochastic":
+            from qiskit.transpiler.passes.routing import StochasticSwap
+
+            pm0.append(StochasticSwap(backend.coupling_map))
 
         """Stage 3. Decompose Movement Swaps"""
         # TODO: empty target movement?

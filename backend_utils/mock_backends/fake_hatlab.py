@@ -129,11 +129,11 @@ class FakeHatlab(ConfigurableFakeBackendV2):
         gate_configuration[SXdgGate] = [(i,) for i in module_qubits + extra_qubits]
         gate_configuration[IGate] = [(i,) for i in router_qubits + module_qubits]
         gate_configuration[RiSwapGate] = [(i, j) for i, j in coupling_map]
-        gate_configuration[CZGate] = [
-            (i, j)
-            for i, j in coupling_map
-            if not (i in router_qubits and j in router_qubits)
-        ]
+        # gate_configuration[CZGate] = [
+        #     (i, j)
+        #     for i, j in coupling_map
+        #     if not (i in router_qubits and j in router_qubits)
+        # ]
 
         super().__init__(
             "fake_hatlab",
