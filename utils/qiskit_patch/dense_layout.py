@@ -96,14 +96,9 @@ class DenseLayout(AnalysisPass):
         ).tocsr()
 
         # Set measurement array
-        meas_err = []
-        for qubit_data in self.backend_prop.qubits:
-            for item in qubit_data:
-                if item.name == "readout_error":
-                    meas_err.append(item.value)
-                    break
-            else:
-                continue
+        meas_err = [
+            v.error for k, v in self.backend.target._gate_map["measure"].items()
+        ]
         self.meas_arr = np.asarray(meas_err)
 
         best_sub = self._best_subset(num_dag_qubits)
@@ -159,29 +154,29 @@ class DenseLayout(AnalysisPass):
                             sub_graph.append([node_idx, node])
                             break
 
-            if self.backend_prop:
-                curr_error = 0
-                # compute meas error for subset
-                avg_meas_err = np.mean(self.meas_arr)
-                meas_diff = np.mean(self.meas_arr[bfs[0:num_qubits]]) - avg_meas_err
-                if meas_diff > 0:
-                    curr_error += self.num_meas * meas_diff
+            # if self.backend_prop:
+            curr_error = 0
+            # compute meas error for subset
+            avg_meas_err = np.mean(self.meas_arr)
+            meas_diff = np.mean(self.meas_arr[bfs[0:num_qubits]]) - avg_meas_err
+            if meas_diff > 0:
+                curr_error += self.num_meas * meas_diff
 
-                cx_err = np.mean([self.cx_mat[edge[0], edge[1]] for edge in sub_graph])
-                if self.coupling_map.is_symmetric:
-                    cx_err /= 2
-                curr_error += self.num_cx * cx_err
-                if connection_count >= best and curr_error < best_error:
-                    best = connection_count
-                    best_error = curr_error
-                    best_map = bfs[0:num_qubits]
-                    best_sub = sub_graph
+            cx_err = np.mean([self.cx_mat[edge[0], edge[1]] for edge in sub_graph])
+            if self.coupling_map.is_symmetric:
+                cx_err /= 2
+            curr_error += self.num_cx * cx_err
+            if connection_count >= best and curr_error < best_error:
+                best = connection_count
+                best_error = curr_error
+                best_map = bfs[0:num_qubits]
+                best_sub = sub_graph
 
-            else:
-                if connection_count > best:
-                    best = connection_count
-                    best_map = bfs[0:num_qubits]
-                    best_sub = sub_graph
+        else:
+            if connection_count > best:
+                best = connection_count
+                best_map = bfs[0:num_qubits]
+                best_sub = sub_graph
 
         # Return a best mapping that has reduced bandwidth
         mapping = {}
