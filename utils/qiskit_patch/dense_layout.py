@@ -95,10 +95,16 @@ class DenseLayout(AnalysisPass):
             (cx_err, (rows, cols)), shape=(device_qubits, device_qubits)
         ).tocsr()
 
-        # Set measurement array
-        meas_err = [
-            v.error for k, v in self.backend.target._gate_map["measure"].items()
-        ]
+        # Set measurement array - if we have nonglobal measurements should just add error of 1.0
+        # meas_err = [
+        #     v.error for k, v in self.backend.target._gate_map["measure"].items()
+        # ]
+        meas_err = []
+        for i in range(self.backend.num_qubits):
+            if (i,) in self.backend.target._gate_map["measure"].keys():
+                meas_err.append(self.backend.target._gate_map["measure"][(i,)].error)
+            else:
+                meas_err.append(1.0)
         self.meas_arr = np.asarray(meas_err)
 
         best_sub = self._best_subset(num_dag_qubits)
@@ -158,6 +164,7 @@ class DenseLayout(AnalysisPass):
             curr_error = 0
             # compute meas error for subset
             avg_meas_err = np.mean(self.meas_arr)
+
             meas_diff = np.mean(self.meas_arr[bfs[0:num_qubits]]) - avg_meas_err
             if meas_diff > 0:
                 curr_error += self.num_meas * meas_diff

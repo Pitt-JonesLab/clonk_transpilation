@@ -1,6 +1,7 @@
 """Map (with minimum effort) a DAGCircuit onto a `coupling_map` adding swap gates."""
 
 from asyncio import InvalidStateError
+from numpy import round_
 from qiskit.transpiler.basepasses import TransformationPass
 from qiskit.transpiler.exceptions import TranspilerError
 from qiskit.dagcircuit import DAGCircuit
@@ -61,8 +62,8 @@ class NonGlobalSwapPass(TransformationPass):
         trivial_layout = Layout.generate_trivial_layout(canonical_register)
         current_layout = trivial_layout.copy()
 
-        # TODO
-        round_robin_queue = None
+        # initalize to be qubits in order
+        round_robin_queue = list(range(self.backend.num_qubits))
 
         for layer in dag.serial_layers():
             subdag = layer["graph"]
@@ -124,16 +125,22 @@ class NonGlobalSwapPass(TransformationPass):
                         # somehow track the last time this candidate was selected
                         # use a global list - inefficent(?) but simple
                         for phys_qubit in candidate_qubits[1:]:
-                            temp = self.coupling_map.shortest_undirected_path(
-                                physical_q0, phys_qubit
+                            temp = len(
+                                self.coupling_map.shortest_undirected_path(
+                                    physical_q0, phys_qubit
+                                )
                             )
                             temp_rr_index = round_robin_queue.index(phys_qubit)
                             # check if equal lengths, then sort by last selected
-                            if min_path >= len(temp):
+                            if min_path >= temp:
                                 if min_rr_index > temp_rr_index:
                                     min_rr_index = temp_rr_index
-                                    min_path = len(temp)
+                                    min_path = temp
                                     physical_q1 = phys_qubit
+
+                        # after selection update rr queue
+                        round_robin_queue.remove(physical_q1)
+                        round_robin_queue.append(physical_q1)
 
                 if need_swap:
                     # Insert a new layer with the SWAP(s).

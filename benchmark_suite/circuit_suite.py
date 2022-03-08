@@ -14,7 +14,7 @@ class CircuitTranspilerBenchmark:
 # FIXME should this be a class?
 circuits = {}
 q_range = [8, 16, 24, 32, 48, 64, 80]
-depth = 10
+depth = 100
 
 # Random
 from qiskit.circuit.random import random_circuit
