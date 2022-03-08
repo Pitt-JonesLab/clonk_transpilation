@@ -161,7 +161,15 @@ backends[label] = BackendTranspilerBenchmark(backend_hatlab, pm_hatlab, label)
 #     backends["Hatlab-Large-Riswap-Dense"],
 # ]
 
-basic_test = [
-    backends["Hatlab-Large-Riswap-Basic"],
-    backends["Hatlab-Large-Riswap-Upgrade"],
-]
+# basic_test = [
+#     backends["Hatlab-Large-Riswap-Basic"],
+#     backends["Hatlab-Large-Riswap-Upgrade"],
+# ]
+
+# Heavy Hex
+backend_heavy_hex = FakeHeavyHex()
+pm_hh = level_0_pass_manager(backend_heavy_hex, basis_gate="cx")
+label = "Heavy-Hex"
+backends[label] = BackendTranspilerBenchmark(backend_heavy_hex, pm_hh, label)
+
+new_test = [backends["Hatlab-Large-Riswap-Upgrade"], backends["Heavy-Hex"]]

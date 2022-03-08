@@ -1,6 +1,4 @@
 import itertools
-from turtle import distance
-
 from cirq import XPowGate
 from backend_utils.configurable_backend_v2 import ConfigurableFakeBackendV2
 from qiskit.providers.models import BackendProperties
@@ -24,15 +22,19 @@ from utils.riswap_gates.riswap import RiSwapGate
 class FakeHeavyHex(ConfigurableFakeBackendV2):
     """A mock backendv2"""
 
-    def __init__(self, twoqubitgate="cx", qubit_size=20):
-
-        qubits = list(range(qubit_size))
+    def __init__(self):
 
         from qiskit.transpiler.coupling import CouplingMap
 
-        coupling_map = CouplingMap.from_heavy_hex(distance=3)
+        coupling_map = CouplingMap.from_heavy_hex(distance=7)
+        # choose 6 so roughly matches order of other large backends
+        # num_qubits = 83.5
+        # but have to round up to nearest odd integer so choose 7
+        # qubits = list(range(115))
+        qubits = list(range(len(coupling_map.physical_qubits)))
 
-        # qubit_coordinates = [[0, 1], [1, 0], [1, 1], [1, 2]]
+        # need to convert CouplingMap object to an edge list
+        coupling_map = list(coupling_map.get_edges())
 
         gate_configuration = {}
         gate_configuration[IGate] = [(i,) for i in qubits]
@@ -45,6 +47,7 @@ class FakeHeavyHex(ConfigurableFakeBackendV2):
         gate_configuration[SXGate] = [(i,) for i in qubits]
         gate_configuration[SXdgGate] = [(i,) for i in qubits]
 
+        twoqubitgate = "cx"
         if twoqubitgate == "cx":
             # can do CX on all pairs in coupling map
             gate_configuration[CXGate] = [(i, j) for i, j in coupling_map]

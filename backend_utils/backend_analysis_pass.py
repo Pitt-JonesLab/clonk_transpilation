@@ -24,6 +24,7 @@ class TopologyAnalysis(AnalysisPass):
         Args:
             dag (DAGCircuit): DAG to evaluate.
         """
+        # NOTE could instead use coupling_map.get_edges() --I didnt know this method when I first wrote this
 
         # max distance between any pair of nodes
         self.property_set["Diameter"] = float(np.max(self.distance_matrix))
