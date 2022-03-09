@@ -36,5 +36,8 @@ class TopologyAnalysis(AnalysisPass):
         degrees = [sum(row == 1) for row in self.distance_matrix]
         self.property_set["Degree"] = float(np.max(degrees))
 
+        # average connectivity
+        self.property_set["Avg_Connectivity"] = float(np.average(degrees))
+
         # smallest number of edges whose removal splits network into 2 disconnected equally sized parts
         # self.property_set["Bisection Width"] = "NotImplementedError"

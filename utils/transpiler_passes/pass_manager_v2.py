@@ -31,7 +31,7 @@ from utils.transpiler_passes.cost_analysis_pass import DurationCriticalPath
 # utils
 from utils.riswap_gates.equivalence_library import SessionEquivalenceLibrary as _sel
 from utils.riswap_gates.riswap import RiSwapGate
-from qiskit.circuit.library import CXGate
+from qiskit.circuit.library import CXGate, RZXGate
 
 
 def level_0_pass_manager(
@@ -47,6 +47,10 @@ def level_0_pass_manager(
 
     if basis_gate == "riswap":
         basis_gate = RiSwapGate(0.5)
+    elif basis_gate == "CR":
+        import numpy as np
+
+        basis_gate = RZXGate(np.pi / 2)
     else:
         basis_gate = CXGate()
     pm0 = PassManager()
