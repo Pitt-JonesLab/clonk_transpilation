@@ -24,11 +24,11 @@ label = "Randomized_QC"
 circuits[label] = CircuitTranspilerBenchmark(random_lambda, q_range, label=label)
 
 # # Quantum Volume
-# from qiskit.circuit.library import QuantumVolume
+from qiskit.circuit.library import QuantumVolume
 
-# qv_lambda = lambda q: QuantumVolume(q, 4)
-# label = "Quantum_Volume"
-# circuits[label] = CircuitTranspilerBenchmark(qv_lambda, q_range, label=label)
+qv_lambda = lambda q: QuantumVolume(q, 4)
+label = "Quantum_Volume"
+circuits[label] = CircuitTranspilerBenchmark(qv_lambda, q_range, label=label)
 
 # QFT
 from qiskit.circuit.library.basis_change import QFT
@@ -38,9 +38,9 @@ label = "QFT"
 circuits[label] = CircuitTranspilerBenchmark(qft_lambda, q_range, label=label)
 
 # # Inverse QFT
-# inverse_qft_lambda = lambda q: QFT(q, inverse=True)
-# label = "IQFT"
-# circuits[label] = CircuitTranspilerBenchmark(inverse_qft_lambda, q_range, label=label)
+inverse_qft_lambda = lambda q: QFT(q, inverse=True)
+label = "IQFT"
+circuits[label] = CircuitTranspilerBenchmark(inverse_qft_lambda, q_range, label=label)
 
 # QAOA, takes a long time to generate - consider capping max size before 20
 qaoa_lambda = lambda q: cirq_to_qiskit(QAOAFermionicSwapProxy(q).circuit())
@@ -48,9 +48,9 @@ label = "QAOA_Fermionic_Swap"
 circuits[label] = CircuitTranspilerBenchmark(qaoa_lambda, q_range, label=label)
 
 # # QAOA vanilla
-# qaoa_vanilla_lambda = lambda q: cirq_to_qiskit(QAOAVanillaProxy(q).circuit())
-# label = "QAOA_Vanilla"
-# circuits[label] = CircuitTranspilerBenchmark(qaoa_vanilla_lambda, q_range, label=label)
+qaoa_vanilla_lambda = lambda q: cirq_to_qiskit(QAOAVanillaProxy(q).circuit())
+label = "QAOA_Vanilla"
+circuits[label] = CircuitTranspilerBenchmark(qaoa_vanilla_lambda, q_range, label=label)
 
 # VQE - very slow to generate
 vqe_lambda = lambda q: cirq_to_qiskit(VQEProxy(q, 4).circuit()[0])

@@ -173,3 +173,16 @@ label = "Heavy-Hex"
 backends[label] = BackendTranspilerBenchmark(backend_heavy_hex, pm_hh, label)
 
 new_test = [backends["Hatlab-Large-Riswap-Upgrade"], backends["Heavy-Hex"]]
+
+ibm_backends = []
+ibm_backend_list = [
+    PenguinV1(),
+    PenguinV2(),
+    PenguinV3(),
+    PenguinV4(),
+    FakeHeavyHex(),
+]  # FalconR4()]
+for backend in ibm_backend_list:
+    pm = level_0_pass_manager(backend, basis_gate="CR")
+    label = backend.name
+    ibm_backends.append(BackendTranspilerBenchmark(backend, pm, label))

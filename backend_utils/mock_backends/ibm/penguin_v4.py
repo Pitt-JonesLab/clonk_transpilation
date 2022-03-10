@@ -12,29 +12,33 @@ class PenguinV4(ConfigurableFakeBackendV2):
 
     def __init__(self):
 
-        qubits = list(range(20))
+        num_rows = 12  # even
+        num_columns = 11  # odd
+
+        qubits = list(range(num_rows * num_columns))
 
         # need to convert CouplingMap object to an edge list
         from qiskit.transpiler.coupling import CouplingMap
 
         coupling_map = list(
-            CouplingMap.from_grid(num_rows=4, num_columns=5).get_edges()
+            CouplingMap.from_grid(
+                num_rows=num_rows, num_columns=num_columns
+            ).get_edges()
         )
-        removed_edges = [
-            (0, 5),
-            (2, 7),
-            (4, 9),
-            (6, 11),
-            (8, 13),
-            (10, 15),
-            (12, 17),
-            (14, 19),
-        ]
+
+        removed_edges = []
+        # delete every other vertical edge
+        i = 0
+        while i < len(qubits) - num_columns:
+            removed_edges.append((i, i + num_columns))
+            i += 2
 
         removed_edges += [(j, i) for i, j in removed_edges]
         coupling_map = [el for el in coupling_map if el not in removed_edges]
 
-        qubit_coordinates = [(i, j) for i in range(4) for j in range(5)]
+        qubit_coordinates = [
+            (i, j) for i in range(num_rows) for j in range(num_columns)
+        ]
 
         gate_configuration = {}
         gate_configuration[IGate] = [(i,) for i in qubits]

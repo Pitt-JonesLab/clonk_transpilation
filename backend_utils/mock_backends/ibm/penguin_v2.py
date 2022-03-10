@@ -12,35 +12,89 @@ class PenguinV2(ConfigurableFakeBackendV2):
 
     def __init__(self):
 
-        qubits = list(range(20))
+        num_rows = 12  # even
+        num_columns = 11  # odd
+
+        qubits = list(range(num_rows * num_columns))
 
         # need to convert CouplingMap object to an edge list
         from qiskit.transpiler.coupling import CouplingMap
 
         coupling_map = list(
-            CouplingMap.from_grid(num_rows=4, num_columns=5).get_edges()
+            CouplingMap.from_grid(
+                num_rows=num_rows, num_columns=num_columns
+            ).get_edges()
         )
-        removed_edges = [(2, 7), (9, 14), (12, 17), (17, 18)]
+        # removed_edges = [(2, 7), (9, 14), (12, 17), (17, 18)]
+        removed_edges = []
+        i = 1
+        j = 0
+        while j < num_rows:
+            while 4 * i < num_columns:
+                # (2,7)
+                removed_edges.append(
+                    (
+                        (num_columns * j) + (4 * i - 2),
+                        (num_columns * (j + 1)) + (4 * i - 2),
+                    )
+                )
+                # (9,14)
+                removed_edges.append(
+                    (
+                        (num_columns * (j + 1)) + (4 * i),
+                        (num_columns * (j + 2)) + (4 * i),
+                    )
+                )
+                # (12,17)
+                removed_edges.append(
+                    (
+                        (num_columns * (j + 2)) + (4 * i - 2),
+                        (num_columns * (j + 3)) + (4 * i - 2),
+                    )
+                )
+                # (17,18)
+                removed_edges.append(
+                    (
+                        (num_columns * (j + 3)) + (4 * i - 2),
+                        (num_columns * (j + 3)) + (4 * i - 1),
+                    )
+                )
+
+                i += 1
+            j += 4
+            i = 1
+
         removed_edges += [(j, i) for i, j in removed_edges]
         coupling_map = [el for el in coupling_map if el not in removed_edges]
-        add_edges = [
-            (1, 7),
-            (2, 6),
-            (3, 9),
-            (4, 8),
-            (5, 11),
-            (6, 10),
-            (7, 13),
-            (8, 12),
-            (11, 17),
-            (12, 16),
-            (13, 19),
-            (14, 18),
-        ]
+
+        # start at i=1 because every other X offset by one
+        i = 1
+        j = 0
+        add_edges = []
+        while j < num_rows - 1:
+            while i < num_columns - 1:
+                add_edges += [
+                    (
+                        i + (num_columns * j),
+                        i + (num_columns * j) + 1 + num_columns,
+                    ),
+                    (
+                        i + (num_columns * j) + 1,
+                        i + (num_columns * j) + num_columns,
+                    ),
+                ]
+                i += 2
+            j += 1
+            if i < num_columns:
+                i = 1
+            else:  # i < num_columns-1
+                i = 0
         add_edges += [(j, i) for i, j in add_edges]
         coupling_map += add_edges
 
-        qubit_coordinates = [(i, j) for i in range(4) for j in range(5)]
+        qubit_coordinates = [
+            (i, j) for i in range(num_rows) for j in range(num_columns)
+        ]
 
         gate_configuration = {}
         gate_configuration[IGate] = [(i,) for i in qubits]
