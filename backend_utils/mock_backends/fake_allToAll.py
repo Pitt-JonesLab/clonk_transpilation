@@ -1,5 +1,5 @@
 import itertools
-from qiskit.test.mock.utils.configurable_backend import ConfigurableFakeBackend
+from cirq import XPowGate
 from backend_utils.configurable_backend_v2 import ConfigurableFakeBackendV2
 from qiskit.providers.models import BackendProperties
 from qiskit.providers.models.backendproperties import Nduv, Gate
@@ -8,35 +8,18 @@ from qiskit.circuit.library.standard_gates import *
 from utils.riswap_gates.riswap import RiSwapGate
 
 
-class FakeHyperCubeV2(ConfigurableFakeBackendV2):
+class FakeAllToAll(ConfigurableFakeBackendV2):
     """A mock backendv2"""
 
-    def __init__(self, n_dimension, twoqubitgate="cx"):
-        qubit_stack = list(range(2 ** n_dimension))
+    def __init__(self, twoqubitgate="cr"):
 
-        def foo(n_dimension):
-            if n_dimension == 1:
-                return [(qubit_stack.pop(0), qubit_stack.pop(0))]
+        from qiskit.transpiler.coupling import CouplingMap
 
-            # call previous dimension twice
-            ret1 = foo(n_dimension=n_dimension - 1)
-            ret2 = foo(n_dimension=n_dimension - 1)
+        coupling_map = CouplingMap.from_full(num_qubits=84)
+        qubits = list(range(len(coupling_map.physical_qubits)))
 
-            # connect associated edges
-            coupling_map = ret1 + ret2
-            coupling_map.extend([(i[0], j[0]) for i, j in zip(ret1, ret2)])
-            coupling_map.extend([(i[1], j[1]) for i, j in zip(ret1, ret2)])
-
-            return coupling_map
-
-        qubits = list(range(2 ** n_dimension))
-        coupling_map = list(set(foo(n_dimension)))
-        # redundant check to make sure bidirectional
-        coupling_map += [(j, i) for i, j in coupling_map]
-        coupling_map = list(set(coupling_map))
-
-        qubit_coordinates = None
-        # TODO retworkx
+        # need to convert CouplingMap object to an edge list
+        coupling_map = list(coupling_map.get_edges())
 
         gate_configuration = {}
         gate_configuration[IGate] = [(i,) for i in qubits]
@@ -49,6 +32,8 @@ class FakeHyperCubeV2(ConfigurableFakeBackendV2):
         gate_configuration[SXGate] = [(i,) for i in qubits]
         gate_configuration[SXdgGate] = [(i,) for i in qubits]
 
+        if twoqubitgate == "cr":
+            gate_configuration[RZXGate] = [(i, j) for i, j in coupling_map]
         if twoqubitgate == "cx":
             # can do CX on all pairs in coupling map
             gate_configuration[CXGate] = [(i, j) for i, j in coupling_map]
@@ -59,7 +44,7 @@ class FakeHyperCubeV2(ConfigurableFakeBackendV2):
         measurable_qubits = qubits
 
         super().__init__(
-            name="mock hypercube",
+            name=f"Heavy-Hex-{twoqubitgate}",
             description="a mock backend",
             n_qubits=len(qubits),
             gate_configuration=gate_configuration,
@@ -68,6 +53,7 @@ class FakeHyperCubeV2(ConfigurableFakeBackendV2):
                 RYGate: ["theta"],
                 RiSwapGate: ["alpha"],
                 U3Gate: ["theta", "phi", "lambda"],
+                RZXGate: ["theta"],
             },
             measurable_qubits=measurable_qubits,
             gate_durations={
@@ -81,9 +67,9 @@ class FakeHyperCubeV2(ConfigurableFakeBackendV2):
                 CXGate: 2,
                 RiSwapGate: 2,  # time of iSwap
                 U3Gate: 0,
+                RZXGate: 2,
             },
-            single_qubit_gates=["rz", "x", "y", "sx", "sxdg"],
+            single_qubit_gates=["rz", "x", "y", "sx", "sxdg"]
+            # qubit_coordinates=qubit_coordinates,
         )
-
-
-# FakeHyperCubeV2(1)
+        self.plot_coupling_map = coupling_map

@@ -27,8 +27,13 @@ class TimeCostAnalysis(AnalysisPass):
             qubit_tuple = [qubit.index for qubit in dag._multi_graph[source_node].qargs]
             # get time, for iswap^alpha scale duration by alpha
             factor = 1.0
-            if gate_name == "riswap":
+            if gate_name == "riswap" or gate_name == "rzx":
                 factor = dag._multi_graph[source_node].op.params[0]
+                # XXX hardcode fix bc riswap missnig factor of pi
+                if gate_name == "rzx":
+                    import numpy as np
+
+                    factor = factor / np.pi
             return int(factor * instruction_durations.get(gate_name, qubit_tuple))
 
         longest_path = retworkx.dag_longest_path(dag._multi_graph, weight_fn=weight_fn)

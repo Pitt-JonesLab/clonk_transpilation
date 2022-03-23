@@ -180,9 +180,16 @@ ibm_backend_list = [
     PenguinV2(),
     PenguinV3(),
     PenguinV4(),
-    FakeHeavyHex(),
+    FakeHeavyHex(twoqubitgate="cr"),
 ]  # FalconR4()]
 for backend in ibm_backend_list:
-    pm = level_0_pass_manager(backend, basis_gate="CR")
+    pm = level_0_pass_manager(backend, basis_gate="CR", decompose_swaps=False)
     label = backend.name
     ibm_backends.append(BackendTranspilerBenchmark(backend, pm, label))
+
+ibm_gate_backends = []
+ibm_gate_backends.append(ibm_backends[-1])
+backend = FakeHeavyHex(twoqubitgate="riswap")
+pm = level_0_pass_manager(backend, basis_gate="riswap", decompose_swaps=False)
+label = backend.name
+ibm_gate_backends.append(BackendTranspilerBenchmark(backend, pm, label))
