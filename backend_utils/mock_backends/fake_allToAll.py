@@ -44,7 +44,7 @@ class FakeAllToAll(ConfigurableFakeBackendV2):
         measurable_qubits = qubits
 
         super().__init__(
-            name=f"Heavy-Hex-{twoqubitgate}",
+            name=f"All2All-{twoqubitgate}",
             description="a mock backend",
             n_qubits=len(qubits),
             gate_configuration=gate_configuration,

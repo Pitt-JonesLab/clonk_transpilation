@@ -82,8 +82,6 @@ def level_0_pass_manager(
         # TODO: rename, restructure, non-supercontroled
         pm0.append(RootiSwapWeylDecomposition(basis_gate=basis_gate))
 
-        # TODO: insert nuop option
-
         # Write 1Q ops in backend basis
         pm0.append(BasisTranslator(_sel, backend.operation_names + additional_basis))
 

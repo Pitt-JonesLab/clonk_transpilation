@@ -59,7 +59,7 @@ class FakeHyperCubeV2(ConfigurableFakeBackendV2):
         measurable_qubits = qubits
 
         super().__init__(
-            name="mock hypercube",
+            name=f"Hypercube-{twoqubitgate}",
             description="a mock backend",
             n_qubits=len(qubits),
             gate_configuration=gate_configuration,

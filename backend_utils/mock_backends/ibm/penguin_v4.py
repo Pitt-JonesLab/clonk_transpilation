@@ -10,7 +10,7 @@ from utils.riswap_gates.riswap import RiSwapGate
 class PenguinV4(ConfigurableFakeBackendV2):
     """A mock backendv2"""
 
-    def __init__(self):
+    def __init__(self, twoqubitgate="cx"):
 
         num_rows = 12  # even
         num_columns = 11  # odd
@@ -51,7 +51,13 @@ class PenguinV4(ConfigurableFakeBackendV2):
         gate_configuration[SXGate] = [(i,) for i in qubits]
         gate_configuration[SXdgGate] = [(i,) for i in qubits]
 
-        gate_configuration[RZXGate] = [(i, j) for i, j in coupling_map]
+        if twoqubitgate == "cr":
+            gate_configuration[RZXGate] = [(i, j) for i, j in coupling_map]
+        if twoqubitgate == "cx":
+            # can do CX on all pairs in coupling map
+            gate_configuration[CXGate] = [(i, j) for i, j in coupling_map]
+        if twoqubitgate == "riswap":
+            gate_configuration[RiSwapGate] = [(i, j) for i, j in coupling_map]
 
         # global measure
         measurable_qubits = qubits

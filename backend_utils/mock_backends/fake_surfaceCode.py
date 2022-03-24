@@ -65,7 +65,7 @@ class FakeSurfaceCode(ConfigurableFakeBackendV2):
         measurable_qubits = qubits
 
         super().__init__(
-            name="mock_example",
+            name=f"Square-Lattice-{twoqubitgate}",
             description="a mock backend",
             n_qubits=len(qubits),
             gate_configuration=gate_configuration,
