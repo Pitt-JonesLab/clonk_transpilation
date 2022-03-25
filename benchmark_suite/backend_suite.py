@@ -38,7 +38,8 @@ class BackendTranspilerBenchmark:
             self.data[parameter] = data
         else:
             # parameters in ["circuit/duration", "circuit/gate_count", "circuit/layout_score"]
-            self.data[circuit_label][circuit_parameter][parameter] = data
+            # convert final parameter to string so doesn't cause conflicts from loaded jsons
+            self.data[circuit_label][circuit_parameter][str(parameter)] = data
 
     def save_json(self):
         with open(self.filename, "w") as fp:

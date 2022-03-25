@@ -97,7 +97,7 @@ class FakeHatlab(ConfigurableFakeBackendV2):
                 if el[0] != el[1]
             ]
 
-            # initialize offset, starts at 0 bc level 0 are at the end
+            # initialize offset, starts at 0 bc level0 router qubits were placed at the end
             offset = 0
 
             # call foo to extend off each router qubit
@@ -159,7 +159,7 @@ class FakeHatlab(ConfigurableFakeBackendV2):
         # ]
 
         super().__init__(
-            name=f"Hatlab-{twoqubitgate}",
+            name=f"Modular-{twoqubitgate}",
             description="hatlab 16+4 QC",
             n_qubits=len(router_qubits + module_qubits),
             gate_configuration=gate_configuration,

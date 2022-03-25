@@ -54,11 +54,10 @@ backends = {}
 # 2Q gate doesn't matter, we are only going to count swap gates, make them all have CX
 _topology = [
     FakeHeavyHex(twoqubitgate="cx"),
-    PenguinV4(twoqubitgate="cx"),
     FakeSurfaceCode(twoqubitgate="cx", qubit_size=84, row_length=7),
     FakeHexLattice(twoqubitgate="cx"),
     PenguinVIdeal(twoqubitgate="cx"),
-    FakeHatlab(dimension=2, router_as_qubits=True, twoqubitgate="cx"),
+    FakeHatlab(num_qubits=84, router_as_qubits=True, twoqubitgate="cx"),
     FakeHyperCubeV2(n_dimension=7, twoqubitgate="cx"),
 ]
 # FakeAllToAll(twoqubitgate="cx"),]
@@ -67,7 +66,7 @@ topology_backends = []
 for backend in _topology:
     # don't decompose swaps
     pm = level_0_pass_manager(backend, basis_gate="cx", decompose_swaps=False)
-    label = backend.name
+    label = backend.name[:-3]  # remove '-cx' from name
     topology_backends.append(BackendTranspilerBenchmark(backend, pm, label))
 
 decomp_backends = []
@@ -75,7 +74,7 @@ decomp_backends = []
 _decomposition = [
     FakeHeavyHex(twoqubitgate="cx"),
     FakeSurfaceCode(twoqubitgate="cx", qubit_size=84, row_length=7),
-    FakeHatlab(dimension=2, router_as_qubits=True, twoqubitgate="cx"),
+    FakeHatlab(num_qubits=84, router_as_qubits=True, twoqubitgate="cx"),
     FakeAllToAll(twoqubitgate="cx"),
 ]
 for backend in _decomposition:
@@ -85,7 +84,7 @@ for backend in _decomposition:
     decomp_backends.append(BackendTranspilerBenchmark(backend, pm, label))
 
 _decomposition = [
-    FakeHatlab(dimension=2, router_as_qubits=True, twoqubitgate="riswap"),
+    FakeHatlab(num_qubits=84, router_as_qubits=True, twoqubitgate="riswap"),
     FakeSurfaceCode(twoqubitgate="riswap", qubit_size=84, row_length=7),
     FakeAllToAll(twoqubitgate="riswap"),
 ]

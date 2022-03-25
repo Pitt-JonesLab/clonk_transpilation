@@ -77,7 +77,7 @@ class PenguinVIdeal(ConfigurableFakeBackendV2):
         measurable_qubits = qubits
 
         super().__init__(
-            name="penguin_VIdeal",
+            name=f"Lattice+AltDiagonals-{twoqubitgate}",
             description="a mock backend",
             n_qubits=len(qubits),
             gate_configuration=gate_configuration,
