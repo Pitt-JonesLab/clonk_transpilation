@@ -58,3 +58,30 @@ class DurationCriticalPath(TransformationPass):
                     dag.remove_op_node(node)
 
         return dag
+
+
+class EdgeContentionPass(AnalysisPass):
+    """Creates a frequency dict for how many times an edge in coupling map is used"""
+
+    def __init__(self, backend):
+        super().__init__()
+        self.backend = backend
+
+    def run(self, dag):
+        # dict for frequencies
+        frequency_dict = {}
+        # iteratre over 2Q gates
+        for gate in dag.two_qubit_ops():
+            # for consistency put gate indexes in sorted order to build a key
+            i, j = sorted([gate.qargs[0].index, gate.qargs[1].index])
+
+            key = str((i, j))
+            # check if key exists and increment
+            if key in frequency_dict.keys():
+                frequency_dict[key] += 1
+            # otherwise create key
+            else:
+                frequency_dict[key] = 1
+
+        # save to property set
+        self.property_set["edge_frequency"] = frequency_dict

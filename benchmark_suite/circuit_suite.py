@@ -11,9 +11,9 @@ class CircuitTranspilerBenchmark:
         self.label = label
 
 
-# FIXME should this be a class?
+# FIXME should this be a class, q_range is a parameter, instead of dict use get methods
 circuits = {}
-q_range = [8, 16, 24, 32, 48, 64, 80]
+q_range = [8, 16, 24, 32, 40, 48, 56, 64, 72, 80]
 depth = 10
 
 # Random
@@ -88,14 +88,14 @@ label = "Adder"
 circuits[label] = CircuitTranspilerBenchmark(adder_lambda, q_range, label=label)
 
 # multiplier
-from qiskit.circuit.library.arithmetic.multipliers import RGQFTMultiplier
+# from qiskit.circuit.library.arithmetic.multipliers import RGQFTMultiplier
 
-multiplier_lambda = (
-    lambda q: QuantumCircuit(q)
-    .compose(RGQFTMultiplier(num_state_qubits=int(q / 4)), inplace=False)
-    .decompose()
-    .decompose()
-    .decompose()
-)
-label = "Multiplier"
-circuits[label] = CircuitTranspilerBenchmark(multiplier_lambda, q_range, label=label)
+# multiplier_lambda = (
+#     lambda q: QuantumCircuit(q)
+#     .compose(RGQFTMultiplier(num_state_qubits=int(q / 4)), inplace=False)
+#     .decompose()
+#     .decompose()
+#     .decompose()
+# )
+# label = "Multiplier"
+# circuits[label] = CircuitTranspilerBenchmark(multiplier_lambda, q_range, label=label)

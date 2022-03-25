@@ -134,7 +134,7 @@ class FakeHatlab(ConfigurableFakeBackendV2):
                     ]
                     # shuffle list using round robin means just change offset by 1
                     # shuffling doesn't actually matter since invariant to order via symmetries
-                    # however, leave this in because shuffling makes the graphviz plot nicer
+                    # however, may to decide to leave this in because shuffling makes the graphviz plot nicer
                     # shuffled_level_0_router_qubits.append(
                     #     shuffled_level_0_router_qubits.pop(0)
                     # )

@@ -41,7 +41,8 @@ class BackendTranspilerBenchmark:
             self.data[parameter] = data
         else:
             # parameters in ["circuit/duration", "circuit/gate_count", "circuit/layout_score"]
-            self.data[circuit_label][circuit_parameter][parameter] = data
+            # convert final parameter to string so doesn't cause conflicts from loaded jsons
+            self.data[circuit_label][circuit_parameter][str(parameter)] = data
 
     def save_json(self):
         with open(self.filename, "w") as fp:
@@ -73,6 +74,21 @@ for backend in _topology:
     topology_backends.append(BackendTranspilerBenchmark(backend, pm, label))
 
 decomp_backends = []
+
+dummy_backends = []
+backend = FakeHatlab(
+    num_qubits=84, router_as_qubits=True, twoqubitgate="cx", round_robin=True
+)
+pm = level_0_pass_manager(backend, basis_gate="cx", decompose_swaps=False)
+label = backend.name[:-3] + "dummy"  # remove '-cx' from name
+dummy_backends.append(BackendTranspilerBenchmark(backend, pm, label))
+
+backend = FakeHatlab(
+    num_qubits=84, router_as_qubits=True, twoqubitgate="cx", round_robin=False
+)
+pm = level_0_pass_manager(backend, basis_gate="cx", decompose_swaps=False)
+label = backend.name[:-3] + "dummy"  # remove '-cx' from name
+dummy_backends.append(BackendTranspilerBenchmark(backend, pm, label))
 
 # _decomposition = [
 #     FakeHeavyHex(twoqubitgate="cx"),
