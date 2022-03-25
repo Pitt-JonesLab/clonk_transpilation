@@ -58,6 +58,9 @@ _topology = [
     FakeHexLattice(twoqubitgate="cx"),
     PenguinVIdeal(twoqubitgate="cx"),
     FakeHatlab(num_qubits=84, router_as_qubits=True, twoqubitgate="cx"),
+    FakeHatlab(
+        num_qubits=84, router_as_qubits=True, twoqubitgate="cx", round_robin=True
+    ),
     FakeHyperCubeV2(n_dimension=7, twoqubitgate="cx"),
 ]
 # FakeAllToAll(twoqubitgate="cx"),]
@@ -71,25 +74,25 @@ for backend in _topology:
 
 decomp_backends = []
 
-_decomposition = [
-    FakeHeavyHex(twoqubitgate="cx"),
-    FakeSurfaceCode(twoqubitgate="cx", qubit_size=84, row_length=7),
-    FakeHatlab(num_qubits=84, router_as_qubits=True, twoqubitgate="cx"),
-    FakeAllToAll(twoqubitgate="cx"),
-]
-for backend in _decomposition:
-    # don't decompose swaps
-    pm = level_0_pass_manager(backend, basis_gate="cx")
-    label = backend.name + "decomp"
-    decomp_backends.append(BackendTranspilerBenchmark(backend, pm, label))
+# _decomposition = [
+#     FakeHeavyHex(twoqubitgate="cx"),
+#     FakeSurfaceCode(twoqubitgate="cx", qubit_size=84, row_length=7),
+#     FakeHatlab(num_qubits=84, router_as_qubits=True, twoqubitgate="cx"),
+#     FakeAllToAll(twoqubitgate="cx"),
+# ]
+# for backend in _decomposition:
+#     # don't decompose swaps
+#     pm = level_0_pass_manager(backend, basis_gate="cx")
+#     label = backend.name + "decomp"
+#     decomp_backends.append(BackendTranspilerBenchmark(backend, pm, label))
 
-_decomposition = [
-    FakeHatlab(num_qubits=84, router_as_qubits=True, twoqubitgate="riswap"),
-    FakeSurfaceCode(twoqubitgate="riswap", qubit_size=84, row_length=7),
-    FakeAllToAll(twoqubitgate="riswap"),
-]
-for backend in _decomposition:
-    # don't decompose swaps
-    pm = level_0_pass_manager(backend, basis_gate="riswap")
-    label = backend.name + "decomp"
-    decomp_backends.append(BackendTranspilerBenchmark(backend, pm, label))
+# _decomposition = [
+#     FakeHatlab(num_qubits=84, router_as_qubits=True, twoqubitgate="riswap"),
+#     FakeSurfaceCode(twoqubitgate="riswap", qubit_size=84, row_length=7),
+#     FakeAllToAll(twoqubitgate="riswap"),
+# ]
+# for backend in _decomposition:
+#     # don't decompose swaps
+#     pm = level_0_pass_manager(backend, basis_gate="riswap")
+#     label = backend.name + "decomp"
+#     decomp_backends.append(BackendTranspilerBenchmark(backend, pm, label))
