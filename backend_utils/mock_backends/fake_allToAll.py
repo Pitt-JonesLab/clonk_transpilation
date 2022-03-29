@@ -11,7 +11,7 @@ from utils.riswap_gates.riswap import RiSwapGate
 class FakeAllToAll(ConfigurableFakeBackendV2):
     """A mock backendv2"""
 
-    def __init__(self, twoqubitgate="cr"):
+    def __init__(self, twoqubitgate="cr", label=None):
 
         from qiskit.transpiler.coupling import CouplingMap
 
@@ -64,10 +64,10 @@ class FakeAllToAll(ConfigurableFakeBackendV2):
                 YGate: 0,
                 SXGate: 0,
                 SXdgGate: 0,
-                CXGate: 2,
-                RiSwapGate: 2,  # time of iSwap
+                CXGate: 2.167,
+                RiSwapGate: 1,  # time of iSwap
                 U3Gate: 0,
-                RZXGate: 2,
+                RZXGate: 1,
             },
             single_qubit_gates=["rz", "x", "y", "sx", "sxdg"]
             # qubit_coordinates=qubit_coordinates,

@@ -15,7 +15,7 @@ class FakeHeavyHex(ConfigurableFakeBackendV2):
 
         from qiskit.transpiler.coupling import CouplingMap
 
-        coupling_map = CouplingMap.from_heavy_hex(distance=9)
+        coupling_map = CouplingMap.from_heavy_hex(distance=7)
         # choose 6 so roughly matches order of other large backends
         # num_qubits = 83.5
         # but have to round up to nearest odd integer so choose 7

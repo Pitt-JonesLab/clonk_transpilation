@@ -4,6 +4,7 @@ from logging import critical
 from qiskit.transpiler.basepasses import AnalysisPass, TransformationPass
 from qiskit.transpiler.instruction_durations import InstructionDurations
 import retworkx
+import numpy as np
 
 
 class TimeCostAnalysis(AnalysisPass):
@@ -17,6 +18,12 @@ class TimeCostAnalysis(AnalysisPass):
     def run(self, dag):
         """Run the TimeCostAnalysis pass on `dag`."""
         instruction_durations = self.backend.instruction_durations
+        # getting instruction durations from the backend is a good practice,
+        # but for sake of needing to change these rapid built a dict local to the function
+        # instruction_durations = {"iswap": 1, "rzx": 1, "cx": 2.167}
+        # modular will have iswap, so sqiswap will be 1/2
+        # ibm will have CR so rzx(pi/2) will be 1/2
+        # google has SYC, which makes CZ 2.167 and thus CX 2. Really should be 4 SYC but I don't have decompose into SYC here. This is fine too.
 
         # define weight as time cost of source node
         def weight_fn(source_node, target_node, weight):
@@ -31,8 +38,6 @@ class TimeCostAnalysis(AnalysisPass):
                 factor = dag._multi_graph[source_node].op.params[0]
                 # XXX hardcode fix bc riswap missnig factor of pi
                 if gate_name == "rzx":
-                    import numpy as np
-
                     factor = factor / np.pi
             return int(factor * instruction_durations.get(gate_name, qubit_tuple))
 

@@ -15,7 +15,7 @@ from utils.riswap_gates.riswap import RiSwapGate
 class FakeHatlab(ConfigurableFakeBackendV2):
     """A fake 16+4 qubit backend."""
 
-    def foo(self, start_index, module_size, delete_cross=True, round_robin=False):
+    def foo(self, start_index, module_size, delete_cross=True):
         """helper functon for building subgraphs of hatlab-large"""
         # router qubits are first bit starting the module it connects to
         # e.g. [0,5,10,15] for start_index=0, module_size=5
@@ -37,7 +37,7 @@ class FakeHatlab(ConfigurableFakeBackendV2):
             coupling_map = [el for el in coupling_map if el not in removed_edges]
 
         # build modules extending from each router_qubit
-        level_1_round_robin = round_robin
+        level_1_round_robin = self.round_robin == 2 or self.round_robin == 3
         shuffled_router_qubits = list(router_qubits)
 
         for router_qubit in router_qubits:
@@ -69,8 +69,15 @@ class FakeHatlab(ConfigurableFakeBackendV2):
         num_qubits,
         router_as_qubits=False,
         twoqubitgate="riswap",
-        round_robin=False,
+        round_robin=0,
     ):
+        # handle round robin options
+        # 0 - RR nowhere
+        # 1- RR only level_0
+        # 2- RR only level_1
+        # 3- RR both levels
+        self.round_robin = round_robin
+
         # only allow these options for now, although does not need to be true necessarily
         assert num_qubits == 20 or num_qubits == 68 or num_qubits == 84
 
@@ -79,7 +86,6 @@ class FakeHatlab(ConfigurableFakeBackendV2):
                 start_index=0,
                 module_size=5,
                 delete_cross=False,
-                round_robin=round_robin,
             )
 
         if num_qubits == 68 or num_qubits == 84:
@@ -105,13 +111,13 @@ class FakeHatlab(ConfigurableFakeBackendV2):
             offset = 0
 
             # call foo to extend off each router qubit
-            level_0_round_robin = round_robin
+            level_0_round_robin = self.round_robin == 1 or self.round_robin == 3
             shuffled_level_0_router_qubits = list(level_0_router_qubits)
 
             for router_qubit in level_0_router_qubits:
 
                 temp_router_qubits, temp_coupling_map = self.foo(
-                    start_index=offset, module_size=module_size, round_robin=round_robin
+                    start_index=offset, module_size=module_size
                 )
 
                 # extend global edge lists
@@ -143,10 +149,13 @@ class FakeHatlab(ConfigurableFakeBackendV2):
                 offset += 4 * module_size
 
         # finally,
-        # add bidirectional edges
-        coupling_map = [[q1, q2] for q1, q2 in coupling_map if q1 != q2]
+        # delete repeats
+        coupling_map = list(set(coupling_map))
 
-        # redundant check to delete repeats
+        # add bidirectional edges
+        coupling_map += [[q2, q1] for q1, q2 in coupling_map]
+
+        # check no edges to self
         coupling_map = [[q1, q2] for q1, q2 in coupling_map if q1 != q2]
 
         # seperate module_qubits
@@ -183,7 +192,7 @@ class FakeHatlab(ConfigurableFakeBackendV2):
         super().__init__(
             name=f"Modular-{twoqubitgate}"
             if not round_robin
-            else f"Modular-RR-{twoqubitgate}",
+            else f"Modular-RR{round_robin}-{twoqubitgate}",
             description="Extended Hatlab 16+4 QC",
             n_qubits=len(router_qubits + module_qubits),
             gate_configuration=gate_configuration,
@@ -203,9 +212,10 @@ class FakeHatlab(ConfigurableFakeBackendV2):
                 YGate: 0,
                 SXGate: 0,
                 SXdgGate: 0,
-                CXGate: 2,
-                RiSwapGate: 2,  # time of iSwap
+                CXGate: 2.167,
+                RiSwapGate: 1,  # time of iSwap
                 U3Gate: 0,
+                RZXGate: 1,
             },
             single_qubit_gates=["rz", "x", "y", "sx", "sxdg"],
         )

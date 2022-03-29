@@ -73,42 +73,82 @@ for backend in _topology:
     label = backend.name[:-3]  # remove '-cx' from name
     topology_backends.append(BackendTranspilerBenchmark(backend, pm, label))
 
+##################
+
 decomp_backends = []
+basis_gates = ["cx", "cr", "riswap", "cx", "cr", "riswap"]
+labels = ["fSim", "RZX"]
+_decomposition = [
+    FakeAllToAll(twoqubitgate="cx"),
+    FakeAllToAll(twoqubitgate="cr"),
+    # FakeAllToAll(twoqubitgate="riswap"),
+    # FakeSurfaceCode(twoqubitgate="cx", qubit_size=84, row_length=7),
+    # FakeSurfaceCode(twoqubitgate="cr", qubit_size=84, row_length=7),
+    # FakeSurfaceCode(twoqubitgate="riswap", qubit_size=84, row_length=7),
+]
+for backend, gate, label in zip(_decomposition, basis_gates, labels):
+    pm = level_0_pass_manager(
+        backend,
+        basis_gate=gate,
+        decompose_swaps=True,
+    )
+    label = label
+    decomp_backends.append(BackendTranspilerBenchmark(backend, pm, label))
 
-dummy_backends = []
-backend = FakeHatlab(
-    num_qubits=84, router_as_qubits=True, twoqubitgate="cx", round_robin=True
-)
-pm = level_0_pass_manager(backend, basis_gate="cx", decompose_swaps=False)
-label = backend.name[:-3] + "dummy"  # remove '-cx' from name
-dummy_backends.append(BackendTranspilerBenchmark(backend, pm, label))
 
-backend = FakeHatlab(
-    num_qubits=84, router_as_qubits=True, twoqubitgate="cx", round_robin=False
-)
-pm = level_0_pass_manager(backend, basis_gate="cx", decompose_swaps=False)
-label = backend.name[:-3] + "dummy"  # remove '-cx' from name
-dummy_backends.append(BackendTranspilerBenchmark(backend, pm, label))
+###############
+modular_backends = []
+_hatlab = [
+    FakeHatlab(
+        num_qubits=84, router_as_qubits=True, twoqubitgate="riswap", round_robin=0
+    ),
+    FakeHatlab(
+        num_qubits=84, router_as_qubits=True, twoqubitgate="riswap", round_robin=1
+    ),
+    FakeHatlab(
+        num_qubits=84, router_as_qubits=True, twoqubitgate="riswap", round_robin=2
+    ),
+    FakeHatlab(
+        num_qubits=84, router_as_qubits=True, twoqubitgate="riswap", round_robin=3
+    ),
+]
+for backend in _hatlab:
+    pm = level_0_pass_manager(backend, basis_gate="riswap", decompose_swaps=True)
+    label = backend.name
+    modular_backends.append(BackendTranspilerBenchmark(backend, pm, label))
 
-# _decomposition = [
-#     FakeHeavyHex(twoqubitgate="cx"),
-#     FakeSurfaceCode(twoqubitgate="cx", qubit_size=84, row_length=7),
-#     FakeHatlab(num_qubits=84, router_as_qubits=True, twoqubitgate="cx"),
-#     FakeAllToAll(twoqubitgate="cx"),
-# ]
-# for backend in _decomposition:
-#     # don't decompose swaps
-#     pm = level_0_pass_manager(backend, basis_gate="cx")
-#     label = backend.name + "decomp"
-#     decomp_backends.append(BackendTranspilerBenchmark(backend, pm, label))
+##################
+motivation_backends = []
+_motivation = [
+    FakeHeavyHex(twoqubitgate="cx"),
+    FakeSurfaceCode(twoqubitgate="cx", qubit_size=84, row_length=7),
+    FakeHexLattice(twoqubitgate="cx"),
+    PenguinVIdeal(twoqubitgate="cx"),
+]
+topology_backends = []
+for backend in _motivation:
+    # don't decompose swaps
+    pm = level_0_pass_manager(backend, basis_gate="cx", decompose_swaps=True)
+    label = backend.name[:-3]  # remove '-cx' from name
+    motivation_backends.append(BackendTranspilerBenchmark(backend, pm, label))
 
-# _decomposition = [
-#     FakeHatlab(num_qubits=84, router_as_qubits=True, twoqubitgate="riswap"),
-#     FakeSurfaceCode(twoqubitgate="riswap", qubit_size=84, row_length=7),
-#     FakeAllToAll(twoqubitgate="riswap"),
-# ]
-# for backend in _decomposition:
-#     # don't decompose swaps
-#     pm = level_0_pass_manager(backend, basis_gate="riswap")
-#     label = backend.name + "decomp"
-#     decomp_backends.append(BackendTranspilerBenchmark(backend, pm, label))
+
+####industry comparisons
+industry_backends = []
+basis_gates = ["cx", "cr", "riswap"]
+labels = ["Google-fSim", "IBM-RZX", "Modular-SqiSwap"]
+_decomposition = [
+    FakeSurfaceCode(twoqubitgate="cx", qubit_size=84, row_length=7),
+    FakeHeavyHex(twoqubitgate="cr"),
+    FakeHatlab(
+        num_qubits=84, router_as_qubits=True, twoqubitgate="riswap", round_robin=0
+    ),
+]
+for backend, gate, label in zip(_decomposition, basis_gates, labels):
+    pm = level_0_pass_manager(
+        backend,
+        basis_gate=gate,
+        decompose_swaps=True,
+    )
+    label = label
+    industry_backends.append(BackendTranspilerBenchmark(backend, pm, label))

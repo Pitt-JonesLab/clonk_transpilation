@@ -142,6 +142,10 @@ def level_0_pass_manager(
 
             pm0.append(StochasticSwap(backend.coupling_map))
 
+        # pre-swap-decompose resource estimation
+        # use preswap flag so we can distinguish data in propertyset
+        pm0.append(ResourceEstimation(preswap=True))
+
         """Stage 3. Decompose Movement Swaps"""
         # TODO: empty target movement?
 
@@ -150,7 +154,7 @@ def level_0_pass_manager(
             break
 
     # final resource estimation
-    pm0.append(ResourceEstimation())
+    pm0.append(ResourceEstimation(preswap=False))
 
     # edge contention
     from utils.transpiler_passes.cost_analysis_pass import EdgeContentionPass
