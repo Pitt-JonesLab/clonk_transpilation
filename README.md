@@ -74,7 +74,7 @@ circuit_gen = circuit_list["Quantum_Volume"]
 benchmark(backends=backend_list, circuit_generator=circuit_gen, continuously_save=True, overwrite=False)
 plot(industry_backends, circuit_gen.label, duration=2)
 ```
-![Quantum_Volume32](https://user-images.githubusercontent.com/47376937/161140596-ec4d1709-5e48-480e-8168-d427368a0471.png)
+![Quantum_Volume40](https://user-images.githubusercontent.com/47376937/161151407-c10fa92e-8857-461d-8cd0-524c2f69c959.png)
 
 ### Edge Histogram - WIP
 ```python
