@@ -1,5 +1,5 @@
 # CLONK-CoupLing tOpology beNchmarKs
-## 1.
+## 1. Set up list of coupling maps
 ### Begin by building a mock backend using the `ConfigurableFakeBackendV2` abstract class.
 ```python
 class FakeExampleV2(ConfigurableFakeBackendV2):
@@ -59,7 +59,7 @@ pass_manager = level_0_pass_manager(backend, basis_gate="riswap")
 backend_list.append(BackendTranspilerBenchmark(backend = backend, pm = pass_manager))
 ```
 
-## 2.
+## 2. Set up list of circuits to test on
 ### Take a quantum circuit definition and wrap it in a lambda function so it is parameterized by number of qubits
 ```python
 circuit_list = []
