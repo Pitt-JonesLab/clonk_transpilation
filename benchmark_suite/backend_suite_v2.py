@@ -9,7 +9,7 @@ from backend_utils.mock_backends.fake_allToAll import FakeAllToAll
 
 from backend_utils.mock_backends.fake_hexLattice import FakeHexLattice
 from backend_utils import *
-from utils.transpiler_passes import level_0_pass_manager
+from utils.transpiler_passes import level_0_pass_manager, pass_manager_v2
 
 
 class BackendTranspilerBenchmark:
@@ -111,6 +111,7 @@ _hatlab = [
     FakeHatlab(
         num_qubits=84, router_as_qubits=True, twoqubitgate="riswap", round_robin=3
     ),
+    FakeHyperCubeV2(n_dimension=7, twoqubitgate="riswap"),
 ]
 for backend in _hatlab:
     pm = level_0_pass_manager(backend, basis_gate="riswap", decompose_swaps=True)

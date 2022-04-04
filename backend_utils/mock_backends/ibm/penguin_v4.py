@@ -12,8 +12,8 @@ class PenguinV4(ConfigurableFakeBackendV2):
 
     def __init__(self, twoqubitgate="cx"):
 
-        num_rows = 12  # even
-        num_columns = 11  # odd
+        num_rows = 4  # even
+        num_columns = 5  # odd
 
         qubits = list(range(num_rows * num_columns))
 

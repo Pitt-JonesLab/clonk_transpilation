@@ -1,5 +1,6 @@
 import math
 import time
+from cirq import X
 import numpy as np
 import multiprocessing as mp
 from os import getpid
@@ -16,7 +17,7 @@ optimise1qgates = Optimize1qGates()
 
 from cirq.circuits.qasm_output import QasmUGate, QasmTwoQubitGate
 
-from NuOp.gates_numpy import get_gate_unitary_qiskit
+from gates_numpy import get_gate_unitary_qiskit
 
 
 class GateTemplate:
@@ -138,9 +139,12 @@ class TwoQubitGateSynthesizer:
         return results[best_idx]
 
     def optimal_decomposition(
-        self, tol=1e-3, fidelity_2q_gate=1.0, fidelity_1q_gate=[1.0, 1.0]
+        self,
+        tol=1e-3,
+        fidelity_2q_gate=1.0,
+        fidelity_1q_gate=[1.0, 1.0],
+        max_num_layers=8,
     ):
-        max_num_layers = 4
         cutoff_with_tol = True
         results = []
         best_idx = 0
@@ -152,7 +156,7 @@ class TwoQubitGateSynthesizer:
                 break
 
             # Solve an instance with i+1 layers, doing 1 random trial
-            res = self.solve_instance(n_layers=i + 1, trials=1)
+            res = self.solve_instance(n_layers=i + 1, trials=3)
             results.append(res)
 
             # Evaluate the fidelity after adding one layer
@@ -184,8 +188,9 @@ def _driver_func(
     for i in range(attempts):  # Max 3 attempts. Typically 1st attempt always succeeds
         gt = GateTemplate(gate_def, gate_param)
         gs = TwoQubitGateSynthesizer(target_unitary, gt)
+        x = int(1 / gate_param[0] + 3)
         layer_count, result_obj, fidelity = gs.optimal_decomposition(
-            tol, fidelity_2q_gate, fidelity_1q_gate
+            tol, fidelity_2q_gate, fidelity_1q_gate, max_num_layers=x
         )
         if result_obj.success == True:
             return [layer_count, result_obj, fidelity]
@@ -366,6 +371,7 @@ class ParallelGateReplacementPass(TransformationPass):
                 )
                 param_idx += 6
         optimized_dag = optimise1qgates.run(circuit_to_dag(new_circ))
+        self.property_set["best_fid"] = best_fidelity
         return optimized_dag
         # new_circ = dag_to_circuit(optimized_dag)
         # return new_circ

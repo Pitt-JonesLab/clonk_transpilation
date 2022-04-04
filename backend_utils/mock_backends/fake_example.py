@@ -1,16 +1,9 @@
 import itertools
-from qiskit.test.mock.utils.configurable_backend import ConfigurableFakeBackend
-from qiskit.test.mock.utils.configurable_backend_v2 import ConfigurableFakeBackendV2
+from backend_utils.configurable_backend_v2 import ConfigurableFakeBackendV2
 from qiskit.providers.models import BackendProperties
 from qiskit.providers.models.backendproperties import Nduv, Gate
 from qiskit.exceptions import QiskitError
-from qiskit.circuit.library.standard_gates import (
-    IGate,
-    RXGate,
-    RYGate,
-    CZGate,
-    SwapGate,
-)
+from qiskit.circuit.library.standard_gates import *
 
 
 class FakeExampleV2(ConfigurableFakeBackendV2):
@@ -42,7 +35,14 @@ class FakeExampleV2(ConfigurableFakeBackendV2):
             description="a mock backend",
             n_qubits=len(qubits),
             gate_configuration=gate_configuration,
-            parameterized_gates={RXGate: "theta", RYGate: "theta"},
+            parameterized_gates={RXGate: ["theta"], RYGate: ["theta"]},
             measurable_qubits=measurable_qubits,
             qubit_coordinates=qubit_coordinates,
+            gate_durations={
+                IGate: 0,
+                RXGate: 0,
+                RYGate: 0,
+                CZGate: 2.167,
+            },
+            single_qubit_gates=["rx", "ry"],
         )

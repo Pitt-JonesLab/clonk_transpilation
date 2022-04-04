@@ -34,7 +34,7 @@ class RiSwapGate(Gate):
 
     def __init__(self, alpha: ParameterValueType, label: Optional[str] = None):
         """Create new iSwap gate."""
-        super().__init__("riswap", 2, [alpha], label="iSwap^{1/2}")
+        super().__init__("riswap", 2, [alpha], label=f"iSwap^{alpha}")
 
     def __array__(self, dtype=None):
         """Return a numpy.array for the RiSWAP gate."""
