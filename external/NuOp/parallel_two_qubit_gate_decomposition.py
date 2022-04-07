@@ -144,6 +144,7 @@ class TwoQubitGateSynthesizer:
         fidelity_2q_gate=1.0,
         fidelity_1q_gate=[1.0, 1.0],
         max_num_layers=8,
+        force_gate_count=None,
     ):
         cutoff_with_tol = True
         results = []
@@ -151,7 +152,12 @@ class TwoQubitGateSynthesizer:
         best_fidelity = 0
         verbose = False
 
-        for i in range(max_num_layers):
+        if not force_gate_count is None:
+            gate_range = range(force_gate_count - 1, force_gate_count)
+        else:
+            gate_range = range(max_num_layers)
+
+        for i in gate_range:
             if cutoff_with_tol and best_fidelity > 1.0 - tol:
                 break
 
@@ -178,11 +184,20 @@ class TwoQubitGateSynthesizer:
                 best_idx = i
                 best_fidelity = current_fidelity
 
-        return best_idx + 1, results[best_idx], best_fidelity
+        if force_gate_count:
+            return best_idx + 1, results[0], best_fidelity
+        else:
+            return best_idx + 1, results[best_idx], best_fidelity
 
 
 def _driver_func(
-    target_unitary, gate_def, gate_param, fidelity_2q_gate, fidelity_1q_gate, tol
+    target_unitary,
+    gate_def,
+    gate_param,
+    fidelity_2q_gate,
+    fidelity_1q_gate,
+    tol,
+    force_gate_count,
 ):
     attempts = 1
     for i in range(attempts):  # Max 3 attempts. Typically 1st attempt always succeeds
@@ -190,7 +205,11 @@ def _driver_func(
         gs = TwoQubitGateSynthesizer(target_unitary, gt)
         x = int(1 / gate_param[0] + 3)
         layer_count, result_obj, fidelity = gs.optimal_decomposition(
-            tol, fidelity_2q_gate, fidelity_1q_gate, max_num_layers=x
+            tol,
+            fidelity_2q_gate,
+            fidelity_1q_gate,
+            max_num_layers=x,
+            force_gate_count=force_gate_count,
         )
         if result_obj.success == True:
             return [layer_count, result_obj, fidelity]
@@ -224,6 +243,7 @@ class ParallelGateReplacementPass(TransformationPass):
         fidelity_list_1q_gate,
         tol=1e-3,
         decompose_swaps=True,
+        force_gate_count=None,
     ):
         self.gate_defs = gate_defs
         self.gate_params = gate_params
@@ -233,7 +253,7 @@ class ParallelGateReplacementPass(TransformationPass):
         self.num_target_gates = len(self.gate_defs)
 
         self.decompose_swaps = decompose_swaps
-
+        self.force_gate_count = force_gate_count
         assert self.num_target_gates == len(self.gate_params)
         super().__init__()
 
@@ -276,6 +296,7 @@ class ParallelGateReplacementPass(TransformationPass):
                         fidelity_2q_gate,
                         fidelity_1q_gate,
                         self.tol,
+                        self.force_gate_count,
                     )
                 )
                 node_list[(gate, i)] = job_id

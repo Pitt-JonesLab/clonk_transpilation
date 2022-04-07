@@ -26,23 +26,26 @@ class BackendTranspilerBenchmark:
         try:
             with open(self.filename) as fp:
                 self.data = json.load(fp)
-
         except json.JSONDecodeError:
+            # file exists but is empty
             self.data = {}
         except FileNotFoundError:
-            # if doesn't exist create a blank dictionary
-            fp = Path(self.filename)
-            fp.touch(exist_ok=True)
-            self.data = {}
+            self.create_data(n=0)
+
+    def create_data(self, n):
+        # if doesn't exist create a blank dictionary'
+        fp = Path(self.filename)
+        fp.touch(exist_ok=True)
+        self.data = {}
 
     def save_data(self, parameter, data, circuit_label=None, circuit_parameter=None):
         # parameters in ["diameter", "avg_dist", "degree"]
         if circuit_label is None:
-            self.data[parameter] = data
+            self.data[str(0)][parameter] = data
         else:
             # parameters in ["circuit/duration", "circuit/gate_count", "circuit/layout_score"]
             # convert final parameter to string so doesn't cause conflicts from loaded jsons
-            self.data[circuit_label][circuit_parameter][str(parameter)] = data
+            self.data[str(0)][circuit_label][circuit_parameter][str(parameter)] = data
 
     def save_json(self):
         with open(self.filename, "w") as fp:
@@ -99,37 +102,65 @@ for backend, gate, label in zip(_decomposition, basis_gates, labels):
 ###############
 modular_backends = []
 _hatlab = [
-    FakeHatlab(
-        num_qubits=84, router_as_qubits=True, twoqubitgate="riswap", round_robin=0
-    ),
-    FakeHatlab(
-        num_qubits=84, router_as_qubits=True, twoqubitgate="riswap", round_robin=1
-    ),
-    FakeHatlab(
-        num_qubits=84, router_as_qubits=True, twoqubitgate="riswap", round_robin=2
-    ),
-    FakeHatlab(
-        num_qubits=84, router_as_qubits=True, twoqubitgate="riswap", round_robin=3
-    ),
-    FakeHyperCubeV2(n_dimension=7, twoqubitgate="riswap"),
+    FakeHatlab(num_qubits=84, router_as_qubits=True, twoqubitgate="cx", round_robin=0),
+    FakeHatlab(num_qubits=84, router_as_qubits=True, twoqubitgate="cx", round_robin=1),
+    FakeHatlab(num_qubits=84, router_as_qubits=True, twoqubitgate="cx", round_robin=2),
+    FakeHatlab(num_qubits=84, router_as_qubits=True, twoqubitgate="cx", round_robin=3),
+    FakeHyperCubeV2(n_dimension=7, twoqubitgate="cx"),
 ]
 for backend in _hatlab:
-    pm = level_0_pass_manager(backend, basis_gate="riswap", decompose_swaps=True)
-    label = backend.name
+    pm = level_0_pass_manager(backend, basis_gate="cx", decompose_swaps=False)
+    label = backend.name[:-3]
     modular_backends.append(BackendTranspilerBenchmark(backend, pm, label))
 
 ##################
+
+
+###############
+small_modular_backends = []
+_hatlab = [
+    FakeHatlab(
+        num_qubits=20, router_as_qubits=True, twoqubitgate="riswap", round_robin=0
+    ),
+    # FakeHatlab(
+    #     num_qubits=84, router_as_qubits=True, twoqubitgate="riswap", round_robin=1
+    # ),
+    # FakeHatlab(
+    #     num_qubits=84, router_as_qubits=True, twoqubitgate="riswap", round_robin=2
+    # ),
+    FakeHatlab(
+        num_qubits=20, router_as_qubits=True, twoqubitgate="riswap", round_robin=3
+    ),
+    FakeHyperCubeV2(n_dimension=4, twoqubitgate="riswap"),
+    FakeHyperCubeSnail(corral_skip_pattern=(0, 0), twoqubitgate="riswap"),
+    FakeHyperCubeSnail(corral_skip_pattern=(0, 1), twoqubitgate="riswap"),
+    FakeHyperCubeSnail(corral_skip_pattern=(0, 2), twoqubitgate="riswap"),
+    FakeSurfaceCode(twoqubitgate="riswap", qubit_size=16, row_length=4),
+]
+for backend in _hatlab:
+    pm = level_0_pass_manager(backend, basis_gate="riswap", decompose_swaps=False)
+    label = "small" + backend.name
+    small_modular_backends.append(BackendTranspilerBenchmark(backend, pm, label))
+
+##################
+
+
 motivation_backends = []
 _motivation = [
     FakeHeavyHex(twoqubitgate="cx"),
     FakeSurfaceCode(twoqubitgate="cx", qubit_size=84, row_length=7),
     FakeHexLattice(twoqubitgate="cx"),
     PenguinVIdeal(twoqubitgate="cx"),
+    FakeHatlab(num_qubits=84, router_as_qubits=True, twoqubitgate="cx", round_robin=1),
+    FakeHatlab(num_qubits=84, router_as_qubits=True, twoqubitgate="cx", round_robin=2),
+    FakeHyperCubeV2(n_dimension=7, twoqubitgate="cx"),
+    FakeHatlab(num_qubits=84, router_as_qubits=True, twoqubitgate="cx", round_robin=0),
+    FakeHatlab(num_qubits=84, router_as_qubits=True, twoqubitgate="cx", round_robin=3),
 ]
 topology_backends = []
 for backend in _motivation:
     # don't decompose swaps
-    pm = level_0_pass_manager(backend, basis_gate="cx", decompose_swaps=True)
+    pm = level_0_pass_manager(backend, basis_gate="cx", decompose_swaps=False)
     label = backend.name[:-3]  # remove '-cx' from name
     motivation_backends.append(BackendTranspilerBenchmark(backend, pm, label))
 
@@ -153,3 +184,44 @@ for backend, gate, label in zip(_decomposition, basis_gates, labels):
     )
     label = label
     industry_backends.append(BackendTranspilerBenchmark(backend, pm, label))
+
+
+# Routing and Placement Test
+transp_tests = []
+backend = FakeHeavyHex(twoqubitgate="cx")
+pm = level_0_pass_manager(
+    backend,
+    basis_gate="cx",
+    placement_strategy="trivial",
+    routing="basic",
+    decompose_swaps=False,
+)
+transp_tests.append(BackendTranspilerBenchmark(backend, pm, label))
+label = "Trivial+Basic"
+pm = level_0_pass_manager(
+    backend,
+    basis_gate="cx",
+    placement_strategy="trivial",
+    routing="stochastic",
+    decompose_swaps=False,
+)
+label = "Trivial+Stochastic"
+transp_tests.append(BackendTranspilerBenchmark(backend, pm, label))
+pm = level_0_pass_manager(
+    backend,
+    basis_gate="cx",
+    placement_strategy="dense",
+    routing="basic",
+    decompose_swaps=False,
+)
+label = "Dense+Basic"
+transp_tests.append(BackendTranspilerBenchmark(backend, pm, label))
+pm = level_0_pass_manager(
+    backend,
+    basis_gate="cx",
+    placement_strategy="dense",
+    routing="stochastic",
+    decompose_swaps=False,
+)
+label = "Dense+Stochastic"
+transp_tests.append(BackendTranspilerBenchmark(backend, pm, label))

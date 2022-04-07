@@ -13,8 +13,8 @@ class CircuitTranspilerBenchmark:
 
 # FIXME should this be a class, q_range is a parameter, instead of dict use get methods
 circuits = {}
-q_range = [8, 16, 24, 32, 40, 48, 56, 64, 72, 80]
-# q_range = [16, 32, 64]
+# q_range = [8, 16, 24, 32, 40, 48, 56, 64, 72, 80]
+q_range = [4, 6, 8, 10, 12, 14, 16]
 depth = 10
 
 # Random
@@ -27,7 +27,7 @@ depth = 10
 # # Quantum Volume
 from qiskit.circuit.library import QuantumVolume
 
-qv_lambda = lambda q: QuantumVolume(q, 4)
+qv_lambda = lambda q: QuantumVolume(num_qubits=q, depth=4)
 label = "Quantum_Volume"
 circuits[label] = CircuitTranspilerBenchmark(qv_lambda, q_range, label=label)
 
@@ -65,6 +65,7 @@ hamiltonian_lambda = lambda q: cirq_to_qiskit(
 label = "TIM_Hamiltonian"
 circuits[label] = CircuitTranspilerBenchmark(hamiltonian_lambda, q_range, label=label)
 
+
 # weighted adder or ripple carry adder
 from qiskit.circuit.library.arithmetic.adders.cdkm_ripple_carry_adder import (
     CDKMRippleCarryAdder,
@@ -94,6 +95,7 @@ circuits[label] = CircuitTranspilerBenchmark(adder_lambda, q_range, label=label)
 # )
 # label = "Multiplier"
 # circuits[label] = CircuitTranspilerBenchmark(multiplier_lambda, q_range, label=label)
+
 
 # # GHZ
 ghz_lambda = lambda q: cirq_to_qiskit(GHZ(q).circuit())

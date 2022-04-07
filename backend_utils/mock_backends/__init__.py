@@ -4,3 +4,4 @@ from .fake_hypercube import FakeHyperCubeV2
 from .fake_heavyhex import FakeHeavyHex
 from .ibm import *
 from .fake_allToAll import FakeAllToAll
+from .fake_hypercubeSNAIL import FakeHyperCubeSnail
