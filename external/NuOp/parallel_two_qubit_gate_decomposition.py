@@ -17,7 +17,7 @@ optimise1qgates = Optimize1qGates()
 
 from cirq.circuits.qasm_output import QasmUGate, QasmTwoQubitGate
 
-from gates_numpy import get_gate_unitary_qiskit
+from external.NuOp.gates_numpy import get_gate_unitary_qiskit
 
 
 class GateTemplate:
