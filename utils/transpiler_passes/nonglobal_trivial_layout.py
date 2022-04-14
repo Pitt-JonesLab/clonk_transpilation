@@ -62,7 +62,9 @@ class NonGlobalTrivialLayout(AnalysisPass):
             from random import shuffle
 
             qubits = list(range(len(dag.qubits)))
+            qubits = list(range(len(self.backend_target.physical_qubits)))
             shuffle(qubits)
+            qubits = qubits[0 : len(dag.qubits)]
             layout = Layout.from_intlist(qubits, *dag.qregs.values())
 
         if self.strategy == "visual":

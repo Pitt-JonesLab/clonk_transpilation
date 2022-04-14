@@ -134,7 +134,7 @@ _hatlab = [
     FakeHyperCubeV2(n_dimension=4, twoqubitgate="riswap"),
     FakeHyperCubeSnail(corral_skip_pattern=(0, 0), twoqubitgate="riswap"),
     FakeHyperCubeSnail(corral_skip_pattern=(0, 1), twoqubitgate="riswap"),
-    FakeHyperCubeSnail(corral_skip_pattern=(0, 2), twoqubitgate="riswap"),
+    # FakeHyperCubeSnail(corral_skip_pattern=(0, 2), twoqubitgate="riswap"),
     FakeSurfaceCode(twoqubitgate="riswap", qubit_size=16, row_length=4),
 ]
 for backend in _hatlab:
@@ -151,8 +151,8 @@ _motivation = [
     FakeSurfaceCode(twoqubitgate="cx", qubit_size=84, row_length=7),
     FakeHexLattice(twoqubitgate="cx"),
     PenguinVIdeal(twoqubitgate="cx"),
-    FakeHatlab(num_qubits=84, router_as_qubits=True, twoqubitgate="cx", round_robin=1),
-    FakeHatlab(num_qubits=84, router_as_qubits=True, twoqubitgate="cx", round_robin=2),
+    # FakeHatlab(num_qubits=84, router_as_qubits=True, twoqubitgate="cx", round_robin=1),
+    # FakeHatlab(num_qubits=84, router_as_qubits=True, twoqubitgate="cx", round_robin=2),
     FakeHyperCubeV2(n_dimension=7, twoqubitgate="cx"),
     FakeHatlab(num_qubits=84, router_as_qubits=True, twoqubitgate="cx", round_robin=0),
     FakeHatlab(num_qubits=84, router_as_qubits=True, twoqubitgate="cx", round_robin=3),
@@ -167,14 +167,15 @@ for backend in _motivation:
 
 ####industry comparisons
 industry_backends = []
-basis_gates = ["cx", "cr", "riswap"]
-labels = ["Google-fSim", "IBM-RZX", "Modular-SqiSwap"]
+basis_gates = ["cx", "cr", "riswap", "riswap"]
+labels = ["Google-fSim", "IBM-RZX", "Modular-SqiSwap", "Hypercube-SqiSwap"]
 _decomposition = [
     FakeSurfaceCode(twoqubitgate="cx", qubit_size=84, row_length=7),
     FakeHeavyHex(twoqubitgate="cr"),
     FakeHatlab(
         num_qubits=84, router_as_qubits=True, twoqubitgate="riswap", round_robin=0
     ),
+    FakeHyperCubeV2(n_dimension=7, twoqubitgate="riswap"),
 ]
 for backend, gate, label in zip(_decomposition, basis_gates, labels):
     pm = level_0_pass_manager(
@@ -225,3 +226,36 @@ pm = level_0_pass_manager(
 )
 label = "Dense+Stochastic"
 transp_tests.append(BackendTranspilerBenchmark(backend, pm, label))
+
+
+###############
+beta_small_modular_backends = []
+_beta = [
+    FakeHatlab(
+        num_qubits=20, router_as_qubits=True, twoqubitgate="riswap", round_robin=0
+    ),
+    # FakeHatlab(
+    #     num_qubits=84, router_as_qubits=True, twoqubitgate="riswap", round_robin=1
+    # ),
+    # FakeHatlab(
+    #     num_qubits=84, router_as_qubits=True, twoqubitgate="riswap", round_robin=2
+    # ),
+    FakeHatlab(
+        num_qubits=20, router_as_qubits=True, twoqubitgate="riswap", round_robin=3
+    ),
+    FakeHyperCubeV2(n_dimension=4, twoqubitgate="riswap"),
+    FakeHyperCubeSnail(corral_skip_pattern=(0, 0), twoqubitgate="riswap"),
+    FakeHyperCubeSnail(corral_skip_pattern=(0, 1), twoqubitgate="riswap"),
+    # FakeHyperCubeSnail(corral_skip_pattern=(0, 2), twoqubitgate="riswap"),
+    FakeSurfaceCode(twoqubitgate="riswap", qubit_size=16, row_length=4),
+]
+for backend in _beta:
+    pm = level_0_pass_manager(
+        backend,
+        basis_gate="riswap",
+        decompose_swaps=False,
+        placement_strategy="shuffle",
+    )
+    label = "beta" + backend.name
+    beta_small_modular_backends.append(BackendTranspilerBenchmark(backend, pm, label))
+##################
