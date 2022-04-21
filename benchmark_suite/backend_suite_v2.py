@@ -166,8 +166,8 @@ fake_small_heavy_hex = FakeHeavyHex(twoqubitgate="cx", enforce_max_84=False, sma
 fake_small_hex_lattice = FakeHexLattice(
     twoqubitgate="cx", enforce_max_84=False, small=True
 )
-fake_small_surfaceCode = (
-    FakeSurfaceCode(twoqubitgate="syc", qubit_size=4, row_length=4),
+fake_small_surfaceCode = FakeSurfaceCode(
+    twoqubitgate="syc", qubit_size=16, row_length=4
 )
 fake_small_penguin = PenguinVIdeal(twoqubitgate="cx", small=True)
 fake_small_tree = FakeHatlab(
@@ -178,7 +178,9 @@ fake_small_tree_rr = FakeHatlab(
 )
 fake_corralv1 = FakeHyperCubeSnail(corral_skip_pattern=(0, 0), twoqubitgate="riswap")
 fake_corralv2 = FakeHyperCubeSnail(corral_skip_pattern=(0, 1), twoqubitgate="riswap")
-fake_small_hypercube = FakeHyperCubeV2(n_dimension=4, twoqubitgate="riswap")
+fake_small_hypercube = FakeHyperCubeV2(
+    n_dimension=4, twoqubitgate="riswap", enforce_max_84=False
+)
 ###
 _small_motivation = [
     fake_small_heavy_hex,

@@ -34,7 +34,7 @@ class FakeHyperCubeV2(ConfigurableFakeBackendV2):
         # redundant check to make sure bidirectional
         coupling_map += [(j, i) for i, j in coupling_map]
         coupling_map = list(set(coupling_map))
-
+        
         if enforce_max_84:
             rename = {}
             k = 0
