@@ -10,10 +10,14 @@ from utils.riswap_gates.riswap import RiSwapGate
 class PenguinVIdeal(ConfigurableFakeBackendV2):
     """A mock backendv2"""
 
-    def __init__(self, twoqubitgate):
+    def __init__(self, twoqubitgate, small=False):
 
-        num_rows = 12  # even
-        num_columns = 7  # odd
+        if small:
+            num_rows = 4
+            num_columns = 5
+        else:
+            num_rows = 12  # even
+            num_columns = 7  # odd
 
         qubits = list(range(num_rows * num_columns))
 

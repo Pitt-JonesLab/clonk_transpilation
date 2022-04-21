@@ -75,6 +75,8 @@ class DenseLayout(AnalysisPass):
             twoqop = "riswap"
         elif "rzx" in self.backend.operation_names:
             twoqop = "rzx"
+        elif "fSim" in self.backend.operation_names:
+            twoqop = "fSim"
         else:
             raise NotImplementedError
 

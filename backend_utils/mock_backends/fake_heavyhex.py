@@ -12,11 +12,16 @@ from utils.riswap_gates.riswap import RiSwapGate
 class FakeHeavyHex(ConfigurableFakeBackendV2):
     """A mock backendv2"""
 
-    def __init__(self, twoqubitgate="cr", enforce_max_84=True):
+    def __init__(self, twoqubitgate="cr", enforce_max_84=True, small=False):
 
         from qiskit.transpiler.coupling import CouplingMap
 
-        coupling_map = CouplingMap.from_heavy_hex(distance=7)
+        assert not (enforce_max_84 and small)
+
+        if small:
+            coupling_map = CouplingMap.from_heavy_hex(distance=3)
+        else:
+            coupling_map = CouplingMap.from_heavy_hex(distance=7)
         qubits = list(range(len(coupling_map.physical_qubits)))
         # need to convert CouplingMap object to an edge list
         coupling_map = list(coupling_map.get_edges())

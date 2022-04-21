@@ -161,12 +161,12 @@ def level_0_pass_manager(
     pm0.append(ResourceEstimation(preswap=False))
 
     # edge contention
-    from utils.transpiler_passes.cost_analysis_pass import EdgeContentionPass
+    # from utils.transpiler_passes.cost_analysis_pass import EdgeContentionPass
 
-    pm0.append(EdgeContentionPass(backend))
+    # pm0.append(EdgeContentionPass(backend))
 
-    # timing analysis
-    if decompose_swaps and decompose_1q and not consolidate_blocks_break_early:
-        pm0.append(DurationCriticalPath(backend, critical_path))
+    # # timing analysis
+    # if decompose_swaps and decompose_1q and not consolidate_blocks_break_early:
+    #     pm0.append(DurationCriticalPath(backend, critical_path))
 
     return pm0

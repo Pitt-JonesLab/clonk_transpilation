@@ -437,7 +437,7 @@ class RootiSwapWeylDecomposition(TransformationPass):
 
         if isinstance(self.basis_gate, RiSwapGate):
             self.decomposer = self.riswapWeylDecomp
-        if isinstance(self.basis_gate, fSim):
+        elif isinstance(self.basis_gate, fSim):
             self.decomposer = self.SYCDecomposer
         else:
             self.decomposer = TwoQubitBasisDecomposer(self.basis_gate)
