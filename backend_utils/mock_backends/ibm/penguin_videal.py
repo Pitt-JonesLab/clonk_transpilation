@@ -13,7 +13,7 @@ class PenguinVIdeal(ConfigurableFakeBackendV2):
     def __init__(self, twoqubitgate):
 
         num_rows = 12  # even
-        num_columns = 11  # odd
+        num_columns = 7  # odd
 
         qubits = list(range(num_rows * num_columns))
 

@@ -11,15 +11,20 @@ from utils.riswap_gates.riswap import RiSwapGate
 class FakeHexLattice(ConfigurableFakeBackendV2):
     """A mock backendv2"""
 
-    def __init__(self, twoqubitgate="cr"):
+    def __init__(self, twoqubitgate="cr", enforce_max_84=True):
 
         from qiskit.transpiler.coupling import CouplingMap
 
-        coupling_map = CouplingMap.from_hexagonal_lattice(rows=7, cols=12)
+        coupling_map = CouplingMap.from_hexagonal_lattice(rows=6, cols=5)
         qubits = list(range(len(coupling_map.physical_qubits)))
 
         # need to convert CouplingMap object to an edge list
         coupling_map = list(coupling_map.get_edges())
+
+        if enforce_max_84:
+            # in this case we just need to add 2 qubits to make it 84
+            coupling_map += [(54, 82), (82, 83), (83, 40)]
+            qubits = list(range(84))
 
         gate_configuration = {}
         gate_configuration[IGate] = [(i,) for i in qubits]

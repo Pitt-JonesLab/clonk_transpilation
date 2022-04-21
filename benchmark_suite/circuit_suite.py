@@ -27,7 +27,7 @@ depth = 10
 # # Quantum Volume
 from qiskit.circuit.library import QuantumVolume
 
-qv_lambda = lambda q: QuantumVolume(num_qubits=q, depth=4)
+qv_lambda = lambda q: QuantumVolume(num_qubits=q, depth=q)
 label = "Quantum_Volume"
 circuits[label] = CircuitTranspilerBenchmark(qv_lambda, q_range, label=label)
 

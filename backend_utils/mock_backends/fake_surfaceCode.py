@@ -6,7 +6,7 @@ from qiskit.providers.models import BackendProperties
 from qiskit.providers.models.backendproperties import Nduv, Gate
 from qiskit.exceptions import QiskitError
 from qiskit.circuit.library.standard_gates import *
-from utils.riswap_gates.riswap import RiSwapGate
+from utils.riswap_gates.riswap import RiSwapGate, fSim
 
 
 class FakeSurfaceCode(ConfigurableFakeBackendV2):
@@ -51,6 +51,8 @@ class FakeSurfaceCode(ConfigurableFakeBackendV2):
             gate_configuration[CXGate] = [(i, j) for i, j in coupling_map]
         if twoqubitgate == "riswap":
             gate_configuration[RiSwapGate] = [(i, j) for i, j in coupling_map]
+        if twoqubitgate == "syc":
+            gate_configuration[fSim] = [(i, j) for i, j in coupling_map]
 
         # global measure
         measurable_qubits = qubits
@@ -66,6 +68,7 @@ class FakeSurfaceCode(ConfigurableFakeBackendV2):
                 RiSwapGate: ["alpha"],
                 U3Gate: ["theta", "phi", "lambda"],
                 RZXGate: ["theta"],
+                fSim: ["theta", "phi"],
             },
             measurable_qubits=measurable_qubits,
             gate_durations={
@@ -76,10 +79,11 @@ class FakeSurfaceCode(ConfigurableFakeBackendV2):
                 YGate: 0,
                 SXGate: 0,
                 SXdgGate: 0,
-                CXGate: 2.167,
+                CXGate: 1,
                 RiSwapGate: 1,  # time of iSwap
                 U3Gate: 0,
                 RZXGate: 1,
+                fSim: 0.748,
             },
             single_qubit_gates=["rz", "x", "y", "sx", "sxdg"]
             # qubit_coordinates=qubit_coordinates,

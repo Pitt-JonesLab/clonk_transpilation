@@ -32,7 +32,7 @@ from qiskit.quantum_info.synthesis.weyl import weyl_coordinates
 from qiskit.quantum_info.operators import Operator
 
 # from qiskit.circuit.library.standard_gates import *
-from utils.riswap_gates.riswap import RiSwapGate
+from utils.riswap_gates.riswap import RiSwapGate, fSim
 from qiskit.circuit import Parameter
 from qiskit import QuantumCircuit
 import numpy as np
@@ -292,6 +292,16 @@ class RootiSwapWeylDecomposition(TransformationPass):
         a, b, c = cs[1], cs[0], cs[2]
         return global_phase, (a, b, c), K1l, K1r, K2l, K2r
 
+    # Reference: https://quantumai.google/reference/python/cirq/transformers/decompose_two_qubit_interaction_into_four_fsim_gates
+    def SYCDecomposer(self, U):
+        qc = QuantumCircuit(2)
+        # totally ignorning 1Q gates because we are just using this method for counting 2Q gate durations
+        qc.append(fSim(np.pi / 2, np.pi / 6), [0, 1])
+        qc.append(fSim(np.pi / 2, np.pi / 6), [0, 1])
+        qc.append(fSim(np.pi / 2, np.pi / 6), [0, 1])
+        qc.append(fSim(np.pi / 2, np.pi / 6), [0, 1])
+        return qc
+
     # Reference: https://arxiv.org/pdf/2105.06074.pdf
     def riswapWeylDecomp(self, U):
         """Decompose U into single qubit gates and the SQiSW gates"""
@@ -427,6 +437,8 @@ class RootiSwapWeylDecomposition(TransformationPass):
 
         if isinstance(self.basis_gate, RiSwapGate):
             self.decomposer = self.riswapWeylDecomp
+        if isinstance(self.basis_gate, fSim):
+            self.decomposer = self.SYCDecomposer
         else:
             self.decomposer = TwoQubitBasisDecomposer(self.basis_gate)
 

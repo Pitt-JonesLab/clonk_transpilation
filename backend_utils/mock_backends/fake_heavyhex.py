@@ -1,4 +1,5 @@
 import itertools
+from os import kill
 from cirq import XPowGate
 from backend_utils.configurable_backend_v2 import ConfigurableFakeBackendV2
 from qiskit.providers.models import BackendProperties
@@ -11,19 +12,72 @@ from utils.riswap_gates.riswap import RiSwapGate
 class FakeHeavyHex(ConfigurableFakeBackendV2):
     """A mock backendv2"""
 
-    def __init__(self, twoqubitgate="cr"):
+    def __init__(self, twoqubitgate="cr", enforce_max_84=True):
 
         from qiskit.transpiler.coupling import CouplingMap
 
         coupling_map = CouplingMap.from_heavy_hex(distance=7)
+        qubits = list(range(len(coupling_map.physical_qubits)))
+        # need to convert CouplingMap object to an edge list
+        coupling_map = list(coupling_map.get_edges())
+
+        if enforce_max_84:
+            # define list of nodes to remove
+            kill_list = [
+                68,
+                108,
+                40,
+                41,
+                72,
+                48,
+                114,
+                47,
+                113,
+                71,
+                107,
+                39,
+                106,
+                38,
+                105,
+                70,
+                111,
+                45,
+                112,
+                46,
+                37,
+                104,
+                36,
+                103,
+                35,
+                69,
+                109,
+                42,
+                43,
+                110,
+                44,
+            ]
+
+            # we also need to rename all the qubits as we place them back in!!!1
+            rename = {}
+            k = 0
+            for i in range(len(coupling_map)):
+                if i in kill_list:
+                    rename[i] = -1
+                else:
+                    rename[i] = k
+                    k += 1
+            # shoot, the coupling map is not well ordered I think I need to choose which to delete by hand
+            temp_coupling_map = []
+            for i, j in coupling_map:
+                if i not in kill_list and j not in kill_list:
+                    temp_coupling_map.append((rename[i], rename[j]))
+            coupling_map = temp_coupling_map
+            qubits = list(range(84))
+
         # choose 6 so roughly matches order of other large backends
         # num_qubits = 83.5
         # but have to round up to nearest odd integer so choose 7
         # qubits = list(range(115))
-        qubits = list(range(len(coupling_map.physical_qubits)))
-
-        # need to convert CouplingMap object to an edge list
-        coupling_map = list(coupling_map.get_edges())
 
         gate_configuration = {}
         gate_configuration[IGate] = [(i,) for i in qubits]
@@ -71,7 +125,7 @@ class FakeHeavyHex(ConfigurableFakeBackendV2):
                 CXGate: 2,
                 RiSwapGate: 2,  # time of iSwap
                 U3Gate: 0,
-                RZXGate: 2,
+                RZXGate: 2.478,
             },
             single_qubit_gates=["rz", "x", "y", "sx", "sxdg"]
             # qubit_coordinates=qubit_coordinates,

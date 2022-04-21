@@ -16187,5 +16187,9 @@
         }
       }
     }
-  }
+  },
+  "Diameter": 7.0,
+  "Avg_Distance": 3.3219954648526078,
+  "Degree": 7.0,
+  "Avg_Connectivity": 6.0
 }

@@ -11,7 +11,7 @@ from utils.riswap_gates.riswap import RiSwapGate
 class FakeHyperCubeV2(ConfigurableFakeBackendV2):
     """A mock backendv2"""
 
-    def __init__(self, n_dimension, twoqubitgate="cx"):
+    def __init__(self, n_dimension, twoqubitgate="cx", enforce_max_84=True):
         qubit_stack = list(range(2 ** n_dimension))
 
         def foo(n_dimension):
@@ -34,6 +34,24 @@ class FakeHyperCubeV2(ConfigurableFakeBackendV2):
         # redundant check to make sure bidirectional
         coupling_map += [(j, i) for i, j in coupling_map]
         coupling_map = list(set(coupling_map))
+
+        if enforce_max_84:
+            rename = {}
+            k = 0
+            kill_list = range(84, len(coupling_map))
+            for i in range(len(coupling_map)):
+                if i in kill_list:
+                    rename[i] = -1
+                else:
+                    rename[i] = k
+                    k += 1
+            # shoot, the coupling map is not well ordered I think I need to choose which to delete by hand
+            temp_coupling_map = []
+            for i, j in coupling_map:
+                if i not in kill_list and j not in kill_list:
+                    temp_coupling_map.append((rename[i], rename[j]))
+            coupling_map = temp_coupling_map
+            qubits = list(range(84))
 
         qubit_coordinates = None
         # TODO retworkx

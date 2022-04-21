@@ -5344,5 +5344,9 @@
         }
       }
     }
-  }
+  },
+  "Diameter": 3.0,
+  "Avg_Distance": 2.15,
+  "Degree": 7.0,
+  "Avg_Connectivity": 4.6
 }

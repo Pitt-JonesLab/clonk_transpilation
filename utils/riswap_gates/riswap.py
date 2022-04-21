@@ -48,3 +48,29 @@ class RiSwapGate(Gate):
             ],
             dtype=dtype,
         )
+
+
+class fSim(Gate):
+    """Nonfunction - just used for gate counting"""
+
+    def __init__(
+        self,
+        p1: ParameterValueType,
+        p2: ParameterValueType,
+        label: Optional[str] = None,
+    ):
+        super().__init__("fSim", 2, [p1, p2], label="fSim")
+
+    def __array__(self, dtype=None):
+        """Return a numpy.array for the RiSWAP gate."""
+        p1 = self.params[0]
+        p2 = self.params[1]
+        return np.array(
+            [
+                [1, 0, 0, 0],
+                [0, np.cos(p1), -1j * np.sin(p1), 0],
+                [0, 1j * np.sin(p1), np.cos(p1), 0],
+                [0, 0, 0, np.exp(-1j * p2)],
+            ],
+            dtype=dtype,
+        )

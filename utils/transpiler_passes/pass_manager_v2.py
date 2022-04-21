@@ -30,7 +30,7 @@ from utils.transpiler_passes.cost_analysis_pass import DurationCriticalPath
 
 # utils
 from utils.riswap_gates.equivalence_library import SessionEquivalenceLibrary as _sel
-from utils.riswap_gates.riswap import RiSwapGate
+from utils.riswap_gates.riswap import RiSwapGate, fSim
 from qiskit.circuit.library import CXGate, RZXGate
 
 
@@ -47,10 +47,14 @@ def level_0_pass_manager(
 
     if basis_gate == "riswap":
         basis_gate = RiSwapGate(0.5)
-    elif basis_gate == "CR":
+    elif basis_gate == "cr":
         import numpy as np
 
         basis_gate = RZXGate(np.pi / 2)
+    elif basis_gate == "syc":
+        import numpy as np
+
+        basis_gate = fSim(np.pi / 6, np.pi / 2)
     else:
         basis_gate = CXGate()
     pm0 = PassManager()
@@ -70,8 +74,8 @@ def level_0_pass_manager(
         # analysis pass for converting into SU(4)
         pm0.append(Collect2qBlocks())
 
-        # transformation pass to move to SU(4)
-        pm0.append(ConsolidateBlocks(kak_basis_gate=basis_gate, force_consolidate=True))
+        # transformation pass to move to SU(4), use CXGate here because gets overrided later
+        pm0.append(ConsolidateBlocks(kak_basis_gate=CXGate(), force_consolidate=True))
 
         # outputs a circuit of only 2Q SU(4) unitaries
         # is useful for visualizing minimal DAGs
