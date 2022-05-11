@@ -1,6 +1,5 @@
 import itertools
 from os import kill
-from cirq import XPowGate
 from backend_utils.configurable_backend_v2 import ConfigurableFakeBackendV2
 from qiskit.providers.models import BackendProperties
 from qiskit.providers.models.backendproperties import Nduv, Gate
@@ -20,11 +19,16 @@ class FakeHeavyHex(ConfigurableFakeBackendV2):
 
         if small:
             coupling_map = CouplingMap.from_heavy_hex(distance=3)
+            qubits = list(range(len(coupling_map.physical_qubits)))
+            coupling_map = list(coupling_map.get_edges())
+            coupling_map.append((5, 19))
+            qubits = list(range(20))
         else:
             coupling_map = CouplingMap.from_heavy_hex(distance=7)
-        qubits = list(range(len(coupling_map.physical_qubits)))
+            qubits = list(range(len(coupling_map.physical_qubits)))
+            coupling_map = list(coupling_map.get_edges())
+
         # need to convert CouplingMap object to an edge list
-        coupling_map = list(coupling_map.get_edges())
 
         if enforce_max_84:
             # define list of nodes to remove

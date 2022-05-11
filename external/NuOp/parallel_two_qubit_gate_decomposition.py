@@ -128,8 +128,8 @@ class TwoQubitGateSynthesizer:
             res = minimize(
                 self.cost_function,
                 init,
-                method="BFGS",
-                # constraints=constraints,
+                # method="BFGS",
+                constraints=constraints,
                 options={"maxiter": 1000 * 30},
             )
             results.append(res)
@@ -244,6 +244,7 @@ class ParallelGateReplacementPass(TransformationPass):
         tol=1e-3,
         decompose_swaps=True,
         force_gate_count=None,
+        trotterization=False,
     ):
         self.gate_defs = gate_defs
         self.gate_params = gate_params

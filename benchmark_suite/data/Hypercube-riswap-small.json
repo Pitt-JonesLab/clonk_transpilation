@@ -3,142 +3,130 @@
     "Quantum_Volume": {
       "duration": {
         "4": {
-          "rz": 36,
-          "sx": 24,
-          "riswap": 11,
-          "swap": 3
+          "sx": 23,
+          "rz": 34,
+          "riswap": 11
         },
         "6": {
-          "rz": 45,
-          "sx": 30,
-          "swap": 4,
-          "riswap": 14
+          "rz": 80,
+          "sx": 53,
+          "riswap": 26
         },
         "8": {
-          "rz": 63,
-          "sx": 42,
-          "swap": 6,
-          "riswap": 20
-        },
-        "10": {
-          "rz": 78,
-          "sx": 52,
-          "swap": 9,
-          "riswap": 25
-        },
-        "12": {
-          "rz": 90,
-          "sx": 60,
-          "swap": 13,
-          "riswap": 29
-        },
-        "14": {
-          "rz": 108,
-          "sx": 72,
-          "swap": 19,
+          "rz": 107,
+          "sx": 71,
           "riswap": 35
         },
+        "10": {
+          "rz": 181,
+          "x": 1,
+          "riswap": 60,
+          "sx": 120
+        },
+        "12": {
+          "rz": 197,
+          "sx": 131,
+          "riswap": 65
+        },
+        "14": {
+          "rz": 344,
+          "sx": 229,
+          "riswap": 114
+        },
         "16": {
-          "rz": 123,
-          "sx": 82,
-          "swap": 30,
-          "riswap": 40
+          "rz": 449,
+          "sx": 299,
+          "riswap": 149
         }
       },
       "preswap_gate_count": {
         "4": {
-          "rz": 126,
-          "sx": 84,
-          "swap": 6,
-          "riswap": 19
+          "rz": 66,
+          "sx": 44,
+          "swap": 3,
+          "riswap": 9
         },
         "6": {
-          "rz": 234,
-          "sx": 156,
-          "swap": 17,
-          "riswap": 36
+          "rz": 216,
+          "sx": 144,
+          "swap": 14,
+          "riswap": 33
         },
         "8": {
-          "rz": 396,
-          "sx": 264,
-          "swap": 31,
-          "riswap": 62
+          "rz": 390,
+          "sx": 260,
+          "swap": 19,
+          "riswap": 61
         },
         "10": {
           "rz": 648,
           "sx": 432,
-          "swap": 41,
+          "swap": 50,
           "riswap": 103
         },
         "12": {
-          "rz": 894,
-          "sx": 596,
-          "swap": 64,
-          "riswap": 143
+          "rz": 912,
+          "sx": 608,
+          "swap": 63,
+          "riswap": 146
         },
         "14": {
-          "rz": 1218,
-          "sx": 812,
-          "swap": 73,
-          "riswap": 196
+          "rz": 1164,
+          "sx": 776,
+          "swap": 83,
+          "riswap": 187
         },
         "16": {
           "rz": 1614,
           "sx": 1076,
-          "swap": 114,
+          "swap": 125,
           "riswap": 261
         }
       },
       "gate_count": {
         "4": {
-          "rz": 126,
-          "sx": 84,
-          "swap": 6,
-          "riswap": 19
+          "riswap": 18,
+          "rz": 119,
+          "sx": 81
         },
         "6": {
-          "rz": 234,
-          "sx": 156,
-          "swap": 17,
-          "riswap": 36
+          "riswap": 70,
+          "rz": 440,
+          "sx": 293
         },
         "8": {
-          "rz": 396,
-          "sx": 264,
-          "swap": 31,
-          "riswap": 62
+          "riswap": 106,
+          "rz": 664,
+          "sx": 442
         },
         "10": {
-          "rz": 648,
-          "sx": 432,
-          "swap": 41,
-          "riswap": 103
+          "riswap": 231,
+          "rz": 1409,
+          "sx": 937,
+          "x": 1
         },
         "12": {
-          "rz": 894,
-          "sx": 596,
-          "swap": 64,
-          "riswap": 143
+          "riswap": 286,
+          "sx": 1158,
+          "rz": 1733
         },
         "14": {
-          "rz": 1218,
-          "sx": 812,
-          "swap": 73,
-          "riswap": 196
+          "riswap": 418,
+          "rz": 2506,
+          "sx": 1662
         },
         "16": {
-          "rz": 1614,
-          "sx": 1076,
-          "swap": 114,
-          "riswap": 261
+          "riswap": 599,
+          "sx": 2343,
+          "rz": 3543
         }
       },
       "preswap_gate_count_crit": {
         "4": {
-          "rz": 36,
-          "sx": 24,
-          "riswap": 11,
-          "swap": 3
+          "rz": 18,
+          "sx": 12,
+          "swap": 2,
+          "riswap": 5
         },
         "6": {
           "rz": 45,
@@ -147,16 +135,16 @@
           "riswap": 14
         },
         "8": {
-          "rz": 63,
-          "sx": 42,
-          "swap": 6,
-          "riswap": 20
+          "rz": 60,
+          "sx": 40,
+          "swap": 3,
+          "riswap": 19
         },
         "10": {
-          "rz": 78,
-          "sx": 52,
+          "rz": 81,
+          "sx": 54,
           "swap": 9,
-          "riswap": 25
+          "riswap": 26
         },
         "12": {
           "rz": 90,
@@ -165,16 +153,16 @@
           "riswap": 29
         },
         "14": {
-          "rz": 108,
-          "sx": 72,
-          "swap": 19,
-          "riswap": 35
+          "rz": 105,
+          "sx": 70,
+          "swap": 23,
+          "riswap": 34
         },
         "16": {
-          "rz": 123,
-          "sx": 82,
-          "swap": 30,
-          "riswap": 40
+          "rz": 129,
+          "sx": 86,
+          "swap": 33,
+          "riswap": 42
         }
       },
       "layout_score": {
@@ -199,46 +187,40 @@
     "QFT": {
       "duration": {
         "4": {
-          "rz": 38,
-          "sx": 28,
-          "riswap": 13,
-          "swap": 3
+          "rz": 86,
+          "sx": 58,
+          "riswap": 28
         },
         "6": {
-          "rz": 57,
-          "sx": 43,
-          "riswap": 22,
-          "swap": 11
+          "rz": 224,
+          "sx": 149,
+          "riswap": 81
         },
         "8": {
-          "rz": 81,
-          "sx": 58,
-          "riswap": 31,
-          "swap": 15
+          "rz": 254,
+          "sx": 169,
+          "riswap": 92
         },
         "10": {
-          "rz": 96,
-          "sx": 75,
-          "riswap": 40,
-          "swap": 35
+          "rz": 388,
+          "sx": 258,
+          "riswap": 140
         },
         "12": {
-          "rz": 121,
-          "sx": 90,
-          "riswap": 50,
-          "swap": 43
+          "rz": 608,
+          "sx": 395,
+          "riswap": 224,
+          "x": 1
         },
         "14": {
-          "rz": 140,
-          "sx": 108,
-          "riswap": 57,
-          "swap": 55
+          "rz": 639,
+          "sx": 418,
+          "riswap": 233
         },
         "16": {
-          "rz": 164,
-          "sx": 119,
-          "riswap": 68,
-          "swap": 44
+          "rz": 903,
+          "sx": 595,
+          "riswap": 331
         }
       },
       "preswap_gate_count": {
@@ -246,7 +228,7 @@
           "rz": 96,
           "sx": 68,
           "riswap": 18,
-          "swap": 6
+          "swap": 8
         },
         "6": {
           "rz": 194,
@@ -258,13 +240,13 @@
           "rz": 328,
           "sx": 232,
           "riswap": 68,
-          "swap": 35
+          "swap": 38
         },
         "10": {
           "sx": 350,
           "rz": 498,
           "riswap": 105,
-          "swap": 83
+          "swap": 69
         },
         "12": {
           "sx": 492,
@@ -273,60 +255,57 @@
           "swap": 117
         },
         "14": {
-          "rz": 939,
           "sx": 658,
+          "rz": 939,
           "riswap": 203,
-          "swap": 150
+          "swap": 127
         },
         "16": {
           "rz": 1219,
           "sx": 848,
           "riswap": 264,
-          "swap": 167
+          "swap": 184
         }
       },
       "gate_count": {
         "4": {
-          "rz": 96,
-          "sx": 68,
-          "riswap": 18,
-          "swap": 6
+          "riswap": 43,
+          "rz": 250,
+          "sx": 163
         },
         "6": {
-          "rz": 194,
-          "sx": 138,
-          "riswap": 39,
-          "swap": 26
+          "riswap": 126,
+          "rz": 696,
+          "sx": 458
         },
         "8": {
-          "rz": 328,
-          "sx": 232,
-          "riswap": 68,
-          "swap": 35
+          "riswap": 184,
+          "rz": 1003,
+          "sx": 663
         },
         "10": {
-          "sx": 350,
-          "rz": 498,
-          "riswap": 105,
-          "swap": 83
+          "riswap": 313,
+          "rz": 1691,
+          "sx": 1116,
+          "x": 1
         },
         "12": {
-          "sx": 492,
-          "rz": 701,
-          "riswap": 150,
-          "swap": 117
+          "riswap": 540,
+          "rz": 2849,
+          "sx": 1881,
+          "x": 2
         },
         "14": {
-          "rz": 939,
-          "sx": 658,
-          "riswap": 203,
-          "swap": 150
+          "riswap": 603,
+          "sx": 2103,
+          "rz": 3185,
+          "x": 3
         },
         "16": {
-          "rz": 1219,
-          "sx": 848,
-          "riswap": 264,
-          "swap": 167
+          "riswap": 889,
+          "rz": 4614,
+          "sx": 3043,
+          "x": 2
         }
       },
       "preswap_gate_count_crit": {
@@ -334,43 +313,43 @@
           "rz": 38,
           "sx": 28,
           "riswap": 13,
-          "swap": 3
+          "swap": 4
         },
         "6": {
-          "rz": 57,
-          "sx": 43,
-          "riswap": 22,
+          "rz": 55,
+          "sx": 44,
+          "riswap": 25,
           "swap": 11
         },
         "8": {
-          "rz": 81,
+          "rz": 82,
           "sx": 58,
-          "riswap": 31,
-          "swap": 15
+          "riswap": 29,
+          "swap": 13
         },
         "10": {
-          "rz": 96,
-          "sx": 75,
-          "riswap": 40,
-          "swap": 35
+          "rz": 99,
+          "sx": 76,
+          "riswap": 41,
+          "swap": 25
         },
         "12": {
-          "rz": 121,
-          "sx": 90,
-          "riswap": 50,
-          "swap": 43
+          "rz": 120,
+          "sx": 89,
+          "riswap": 49,
+          "swap": 37
         },
         "14": {
-          "rz": 140,
+          "rz": 141,
           "sx": 108,
-          "riswap": 57,
-          "swap": 55
+          "riswap": 58,
+          "swap": 39
         },
         "16": {
-          "rz": 164,
+          "rz": 161,
           "sx": 119,
-          "riswap": 68,
-          "swap": 44
+          "riswap": 70,
+          "swap": 61
         }
       },
       "layout_score": {
@@ -395,227 +374,206 @@
     "QAOA_Vanilla": {
       "duration": {
         "4": {
-          "rz": 33,
-          "sx": 22,
-          "swap": 3,
-          "riswap": 10,
+          "rz": 72,
+          "sx": 48,
+          "riswap": 25,
           "measure": 1
         },
         "6": {
-          "rz": 58,
-          "sx": 38,
-          "riswap": 20,
-          "swap": 8,
+          "rz": 114,
+          "sx": 77,
+          "riswap": 39,
           "measure": 1
         },
         "8": {
-          "rz": 74,
-          "sx": 46,
-          "riswap": 26,
-          "swap": 14,
-          "measure": 1
+          "rz": 188,
+          "sx": 126,
+          "riswap": 62,
+          "measure": 2
         },
         "10": {
-          "rz": 107,
-          "sx": 73,
-          "swap": 29,
-          "riswap": 46,
-          "x": 5,
+          "rz": 316,
+          "sx": 209,
+          "riswap": 109,
           "measure": 1
         },
         "12": {
-          "rz": 120,
-          "sx": 84,
-          "swap": 30,
-          "riswap": 48,
-          "x": 2,
+          "rz": 425,
+          "sx": 279,
+          "riswap": 150,
           "measure": 1
         },
         "14": {
-          "rz": 168,
-          "sx": 110,
-          "swap": 35,
-          "riswap": 70,
-          "x": 5,
+          "rz": 643,
+          "sx": 428,
+          "riswap": 227,
+          "x": 1,
           "measure": 1
         },
         "16": {
-          "rz": 192,
-          "sx": 124,
-          "swap": 52,
-          "riswap": 85,
-          "x": 3,
+          "rz": 729,
+          "sx": 479,
+          "riswap": 263,
           "measure": 1
         }
       },
       "preswap_gate_count": {
         "4": {
-          "rz": 64,
-          "sx": 40,
-          "swap": 6,
+          "rz": 67,
+          "sx": 42,
           "riswap": 12,
-          "x": 1,
+          "swap": 5,
           "measure": 4
         },
         "6": {
-          "rz": 143,
-          "sx": 89,
-          "swap": 20,
+          "rz": 139,
+          "sx": 82,
+          "swap": 15,
           "riswap": 30,
-          "x": 3,
+          "x": 4,
           "measure": 6
         },
         "8": {
-          "rz": 256,
-          "sx": 152,
+          "rz": 252,
+          "sx": 151,
+          "swap": 32,
           "riswap": 56,
-          "x": 5,
-          "swap": 33,
+          "x": 10,
           "measure": 8
         },
         "10": {
-          "rz": 394,
-          "sx": 233,
-          "swap": 63,
+          "rz": 378,
+          "sx": 221,
+          "swap": 64,
           "riswap": 90,
-          "x": 10,
+          "x": 15,
           "measure": 10
         },
         "12": {
-          "rz": 588,
-          "sx": 353,
-          "swap": 91,
+          "rz": 571,
+          "sx": 340,
+          "swap": 78,
           "riswap": 132,
-          "x": 13,
+          "x": 17,
           "measure": 12
         },
         "14": {
-          "rz": 753,
-          "sx": 433,
-          "swap": 122,
+          "rz": 758,
+          "sx": 443,
+          "swap": 129,
           "riswap": 182,
-          "x": 25,
+          "x": 29,
           "measure": 14
         },
         "16": {
-          "rz": 991,
-          "sx": 575,
-          "swap": 160,
+          "rz": 1008,
+          "sx": 584,
+          "swap": 169,
           "riswap": 240,
-          "x": 33,
+          "x": 35,
           "measure": 16
         }
       },
       "gate_count": {
         "4": {
-          "rz": 64,
-          "sx": 40,
-          "swap": 6,
-          "riswap": 12,
-          "x": 1,
-          "measure": 4
+          "measure": 4,
+          "riswap": 27,
+          "rz": 150,
+          "sx": 98
         },
         "6": {
-          "rz": 143,
-          "sx": 89,
-          "swap": 20,
-          "riswap": 30,
-          "x": 3,
-          "measure": 6
+          "measure": 6,
+          "riswap": 73,
+          "sx": 269,
+          "rz": 402
         },
         "8": {
-          "rz": 256,
-          "sx": 152,
-          "riswap": 56,
-          "x": 5,
-          "swap": 33,
-          "measure": 8
+          "measure": 8,
+          "riswap": 150,
+          "sx": 564,
+          "rz": 861
         },
         "10": {
-          "rz": 394,
-          "sx": 233,
-          "swap": 63,
-          "riswap": 90,
-          "x": 10,
-          "measure": 10
+          "measure": 10,
+          "riswap": 272,
+          "rz": 1520,
+          "sx": 1004,
+          "x": 1
         },
         "12": {
-          "rz": 588,
-          "sx": 353,
-          "swap": 91,
-          "riswap": 132,
-          "x": 13,
-          "measure": 12
+          "measure": 12,
+          "riswap": 370,
+          "sx": 1323,
+          "rz": 2016
         },
         "14": {
-          "rz": 753,
-          "sx": 433,
-          "swap": 122,
-          "riswap": 182,
-          "x": 25,
-          "measure": 14
+          "measure": 14,
+          "riswap": 568,
+          "sx": 2060,
+          "rz": 3109,
+          "x": 1
         },
         "16": {
-          "rz": 991,
-          "sx": 575,
-          "swap": 160,
-          "riswap": 240,
-          "x": 33,
-          "measure": 16
+          "measure": 16,
+          "riswap": 739,
+          "rz": 4019,
+          "sx": 2659
         }
       },
       "preswap_gate_count_crit": {
         "4": {
-          "rz": 33,
+          "rz": 31,
           "sx": 22,
-          "swap": 3,
           "riswap": 10,
+          "swap": 3,
           "measure": 1
         },
         "6": {
-          "rz": 58,
-          "sx": 38,
-          "riswap": 20,
-          "swap": 8,
+          "rz": 56,
+          "sx": 35,
+          "swap": 6,
+          "riswap": 22,
+          "x": 2,
           "measure": 1
         },
         "8": {
           "rz": 74,
-          "sx": 46,
-          "riswap": 26,
-          "swap": 14,
+          "sx": 47,
+          "swap": 11,
+          "riswap": 28,
+          "x": 3,
           "measure": 1
         },
         "10": {
-          "rz": 107,
-          "sx": 73,
-          "swap": 29,
-          "riswap": 46,
-          "x": 5,
+          "rz": 115,
+          "sx": 74,
+          "swap": 22,
+          "riswap": 45,
+          "x": 3,
           "measure": 1
         },
         "12": {
-          "rz": 120,
-          "sx": 84,
-          "swap": 30,
-          "riswap": 48,
-          "x": 2,
-          "measure": 1
-        },
-        "14": {
-          "rz": 168,
-          "sx": 110,
-          "swap": 35,
-          "riswap": 70,
+          "rz": 141,
+          "sx": 92,
+          "swap": 24,
+          "riswap": 55,
           "x": 5,
           "measure": 1
         },
+        "14": {
+          "rz": 156,
+          "sx": 101,
+          "riswap": 65,
+          "swap": 39,
+          "x": 4,
+          "measure": 1
+        },
         "16": {
-          "rz": 192,
-          "sx": 124,
-          "swap": 52,
-          "riswap": 85,
-          "x": 3,
+          "rz": 211,
+          "sx": 141,
+          "swap": 44,
+          "riswap": 84,
+          "x": 6,
           "measure": 1
         }
       },
@@ -641,52 +599,45 @@
     "TIM_Hamiltonian": {
       "duration": {
         "4": {
-          "rz": 69,
-          "sx": 46,
-          "swap": 1,
-          "riswap": 22,
+          "rz": 106,
+          "sx": 71,
+          "riswap": 35,
           "measure": 1
         },
         "6": {
-          "rz": 81,
-          "sx": 54,
-          "riswap": 26,
-          "swap": 12,
-          "measure": 1
-        },
-        "8": {
-          "rz": 93,
-          "sx": 62,
-          "swap": 8,
-          "riswap": 30,
-          "measure": 1
-        },
-        "10": {
-          "rz": 105,
-          "sx": 70,
-          "swap": 8,
+          "rz": 102,
+          "sx": 69,
           "riswap": 34,
           "measure": 1
         },
+        "8": {
+          "rz": 190,
+          "sx": 127,
+          "riswap": 63,
+          "measure": 1
+        },
+        "10": {
+          "rz": 222,
+          "sx": 148,
+          "riswap": 74,
+          "measure": 1
+        },
         "12": {
-          "rz": 117,
-          "sx": 78,
-          "riswap": 38,
-          "swap": 15,
+          "rz": 209,
+          "sx": 140,
+          "riswap": 70,
           "measure": 1
         },
         "14": {
-          "rz": 129,
-          "sx": 86,
-          "riswap": 42,
-          "swap": 8,
+          "rz": 189,
+          "sx": 128,
+          "riswap": 63,
           "measure": 1
         },
         "16": {
-          "rz": 141,
-          "sx": 94,
-          "riswap": 46,
-          "swap": 12,
+          "rz": 304,
+          "sx": 205,
+          "riswap": 103,
           "measure": 1
         }
       },
@@ -694,7 +645,7 @@
         "4": {
           "rz": 161,
           "sx": 97,
-          "swap": 1,
+          "swap": 5,
           "riswap": 30,
           "measure": 4
         },
@@ -702,7 +653,7 @@
           "rz": 267,
           "sx": 161,
           "riswap": 50,
-          "swap": 13,
+          "swap": 6,
           "measure": 6
         },
         "8": {
@@ -730,73 +681,66 @@
           "rz": 691,
           "sx": 417,
           "riswap": 130,
-          "swap": 22,
+          "swap": 23,
           "measure": 14
         },
         "16": {
           "rz": 797,
           "sx": 481,
           "riswap": 150,
-          "swap": 32,
+          "swap": 48,
           "measure": 16
         }
       },
       "gate_count": {
         "4": {
-          "rz": 161,
-          "sx": 97,
-          "swap": 1,
-          "riswap": 30,
-          "measure": 4
+          "measure": 4,
+          "riswap": 43,
+          "rz": 235,
+          "sx": 149
         },
         "6": {
-          "rz": 267,
-          "sx": 161,
-          "riswap": 50,
-          "swap": 13,
-          "measure": 6
+          "measure": 6,
+          "riswap": 68,
+          "sx": 232,
+          "rz": 370
         },
         "8": {
-          "rz": 373,
-          "sx": 225,
-          "swap": 16,
-          "riswap": 70,
-          "measure": 8
+          "measure": 8,
+          "riswap": 118,
+          "rz": 636,
+          "sx": 408
         },
         "10": {
-          "rz": 479,
-          "sx": 289,
-          "swap": 15,
-          "riswap": 90,
-          "measure": 10
+          "measure": 10,
+          "riswap": 133,
+          "sx": 452,
+          "rz": 708
         },
         "12": {
-          "rz": 585,
-          "sx": 353,
-          "riswap": 110,
-          "swap": 30,
-          "measure": 12
+          "measure": 12,
+          "riswap": 196,
+          "sx": 687,
+          "rz": 1064
         },
         "14": {
-          "rz": 691,
-          "sx": 417,
-          "riswap": 130,
-          "swap": 22,
-          "measure": 14
+          "measure": 14,
+          "riswap": 195,
+          "sx": 670,
+          "rz": 1046
         },
         "16": {
-          "rz": 797,
-          "sx": 481,
-          "riswap": 150,
-          "swap": 32,
-          "measure": 16
+          "measure": 16,
+          "riswap": 288,
+          "sx": 1024,
+          "rz": 1585
         }
       },
       "preswap_gate_count_crit": {
         "4": {
           "rz": 69,
           "sx": 46,
-          "swap": 1,
+          "swap": 5,
           "riswap": 22,
           "measure": 1
         },
@@ -804,20 +748,20 @@
           "rz": 81,
           "sx": 54,
           "riswap": 26,
-          "swap": 12,
+          "swap": 2,
           "measure": 1
         },
         "8": {
           "rz": 93,
           "sx": 62,
-          "swap": 8,
+          "swap": 11,
           "riswap": 30,
           "measure": 1
         },
         "10": {
           "rz": 105,
           "sx": 70,
-          "swap": 8,
+          "swap": 14,
           "riswap": 34,
           "measure": 1
         },
@@ -825,21 +769,21 @@
           "rz": 117,
           "sx": 78,
           "riswap": 38,
-          "swap": 15,
+          "swap": 11,
           "measure": 1
         },
         "14": {
           "rz": 129,
           "sx": 86,
           "riswap": 42,
-          "swap": 8,
+          "swap": 6,
           "measure": 1
         },
         "16": {
           "rz": 141,
           "sx": 94,
           "riswap": 46,
-          "swap": 12,
+          "swap": 20,
           "measure": 1
         }
       },
@@ -865,46 +809,40 @@
     "Adder": {
       "duration": {
         "4": {
-          "rz": 85,
-          "sx": 58,
-          "riswap": 28,
-          "swap": 5
+          "rz": 96,
+          "sx": 64,
+          "riswap": 31
         },
         "6": {
-          "rz": 156,
-          "sx": 106,
-          "swap": 12,
-          "riswap": 52
+          "rz": 220,
+          "sx": 147,
+          "riswap": 74
         },
         "8": {
-          "rz": 227,
-          "sx": 154,
-          "riswap": 76,
-          "swap": 10
+          "x": 1,
+          "rz": 277,
+          "riswap": 93,
+          "sx": 185
         },
         "10": {
-          "rz": 298,
-          "sx": 202,
-          "swap": 23,
-          "riswap": 100
+          "rz": 490,
+          "sx": 328,
+          "riswap": 164
         },
         "12": {
-          "rz": 369,
-          "sx": 250,
-          "swap": 27,
-          "riswap": 124
+          "rz": 583,
+          "sx": 391,
+          "riswap": 196
         },
         "14": {
-          "rz": 440,
-          "sx": 298,
-          "swap": 26,
-          "riswap": 148
+          "rz": 583,
+          "sx": 390,
+          "riswap": 195
         },
         "16": {
-          "rz": 511,
-          "sx": 346,
-          "swap": 26,
-          "riswap": 172
+          "rz": 710,
+          "sx": 474,
+          "riswap": 238
         }
       },
       "preswap_gate_count": {
@@ -912,87 +850,86 @@
           "rz": 169,
           "sx": 119,
           "riswap": 30,
-          "swap": 8
+          "swap": 4
         },
         "6": {
           "rz": 321,
           "sx": 226,
-          "swap": 19,
+          "swap": 11,
           "riswap": 58
         },
         "8": {
           "rz": 473,
           "sx": 333,
-          "swap": 21,
+          "swap": 20,
           "riswap": 86
         },
         "10": {
           "rz": 625,
           "sx": 440,
-          "swap": 43,
+          "swap": 38,
           "riswap": 114
         },
         "12": {
           "rz": 777,
           "sx": 547,
-          "swap": 46,
+          "swap": 44,
           "riswap": 142
         },
         "14": {
           "rz": 929,
           "sx": 654,
-          "swap": 56,
+          "swap": 39,
           "riswap": 170
         },
         "16": {
           "rz": 1081,
           "sx": 761,
-          "swap": 57,
+          "swap": 46,
           "riswap": 198
         }
       },
       "gate_count": {
         "4": {
-          "rz": 169,
-          "sx": 119,
-          "riswap": 30,
-          "swap": 8
+          "riswap": 33,
+          "sx": 109,
+          "rz": 173,
+          "x": 1
         },
         "6": {
-          "rz": 321,
-          "sx": 226,
-          "swap": 19,
-          "riswap": 58
+          "riswap": 85,
+          "rz": 460,
+          "sx": 296
         },
         "8": {
-          "rz": 473,
-          "sx": 333,
-          "swap": 21,
-          "riswap": 86
+          "riswap": 134,
+          "rz": 728,
+          "sx": 463,
+          "x": 4
         },
         "10": {
-          "rz": 625,
-          "sx": 440,
-          "swap": 43,
-          "riswap": 114
+          "riswap": 216,
+          "sx": 769,
+          "rz": 1186,
+          "x": 3
         },
         "12": {
-          "rz": 777,
-          "sx": 547,
-          "swap": 46,
-          "riswap": 142
+          "riswap": 262,
+          "rz": 1433,
+          "sx": 928,
+          "x": 2
         },
         "14": {
-          "rz": 929,
-          "sx": 654,
-          "swap": 56,
-          "riswap": 170
+          "riswap": 267,
+          "rz": 1442,
+          "sx": 926,
+          "x": 2
         },
         "16": {
-          "rz": 1081,
-          "sx": 761,
-          "swap": 57,
-          "riswap": 198
+          "riswap": 315,
+          "rz": 1698,
+          "sx": 1084,
+          "x": 1
         }
       },
       "preswap_gate_count_crit": {
@@ -1000,42 +937,42 @@
           "rz": 85,
           "sx": 58,
           "riswap": 28,
-          "swap": 5
+          "swap": 3
         },
         "6": {
           "rz": 156,
           "sx": 106,
-          "swap": 12,
+          "swap": 8,
           "riswap": 52
         },
         "8": {
           "rz": 227,
           "sx": 154,
           "riswap": 76,
-          "swap": 10
+          "swap": 7
         },
         "10": {
           "rz": 298,
           "sx": 202,
-          "swap": 23,
+          "swap": 21,
           "riswap": 100
         },
         "12": {
           "rz": 369,
           "sx": 250,
-          "swap": 27,
+          "swap": 24,
           "riswap": 124
         },
         "14": {
           "rz": 440,
           "sx": 298,
-          "swap": 26,
-          "riswap": 148
+          "riswap": 148,
+          "swap": 18
         },
         "16": {
           "rz": 511,
           "sx": 346,
-          "swap": 26,
+          "swap": 23,
           "riswap": 172
         }
       },
@@ -1061,52 +998,45 @@
     "GHZ": {
       "duration": {
         "4": {
-          "rz": 21,
-          "sx": 14,
-          "swap": 1,
-          "riswap": 6,
+          "rz": 29,
+          "sx": 19,
+          "riswap": 9,
           "measure": 1
         },
         "6": {
-          "rz": 33,
-          "sx": 22,
-          "riswap": 10,
-          "swap": 2,
-          "measure": 1
-        },
-        "8": {
-          "rz": 45,
-          "sx": 30,
-          "swap": 5,
+          "rz": 43,
+          "sx": 28,
           "riswap": 14,
           "measure": 1
         },
+        "8": {
+          "rz": 78,
+          "sx": 51,
+          "riswap": 26,
+          "measure": 1
+        },
         "10": {
-          "rz": 57,
-          "sx": 38,
-          "swap": 8,
-          "riswap": 18,
+          "rz": 90,
+          "sx": 59,
+          "riswap": 30,
           "measure": 1
         },
         "12": {
-          "rz": 69,
-          "sx": 46,
-          "riswap": 22,
-          "swap": 8,
-          "measure": 1
+          "rz": 121,
+          "sx": 81,
+          "riswap": 41,
+          "measure": 2
         },
         "14": {
-          "rz": 81,
-          "sx": 54,
-          "riswap": 26,
-          "swap": 9,
-          "measure": 1
+          "rz": 154,
+          "sx": 101,
+          "riswap": 51,
+          "measure": 2
         },
         "16": {
-          "rz": 93,
-          "sx": 62,
-          "riswap": 30,
-          "swap": 9,
+          "rz": 167,
+          "sx": 112,
+          "riswap": 57,
           "measure": 1
         }
       },
@@ -1114,7 +1044,7 @@
         "4": {
           "rz": 45,
           "sx": 30,
-          "swap": 1,
+          "swap": 2,
           "riswap": 6,
           "measure": 4
         },
@@ -1122,20 +1052,20 @@
           "rz": 75,
           "sx": 50,
           "riswap": 10,
-          "swap": 4,
+          "swap": 3,
           "measure": 6
         },
         "8": {
           "rz": 105,
           "sx": 70,
-          "swap": 8,
+          "swap": 6,
           "riswap": 14,
           "measure": 8
         },
         "10": {
           "rz": 135,
           "sx": 90,
-          "swap": 12,
+          "swap": 8,
           "riswap": 18,
           "measure": 10
         },
@@ -1143,80 +1073,73 @@
           "rz": 165,
           "sx": 110,
           "riswap": 22,
-          "swap": 14,
+          "swap": 11,
           "measure": 12
         },
         "14": {
           "rz": 195,
           "sx": 130,
           "riswap": 26,
-          "swap": 13,
+          "swap": 17,
           "measure": 14
         },
         "16": {
           "rz": 225,
           "sx": 150,
           "riswap": 30,
-          "swap": 17,
+          "swap": 16,
           "measure": 16
         }
       },
       "gate_count": {
         "4": {
-          "rz": 45,
-          "sx": 30,
-          "swap": 1,
-          "riswap": 6,
-          "measure": 4
+          "measure": 4,
+          "riswap": 9,
+          "rz": 50,
+          "sx": 33
         },
         "6": {
-          "rz": 75,
-          "sx": 50,
-          "riswap": 10,
-          "swap": 4,
-          "measure": 6
+          "measure": 6,
+          "riswap": 16,
+          "rz": 89,
+          "sx": 57
         },
         "8": {
-          "rz": 105,
-          "sx": 70,
-          "swap": 8,
-          "riswap": 14,
-          "measure": 8
+          "measure": 8,
+          "riswap": 32,
+          "sx": 119,
+          "rz": 179
         },
         "10": {
-          "rz": 135,
-          "sx": 90,
-          "swap": 12,
-          "riswap": 18,
-          "measure": 10
+          "measure": 10,
+          "riswap": 39,
+          "rz": 208,
+          "sx": 138
         },
         "12": {
-          "rz": 165,
-          "sx": 110,
-          "riswap": 22,
-          "swap": 14,
-          "measure": 12
+          "measure": 12,
+          "riswap": 46,
+          "sx": 174,
+          "rz": 263
         },
         "14": {
-          "rz": 195,
-          "sx": 130,
-          "riswap": 26,
-          "swap": 13,
-          "measure": 14
+          "measure": 14,
+          "riswap": 71,
+          "sx": 263,
+          "rz": 401
         },
         "16": {
-          "rz": 225,
-          "sx": 150,
-          "riswap": 30,
-          "swap": 17,
-          "measure": 16
+          "measure": 16,
+          "riswap": 78,
+          "rz": 436,
+          "sx": 292
         }
       },
       "preswap_gate_count_crit": {
         "4": {
           "rz": 21,
           "sx": 14,
-          "swap": 1,
+          "swap": 2,
           "riswap": 6,
           "measure": 1
         },
@@ -1230,14 +1153,14 @@
         "8": {
           "rz": 45,
           "sx": 30,
-          "swap": 5,
+          "swap": 4,
           "riswap": 14,
           "measure": 1
         },
         "10": {
           "rz": 57,
           "sx": 38,
-          "swap": 8,
+          "swap": 5,
           "riswap": 18,
           "measure": 1
         },
@@ -1245,14 +1168,14 @@
           "rz": 69,
           "sx": 46,
           "riswap": 22,
-          "swap": 8,
+          "swap": 9,
           "measure": 1
         },
         "14": {
           "rz": 81,
           "sx": 54,
           "riswap": 26,
-          "swap": 9,
+          "swap": 10,
           "measure": 1
         },
         "16": {

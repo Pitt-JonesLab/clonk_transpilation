@@ -1,6 +1,4 @@
 import itertools
-
-from cirq import XPowGate
 from backend_utils.configurable_backend_v2 import ConfigurableFakeBackendV2
 from qiskit.providers.models import BackendProperties
 from qiskit.providers.models.backendproperties import Nduv, Gate

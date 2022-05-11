@@ -178,6 +178,8 @@ fake_small_tree_rr = FakeHatlab(
 )
 fake_corralv1 = FakeHyperCubeSnail(corral_skip_pattern=(0, 0), twoqubitgate="riswap")
 fake_corralv2 = FakeHyperCubeSnail(corral_skip_pattern=(0, 1), twoqubitgate="riswap")
+fake_corralv3 = FakeHyperCubeSnail(corral_skip_pattern=(0, 2), twoqubitgate="riswap")
+fake_corralv4 = FakeHyperCubeSnail(corral_skip_pattern=(1, 2), twoqubitgate="riswap")
 fake_small_hypercube = FakeHyperCubeV2(
     n_dimension=4, twoqubitgate="riswap", enforce_max_84=False
 )
@@ -204,6 +206,16 @@ _small_results = [
     fake_small_tree_rr,
     fake_corralv1,
     fake_corralv2,
+    fake_corralv3,
+    fake_corralv4,
+]
+_small_results_part2 = [
+    fake_small_heavy_hex,
+    fake_small_surfaceCode,
+    fake_small_tree,
+    fake_small_tree_rr,
+    fake_small_hypercube,
+    fake_corralv1
 ]
 # results, decompose swaps first, so it doesn't need to generate data twice
 # for small, need to adjust labels so differs in save data
@@ -231,11 +243,29 @@ for backend, basis_gate in zip(_small_motivation, basis_gates):
     small_motivation_backends.append(BackendTranspilerBenchmark(backend, pm, label))
 
 small_results_backends = []
-basis_gates = ["syc", "riswap", "riswap", "riswap", "riswap", "riswap"]
+basis_gates = [
+    "syc",
+    "riswap",
+    "riswap",
+    "riswap",
+    "riswap",
+    "riswap"]
+#     ,
+#     "riswap",
+#     "riswap",
+# ]
 for backend, basis_gate in zip(_small_results, basis_gates):
     pm = level_0_pass_manager(backend, basis_gate=basis_gate, decompose_swaps=False)
     label = backend.name + "-small"
     small_results_backends.append(BackendTranspilerBenchmark(backend, pm, label))
+
+small_results_part2_backends = []
+basis_gates = ["cx", "syc", "riswap", "riswap", "riswap", "riswap"]
+for backend, basis_gate in zip(_small_results_part2, basis_gates):
+    pm = level_0_pass_manager(backend, basis_gate=basis_gate, decompose_swaps=True)
+    label = backend.name + "-small"
+    small_results_part2_backends.append(BackendTranspilerBenchmark(backend, pm, label))
+
 # ####industry comparisons
 # industry_backends = []
 # basis_gates = ["cx", "syc", "riswap", "riswap", "riswap"]

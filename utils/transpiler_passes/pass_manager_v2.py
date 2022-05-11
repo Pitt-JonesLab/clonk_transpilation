@@ -6,9 +6,9 @@ from qiskit.transpiler.passes import (
     Collect2qBlocks,
     Optimize1qGatesDecomposition,
     UnrollCustomDefinitions,
-    ResourceEstimation,
     Layout2qDistance,
 )
+from utils.qiskit_patch.resource_estimation import ResourceEstimation
 from utils.qiskit_patch.basis_translator import BasisTranslator
 from utils.transpiler_passes.weyl_decompose import RootiSwapWeylDecomposition
 from utils.qiskit_patch.dense_layout import DenseLayout
