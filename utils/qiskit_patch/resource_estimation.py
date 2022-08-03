@@ -19,8 +19,11 @@ from qiskit.transpiler.passes.analysis.size import Size
 
 # from qiskit.transpiler.passes.analysis.count_ops import CountOps
 # from qiskit.transpiler.passes.analysis.count_ops_longest_path import CountOpsLongestPath
-from qiskit_patch.count_ops import CountOps
-from qiskit_patch.count_ops_longest_path import CountOpsLongestPath
+import sys
+
+sys.path.append("../")
+from utils.qiskit_patch import CountOps
+from utils.qiskit_patch import CountOpsLongestPath
 from qiskit.transpiler.passes.analysis.num_tensor_factors import NumTensorFactors
 from qiskit.transpiler.passes.analysis.num_qubits import NumQubits
 

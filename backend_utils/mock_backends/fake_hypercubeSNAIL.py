@@ -11,9 +11,9 @@ from utils.riswap_gates.riswap import RiSwapGate
 class FakeHyperCubeSnail(ConfigurableFakeBackendV2):
     """A mock backendv2"""
 
-    def __init__(self, corral_skip_pattern, twoqubitgate="cx"):
-        def corral(skip_pattern):
-            num_snails = 8
+    def __init__(self, num_snails=8, corral_skip_pattern=(0,0), override_split=False, twoqubitgate="cx"):
+        def corral(num_snails, skip_pattern):
+            #num_snails = 8
             num_levels = 2
 
             assert len(skip_pattern) == num_levels
@@ -40,7 +40,14 @@ class FakeHyperCubeSnail(ConfigurableFakeBackendV2):
                         edge_list.append((qubit, temp_qubit))
             return edge_list
 
-        snail_edge_list = corral(corral_skip_pattern)
+        snail_edge_list = corral(num_snails, corral_skip_pattern)
+        if override_split and num_snails>=32:
+            snail_edge_list.remove((0,1))
+            snail_edge_list.append((0,16))
+            snail_edge_list.remove((16,17))
+            snail_edge_list.append((0,16))
+
+
         coupling_map = snail_to_connectivity(snail_edge_list)
         qubits = list(range(max([el[0] for el in coupling_map])))
 
@@ -65,7 +72,7 @@ class FakeHyperCubeSnail(ConfigurableFakeBackendV2):
         measurable_qubits = qubits
 
         super().__init__(
-            name=f"HypercubeSNAIL-{corral_skip_pattern}-{twoqubitgate}",
+            name=f"Corral-{num_snails}-{corral_skip_pattern}-{twoqubitgate}" if not override_split else f"Corral-{num_snails}-{corral_skip_pattern}-split-{twoqubitgate}",
             description="a mock backend",
             n_qubits=len(qubits),
             gate_configuration=gate_configuration,

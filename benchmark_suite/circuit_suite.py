@@ -13,16 +13,16 @@ class CircuitTranspilerBenchmark:
 
 # FIXME should this be a class, q_range is a parameter, instead of dict use get methods
 circuits = {}
-#q_range = [8, 16, 24, 32, 40, 48, 56, 64, 72, 80]
-q_range = [
-    4,
-    6,
-    8,
-    10,
-    12,
-    14,
-    16,
-]  # XXX danger bad coding practice, if I run these on these on wrong set of benchmarks
+q_range = [8, 16, 24, 32, 40, 48, 56, 64, 72, 80]
+# q_range = [
+#     4,
+#     6,
+#     8,
+#     10,
+#     12,
+#     14,
+#     16,
+# ]  # XXX danger bad coding practice, if I run these on these on wrong set of benchmarks
 depth = 10
 
 # Random

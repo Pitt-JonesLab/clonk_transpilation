@@ -23,6 +23,7 @@ class CountOps(AnalysisPass):
 
     def __init__(self, preswap):
         self.preswap = preswap
+        super().__init__()
 
     def run(self, dag):
         """Run the CountOps pass on `dag`."""

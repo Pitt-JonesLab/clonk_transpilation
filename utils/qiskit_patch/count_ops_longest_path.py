@@ -23,6 +23,7 @@ class CountOpsLongestPath(AnalysisPass):
 
     def __init__(self, preswap):
         self.preswap = preswap
+        super().__init__()
 
     def run(self, dag):
         """Run the CountOpsLongestPath pass on `dag`."""

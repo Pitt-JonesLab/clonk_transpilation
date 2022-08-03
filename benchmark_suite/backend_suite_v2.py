@@ -199,6 +199,7 @@ _motivation = [
     fake_hypercube,
 ]
 _results = [fake_heavy_hex, fake_surfaceCode, fake_tree, fake_tree_rr, fake_hypercube]
+
 _small_results = [
     fake_small_surfaceCode,
     fake_small_hypercube,
@@ -215,14 +216,51 @@ _small_results_part2 = [
     fake_small_tree,
     fake_small_tree_rr,
     fake_small_hypercube,
-    fake_corralv1
+    fake_corralv1,
 ]
+
+_small_results_part3 = [
+    fake_small_heavy_hex,
+    fake_small_surfaceCode,
+    fake_small_tree,
+    fake_corralv1,
+]
+
+
+####
+#all the new ones to investigate
+m4_tree_52 = FakeTree(twoqubitgate="riswap", module_size=4, children=4, total_levels=3)
+m4_modular_64 = FakeModular(twoqubitgate="riswap", module_size=4, children=4, total_levels=3)
+m5_tree_105 = FakeTree(twoqubitgate="riswap", module_size=5, children=5, total_levels=3)
+m5_modular_125 = FakeModular(twoqubitgate="riswap", module_size=5, children=5, total_levels=3)
+m5_4tree_69 = FakeTree(twoqubitgate="riswap", module_size=5, children=4, total_levels=3)
+hpca_modular_test = [m4_tree_52,m4_modular_64,m5_tree_105,m5_modular_125,m5_4tree_69]
+# hpca_modular_test = [fake_heavy_hex, fake_hypercube].extend(hpca_modular_test) #some baselines
+hpca_modular_test.insert(0, fake_hypercube)
+hpca_modular_test.insert(0, fake_heavy_hex)
+
+#and the corrals for separate new experiment
+corral_42_11 = FakeHyperCubeSnail(num_snails=42,corral_skip_pattern=(0, 0), twoqubitgate="riswap")
+corral_42_12 = FakeHyperCubeSnail(num_snails=42,corral_skip_pattern=(0, 1), twoqubitgate="riswap")
+corral_42_11_bridge = FakeHyperCubeSnail(num_snails=42,corral_skip_pattern=(0, 0), twoqubitgate="riswap", override_split=True)
+hpca_corrals = [corral_42_11, corral_42_12, corral_42_11_bridge]
+# hpca_corrals = [fake_heavy_hex, fake_hypercube].extend(hpca_corrals) #some baselines
+hpca_corrals.insert(0, fake_hypercube)
+hpca_corrals.insert(0, fake_heavy_hex)
+#####
+_results.append(corral_42_11)
+
 # results, decompose swaps first, so it doesn't need to generate data twice
 # for small, need to adjust labels so differs in save data
-
+simple_backends = []
+basis_gates = ["cx", "syc", "riswap", "riswap"]
+for backend, basis_gate in zip(_small_results_part3, basis_gates):
+    pm = level_0_pass_manager(backend, basis_gate=basis_gate, decompose_swaps=True)
+    label = backend.name + "-small"
+    simple_backends.append(BackendTranspilerBenchmark(backend, pm, label))
 
 results_backends = []
-basis_gates = ["cx", "syc", "riswap", "riswap", "riswap"]
+basis_gates = ["cx", "syc", "riswap", "riswap", "riswap", "riswap"] #temp extend for corral
 for backend, basis_gate in zip(_results, basis_gates):
     pm = level_0_pass_manager(backend, basis_gate=basis_gate, decompose_swaps=True)
     label = backend.name
@@ -243,13 +281,7 @@ for backend, basis_gate in zip(_small_motivation, basis_gates):
     small_motivation_backends.append(BackendTranspilerBenchmark(backend, pm, label))
 
 small_results_backends = []
-basis_gates = [
-    "syc",
-    "riswap",
-    "riswap",
-    "riswap",
-    "riswap",
-    "riswap"]
+basis_gates = ["syc", "riswap", "riswap", "riswap", "riswap", "riswap"]
 #     ,
 #     "riswap",
 #     "riswap",
@@ -265,6 +297,19 @@ for backend, basis_gate in zip(_small_results_part2, basis_gates):
     pm = level_0_pass_manager(backend, basis_gate=basis_gate, decompose_swaps=True)
     label = backend.name + "-small"
     small_results_part2_backends.append(BackendTranspilerBenchmark(backend, pm, label))
+
+hpca_modular_backends = []
+for backend in hpca_modular_test:
+    pm = level_0_pass_manager(backend, basis_gate="riswap", decompose_swaps=True)
+    label = backend.name
+    hpca_modular_backends.append(BackendTranspilerBenchmark(backend, pm, label))
+
+hpca_corral_backends = []
+for backend in hpca_corrals:
+    pm = level_0_pass_manager(backend, basis_gate="riswap", decompose_swaps=True)
+    label = backend.name
+    hpca_corral_backends.append(BackendTranspilerBenchmark(backend, pm, label))
+
 
 # ####industry comparisons
 # industry_backends = []
