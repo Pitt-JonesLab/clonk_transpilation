@@ -13,6 +13,7 @@
 """Weyl decomposition of two-qubit gates in terms of echoed cross-resonance gates."""
 
 from typing import Tuple
+from aiohttp import content_disposition_filename
 from qiskit import QuantumCircuit
 
 from qiskit.circuit import QuantumRegister
@@ -442,13 +443,32 @@ class RootiSwapWeylDecomposition(TransformationPass):
         else:
             self.decomposer = TwoQubitBasisDecomposer(self.basis_gate)
 
+        #add something which caches the result to SWAP so we don't have to do it every time
+        swap_sub = None
+        cnot_sub = None
+
         for node in dag.two_qubit_ops():
             # denote 2 different decomp rules, either for swap gates, or for U gates in CPhase basis
             # if node.name == "riswap":
             #     continue
 
-            # FIXME need to convert unitary to a special unitary first to preserve 1Qs
+            # FIXME need to convert unitary to a special unitary first to preserve 1Qs?
             unitary = Operator(node.op).data
+
+            if node.name == "swap":
+                if swap_sub is None:
+                    swap_sub = circuit_to_dag(self.decomposer(unitary))
+
+                dag.substitute_node_with_dag(node, swap_sub)
+                continue
+            
+            if node.name == "cx":
+                if cnot_sub is None:
+                    cnot_sub = circuit_to_dag(self.decomposer(unitary))
+
+                dag.substitute_node_with_dag(node, cnot_sub)
+                continue
+            
             # special_unitary = unitary
             dag_sub = circuit_to_dag(self.decomposer(unitary))
             dag.substitute_node_with_dag(node, dag_sub)

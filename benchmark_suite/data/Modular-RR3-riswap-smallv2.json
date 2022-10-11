@@ -1,0 +1,1018 @@
+{
+  "0": {
+    "Quantum_Volume": {
+      "duration": {
+        "4": {
+          "rz": 71,
+          "sx": 47,
+          "riswap": 23
+        },
+        "6": {
+          "rz": 92,
+          "sx": 61,
+          "riswap": 30
+        },
+        "8": {
+          "rz": 137,
+          "sx": 91,
+          "riswap": 45
+        },
+        "10": {
+          "rz": 158,
+          "sx": 105,
+          "riswap": 52
+        },
+        "12": {
+          "rz": 353,
+          "sx": 235,
+          "riswap": 117
+        },
+        "14": {
+          "rz": 377,
+          "sx": 251,
+          "riswap": 125
+        },
+        "16": {
+          "rz": 440,
+          "sx": 293,
+          "riswap": 146
+        }
+      },
+      "preswap_gate_count": {
+        "4": {
+          "swap": 6,
+          "unitary": 8
+        },
+        "6": {
+          "swap": 13,
+          "unitary": 17
+        },
+        "8": {
+          "swap": 21,
+          "unitary": 29
+        },
+        "10": {
+          "swap": 40,
+          "unitary": 46
+        },
+        "12": {
+          "swap": 78,
+          "unitary": 60
+        },
+        "14": {
+          "swap": 110,
+          "unitary": 93
+        },
+        "16": {
+          "swap": 129,
+          "unitary": 122
+        }
+      },
+      "gate_count": {
+        "4": {
+          "riswap": 37,
+          "rz": 237,
+          "sx": 158
+        },
+        "6": {
+          "riswap": 74,
+          "rz": 462,
+          "sx": 308
+        },
+        "8": {
+          "riswap": 126,
+          "rz": 784,
+          "sx": 523
+        },
+        "10": {
+          "riswap": 222,
+          "rz": 1360,
+          "sx": 906
+        },
+        "12": {
+          "riswap": 368,
+          "rz": 2247,
+          "sx": 1496
+        },
+        "14": {
+          "riswap": 533,
+          "rz": 3233,
+          "sx": 2155
+        },
+        "16": {
+          "riswap": 652,
+          "rz": 3955,
+          "sx": 2637
+        }
+      },
+      "preswap_gate_count_crit": {
+        "4": {
+          "swap": 4,
+          "unitary": 4
+        },
+        "6": {
+          "swap": 6,
+          "unitary": 6
+        },
+        "8": {
+          "swap": 9,
+          "unitary": 8
+        },
+        "10": {
+          "swap": 10,
+          "unitary": 10
+        },
+        "12": {
+          "swap": 24,
+          "unitary": 19
+        },
+        "14": {
+          "swap": 30,
+          "unitary": 16
+        },
+        "16": {
+          "swap": 31,
+          "unitary": 23
+        }
+      },
+      "layout_score": {
+        "4": 3.0,
+        "6": 10.0,
+        "8": 19.0,
+        "10": 27.0,
+        "12": 58.0,
+        "14": 91.0,
+        "16": 121.0
+      },
+      "edge_frequency": {
+        "4": null,
+        "6": null,
+        "8": null,
+        "10": null,
+        "12": null,
+        "14": null,
+        "16": null
+      }
+    },
+    "QFT": {
+      "duration": {
+        "4": {
+          "rz": 59,
+          "sx": 40,
+          "riswap": 19
+        },
+        "6": {
+          "rz": 115,
+          "sx": 80,
+          "riswap": 39
+        },
+        "8": {
+          "rz": 201,
+          "sx": 140,
+          "riswap": 69
+        },
+        "10": {
+          "rz": 265,
+          "sx": 178,
+          "riswap": 88
+        },
+        "12": {
+          "rz": 390,
+          "sx": 270,
+          "riswap": 134
+        },
+        "14": {
+          "rz": 423,
+          "sx": 290,
+          "riswap": 144
+        },
+        "16": {
+          "rz": 567,
+          "sx": 390,
+          "riswap": 194
+        }
+      },
+      "preswap_gate_count": {
+        "4": {
+          "unitary": 8,
+          "swap": 2
+        },
+        "6": {
+          "unitary": 18,
+          "swap": 10
+        },
+        "8": {
+          "unitary": 32,
+          "swap": 33
+        },
+        "10": {
+          "unitary": 50,
+          "swap": 48
+        },
+        "12": {
+          "unitary": 72,
+          "swap": 78
+        },
+        "14": {
+          "unitary": 98,
+          "swap": 113
+        },
+        "16": {
+          "unitary": 128,
+          "swap": 141
+        }
+      },
+      "gate_count": {
+        "4": {
+          "riswap": 24,
+          "rz": 133,
+          "sx": 92
+        },
+        "6": {
+          "riswap": 69,
+          "rz": 379,
+          "sx": 259
+        },
+        "8": {
+          "riswap": 167,
+          "rz": 927,
+          "sx": 626
+        },
+        "10": {
+          "riswap": 249,
+          "rz": 1372,
+          "sx": 925
+        },
+        "12": {
+          "riswap": 384,
+          "rz": 2123,
+          "sx": 1434
+        },
+        "14": {
+          "riswap": 542,
+          "rz": 2984,
+          "sx": 2013
+        },
+        "16": {
+          "riswap": 687,
+          "rz": 3755,
+          "sx": 2534
+        }
+      },
+      "preswap_gate_count_crit": {
+        "4": {
+          "unitary": 6,
+          "swap": 2
+        },
+        "6": {
+          "unitary": 10,
+          "swap": 6
+        },
+        "8": {
+          "unitary": 14,
+          "swap": 13
+        },
+        "10": {
+          "unitary": 19,
+          "swap": 16
+        },
+        "12": {
+          "unitary": 26,
+          "swap": 27
+        },
+        "14": {
+          "unitary": 25,
+          "swap": 30
+        },
+        "16": {
+          "unitary": 36,
+          "swap": 40
+        }
+      },
+      "layout_score": {
+        "4": 3.0,
+        "6": 8.0,
+        "8": 22.0,
+        "10": 39.0,
+        "12": 65.0,
+        "14": 97.0,
+        "16": 136.0
+      },
+      "edge_frequency": {
+        "4": null,
+        "6": null,
+        "8": null,
+        "10": null,
+        "12": null,
+        "14": null,
+        "16": null
+      }
+    },
+    "QAOA_Vanilla": {
+      "duration": {
+        "4": {
+          "rz": 36,
+          "sx": 26,
+          "riswap": 12,
+          "measure": 1
+        },
+        "6": {
+          "rz": 113,
+          "sx": 78,
+          "riswap": 39,
+          "measure": 1
+        },
+        "8": {
+          "rz": 192,
+          "sx": 131,
+          "riswap": 66,
+          "measure": 1
+        },
+        "10": {
+          "rz": 225,
+          "sx": 153,
+          "riswap": 77,
+          "x": 1,
+          "measure": 1
+        },
+        "12": {
+          "rz": 376,
+          "sx": 258,
+          "riswap": 131,
+          "x": 1,
+          "measure": 1
+        },
+        "14": {
+          "rz": 476,
+          "sx": 325,
+          "riswap": 164,
+          "measure": 1
+        },
+        "16": {
+          "rz": 545,
+          "sx": 369,
+          "riswap": 185,
+          "measure": 1
+        }
+      },
+      "preswap_gate_count": {
+        "4": {
+          "unitary": 6,
+          "swap": 2,
+          "measure": 4
+        },
+        "6": {
+          "swap": 9,
+          "unitary": 15,
+          "measure": 6
+        },
+        "8": {
+          "unitary": 28,
+          "swap": 20,
+          "measure": 8
+        },
+        "10": {
+          "swap": 49,
+          "unitary": 45,
+          "measure": 10
+        },
+        "12": {
+          "swap": 77,
+          "unitary": 66,
+          "measure": 12
+        },
+        "14": {
+          "swap": 101,
+          "unitary": 91,
+          "measure": 14
+        },
+        "16": {
+          "swap": 144,
+          "unitary": 120,
+          "measure": 16
+        }
+      },
+      "gate_count": {
+        "4": {
+          "measure": 4,
+          "riswap": 18,
+          "rz": 106,
+          "sx": 70
+        },
+        "6": {
+          "measure": 6,
+          "riswap": 57,
+          "rz": 314,
+          "sx": 205,
+          "x": 1
+        },
+        "8": {
+          "measure": 8,
+          "riswap": 116,
+          "rz": 616,
+          "sx": 404,
+          "x": 2
+        },
+        "10": {
+          "measure": 10,
+          "riswap": 237,
+          "rz": 1301,
+          "sx": 864,
+          "x": 3
+        },
+        "12": {
+          "measure": 12,
+          "riswap": 363,
+          "rz": 1972,
+          "sx": 1311,
+          "x": 7
+        },
+        "14": {
+          "measure": 14,
+          "riswap": 485,
+          "rz": 2621,
+          "sx": 1754,
+          "x": 6
+        },
+        "16": {
+          "measure": 16,
+          "riswap": 672,
+          "rz": 3653,
+          "sx": 2449,
+          "x": 6
+        }
+      },
+      "preswap_gate_count_crit": {
+        "4": {
+          "unitary": 4,
+          "swap": 1,
+          "measure": 1
+        },
+        "6": {
+          "swap": 5,
+          "unitary": 12,
+          "measure": 1
+        },
+        "8": {
+          "unitary": 18,
+          "swap": 10,
+          "measure": 1
+        },
+        "10": {
+          "swap": 14,
+          "unitary": 17,
+          "measure": 1
+        },
+        "12": {
+          "swap": 24,
+          "unitary": 29,
+          "measure": 1
+        },
+        "14": {
+          "swap": 32,
+          "unitary": 34,
+          "measure": 1
+        },
+        "16": {
+          "swap": 38,
+          "unitary": 35,
+          "measure": 1
+        }
+      },
+      "layout_score": {
+        "4": 2.0,
+        "6": 6.0,
+        "8": 18.0,
+        "10": 33.0,
+        "12": 59.0,
+        "14": 90.0,
+        "16": 126.0
+      },
+      "edge_frequency": {
+        "4": null,
+        "6": null,
+        "8": null,
+        "10": null,
+        "12": null,
+        "14": null,
+        "16": null
+      }
+    },
+    "TIM_Hamiltonian": {
+      "duration": {
+        "4": {
+          "rz": 69,
+          "sx": 46,
+          "riswap": 22,
+          "measure": 1
+        },
+        "6": {
+          "rz": 90,
+          "sx": 60,
+          "riswap": 29,
+          "measure": 1
+        },
+        "8": {
+          "rz": 102,
+          "sx": 68,
+          "riswap": 33,
+          "measure": 1
+        },
+        "10": {
+          "rz": 236,
+          "sx": 158,
+          "riswap": 78,
+          "measure": 1
+        },
+        "12": {
+          "rz": 222,
+          "sx": 152,
+          "riswap": 75,
+          "measure": 1
+        },
+        "14": {
+          "rz": 301,
+          "sx": 206,
+          "riswap": 102,
+          "measure": 1
+        },
+        "16": {
+          "rz": 289,
+          "sx": 199,
+          "riswap": 98,
+          "measure": 2
+        }
+      },
+      "preswap_gate_count": {
+        "4": {
+          "unitary": 15,
+          "measure": 4
+        },
+        "6": {
+          "unitary": 25,
+          "swap": 2,
+          "measure": 6
+        },
+        "8": {
+          "unitary": 35,
+          "swap": 2,
+          "measure": 8
+        },
+        "10": {
+          "unitary": 45,
+          "swap": 20,
+          "measure": 10
+        },
+        "12": {
+          "unitary": 55,
+          "swap": 41,
+          "measure": 12
+        },
+        "14": {
+          "unitary": 65,
+          "swap": 63,
+          "measure": 14
+        },
+        "16": {
+          "unitary": 75,
+          "swap": 60,
+          "measure": 16
+        }
+      },
+      "gate_count": {
+        "4": {
+          "measure": 4,
+          "riswap": 30,
+          "rz": 161,
+          "sx": 97
+        },
+        "6": {
+          "measure": 6,
+          "riswap": 56,
+          "rz": 299,
+          "sx": 183
+        },
+        "8": {
+          "measure": 8,
+          "riswap": 76,
+          "rz": 406,
+          "sx": 249
+        },
+        "10": {
+          "measure": 10,
+          "riswap": 150,
+          "rz": 818,
+          "sx": 527,
+          "x": 1
+        },
+        "12": {
+          "measure": 12,
+          "riswap": 233,
+          "rz": 1285,
+          "sx": 838,
+          "x": 3
+        },
+        "14": {
+          "measure": 14,
+          "riswap": 319,
+          "rz": 1763,
+          "sx": 1158,
+          "x": 8
+        },
+        "16": {
+          "measure": 16,
+          "riswap": 330,
+          "rz": 1826,
+          "sx": 1189,
+          "x": 5
+        }
+      },
+      "preswap_gate_count_crit": {
+        "4": {
+          "unitary": 11,
+          "measure": 1
+        },
+        "6": {
+          "unitary": 13,
+          "swap": 1,
+          "measure": 1
+        },
+        "8": {
+          "unitary": 15,
+          "swap": 1,
+          "measure": 1
+        },
+        "10": {
+          "unitary": 21,
+          "swap": 12,
+          "measure": 1
+        },
+        "12": {
+          "unitary": 18,
+          "swap": 13,
+          "measure": 1
+        },
+        "14": {
+          "unitary": 20,
+          "swap": 20,
+          "measure": 2
+        },
+        "16": {
+          "unitary": 22,
+          "swap": 18,
+          "measure": 2
+        }
+      },
+      "layout_score": {
+        "4": 0.0,
+        "6": 5.0,
+        "8": 5.0,
+        "10": 15.0,
+        "12": 20.0,
+        "14": 40.0,
+        "16": 60.0
+      },
+      "edge_frequency": {
+        "4": null,
+        "6": null,
+        "8": null,
+        "10": null,
+        "12": null,
+        "14": null,
+        "16": null
+      }
+    },
+    "Adder": {
+      "duration": {
+        "4": {
+          "rz": 85,
+          "sx": 58,
+          "riswap": 28
+        },
+        "6": {
+          "rz": 192,
+          "sx": 130,
+          "riswap": 64
+        },
+        "8": {
+          "rz": 355,
+          "sx": 239,
+          "riswap": 119
+        },
+        "10": {
+          "rz": 421,
+          "sx": 285,
+          "riswap": 142
+        },
+        "12": {
+          "rz": 543,
+          "sx": 368,
+          "riswap": 183
+        },
+        "14": {
+          "rz": 702,
+          "sx": 473,
+          "riswap": 237
+        },
+        "16": {
+          "rz": 785,
+          "sx": 528,
+          "riswap": 264
+        }
+      },
+      "preswap_gate_count": {
+        "4": {
+          "unitary": 15,
+          "swap": 1
+        },
+        "6": {
+          "unitary": 29,
+          "swap": 6
+        },
+        "8": {
+          "unitary": 43,
+          "swap": 22
+        },
+        "10": {
+          "swap": 24,
+          "unitary": 57
+        },
+        "12": {
+          "swap": 32,
+          "unitary": 71
+        },
+        "14": {
+          "unitary": 85,
+          "swap": 54
+        },
+        "16": {
+          "swap": 45,
+          "unitary": 99
+        }
+      },
+      "gate_count": {
+        "4": {
+          "riswap": 33,
+          "rz": 187,
+          "sx": 131
+        },
+        "6": {
+          "riswap": 76,
+          "rz": 429,
+          "sx": 297
+        },
+        "8": {
+          "riswap": 152,
+          "rz": 872,
+          "sx": 594
+        },
+        "10": {
+          "riswap": 186,
+          "rz": 1056,
+          "sx": 725
+        },
+        "12": {
+          "riswap": 238,
+          "rz": 1351,
+          "sx": 925
+        },
+        "14": {
+          "riswap": 332,
+          "rz": 1904,
+          "sx": 1297
+        },
+        "16": {
+          "riswap": 333,
+          "rz": 1881,
+          "sx": 1292
+        }
+      },
+      "preswap_gate_count_crit": {
+        "4": {
+          "unitary": 14
+        },
+        "6": {
+          "unitary": 26,
+          "swap": 4
+        },
+        "8": {
+          "unitary": 37,
+          "swap": 15
+        },
+        "10": {
+          "swap": 13,
+          "unitary": 50
+        },
+        "12": {
+          "unitary": 61,
+          "swap": 20
+        },
+        "14": {
+          "unitary": 73,
+          "swap": 29
+        },
+        "16": {
+          "swap": 31,
+          "unitary": 85
+        }
+      },
+      "layout_score": {
+        "4": 1.0,
+        "6": 4.0,
+        "8": 10.0,
+        "10": 26.0,
+        "12": 27.0,
+        "14": 62.0,
+        "16": 88.0
+      },
+      "edge_frequency": {
+        "4": null,
+        "6": null,
+        "8": null,
+        "10": null,
+        "12": null,
+        "14": null,
+        "16": null
+      }
+    },
+    "GHZ": {
+      "duration": {
+        "4": {
+          "rz": 21,
+          "sx": 14,
+          "riswap": 6,
+          "measure": 1
+        },
+        "6": {
+          "rz": 33,
+          "sx": 22,
+          "riswap": 10,
+          "measure": 1
+        },
+        "8": {
+          "rz": 53,
+          "sx": 35,
+          "riswap": 17,
+          "measure": 1
+        },
+        "10": {
+          "rz": 87,
+          "sx": 57,
+          "riswap": 28,
+          "measure": 2
+        },
+        "12": {
+          "rz": 103,
+          "sx": 68,
+          "riswap": 34,
+          "measure": 1
+        },
+        "14": {
+          "rz": 133,
+          "sx": 88,
+          "riswap": 44,
+          "measure": 1
+        },
+        "16": {
+          "rz": 170,
+          "sx": 112,
+          "riswap": 57,
+          "measure": 1
+        }
+      },
+      "preswap_gate_count": {
+        "4": {
+          "unitary": 3,
+          "measure": 4
+        },
+        "6": {
+          "unitary": 5,
+          "measure": 6,
+          "swap": 1
+        },
+        "8": {
+          "unitary": 7,
+          "measure": 8,
+          "swap": 1
+        },
+        "10": {
+          "unitary": 9,
+          "measure": 10,
+          "swap": 7
+        },
+        "12": {
+          "unitary": 11,
+          "measure": 12,
+          "swap": 7
+        },
+        "14": {
+          "unitary": 13,
+          "measure": 14,
+          "swap": 11
+        },
+        "16": {
+          "unitary": 15,
+          "swap": 15,
+          "measure": 16
+        }
+      },
+      "gate_count": {
+        "4": {
+          "measure": 4,
+          "riswap": 6,
+          "rz": 45,
+          "sx": 30
+        },
+        "6": {
+          "measure": 6,
+          "riswap": 13,
+          "rz": 90,
+          "sx": 60
+        },
+        "8": {
+          "measure": 8,
+          "riswap": 17,
+          "rz": 124,
+          "sx": 82
+        },
+        "10": {
+          "measure": 10,
+          "riswap": 39,
+          "rz": 252,
+          "sx": 167
+        },
+        "12": {
+          "measure": 12,
+          "riswap": 43,
+          "rz": 283,
+          "sx": 187
+        },
+        "14": {
+          "measure": 14,
+          "riswap": 59,
+          "rz": 384,
+          "sx": 254
+        },
+        "16": {
+          "measure": 16,
+          "riswap": 75,
+          "rz": 479,
+          "sx": 318
+        }
+      },
+      "preswap_gate_count_crit": {
+        "4": {
+          "unitary": 3,
+          "measure": 1
+        },
+        "6": {
+          "unitary": 5,
+          "measure": 1
+        },
+        "8": {
+          "unitary": 7,
+          "swap": 1,
+          "measure": 1
+        },
+        "10": {
+          "unitary": 8,
+          "measure": 2,
+          "swap": 4
+        },
+        "12": {
+          "unitary": 11,
+          "swap": 4,
+          "measure": 1
+        },
+        "14": {
+          "unitary": 13,
+          "swap": 6,
+          "measure": 1
+        },
+        "16": {
+          "unitary": 15,
+          "swap": 9,
+          "measure": 1
+        }
+      },
+      "layout_score": {
+        "4": 0.0,
+        "6": 1.0,
+        "8": 1.0,
+        "10": 3.0,
+        "12": 4.0,
+        "14": 8.0,
+        "16": 12.0
+      },
+      "edge_frequency": {
+        "4": null,
+        "6": null,
+        "8": null,
+        "10": null,
+        "12": null,
+        "14": null,
+        "16": null
+      }
+    }
+  }
+}

@@ -3,118 +3,118 @@
     "Quantum_Volume": {
       "duration": {
         "4": {
-          "fSim": 16
+          "fSim": 32
         },
         "6": {
-          "fSim": 40
+          "fSim": 48
         },
         "8": {
-          "fSim": 60
+          "fSim": 76
         },
         "10": {
           "fSim": 112
         },
         "12": {
-          "fSim": 148
+          "fSim": 172
         },
         "14": {
-          "fSim": 184
+          "fSim": 204
         },
         "16": {
-          "fSim": 208
+          "fSim": 204
         }
       },
       "preswap_gate_count": {
         "4": {
-          "swap": 4,
-          "fSim": 16
+          "swap": 8,
+          "fSim": 32
         },
         "6": {
-          "swap": 8,
-          "fSim": 60
+          "swap": 14,
+          "fSim": 52
         },
         "8": {
-          "swap": 25,
-          "fSim": 96
+          "swap": 30,
+          "fSim": 116
         },
         "10": {
-          "swap": 52,
-          "fSim": 180
+          "swap": 66,
+          "fSim": 188
         },
         "12": {
-          "swap": 96,
-          "fSim": 268
+          "swap": 105,
+          "fSim": 272
         },
         "14": {
-          "swap": 123,
-          "fSim": 352
+          "swap": 141,
+          "fSim": 368
         },
         "16": {
-          "swap": 154,
+          "swap": 176,
           "fSim": 472
         }
       },
       "gate_count": {
         "4": {
-          "fSim": 28
+          "fSim": 60
         },
         "6": {
-          "fSim": 80
+          "fSim": 104
         },
         "8": {
-          "fSim": 176
+          "fSim": 224
         },
         "10": {
-          "fSim": 360
+          "fSim": 396
         },
         "12": {
-          "fSim": 580
+          "fSim": 640
         },
         "14": {
-          "fSim": 788
+          "fSim": 892
         },
         "16": {
-          "fSim": 988
+          "fSim": 996
         }
       },
       "preswap_gate_count_crit": {
         "4": {
-          "swap": 2,
-          "fSim": 8
+          "swap": 4,
+          "fSim": 16
         },
         "6": {
-          "swap": 5,
-          "fSim": 24
+          "swap": 7,
+          "fSim": 20
         },
         "8": {
-          "swap": 9,
-          "fSim": 28
+          "swap": 12,
+          "fSim": 32
         },
         "10": {
-          "swap": 19,
+          "swap": 20,
           "fSim": 40
         },
         "12": {
-          "swap": 27,
+          "swap": 32,
           "fSim": 48
         },
         "14": {
-          "swap": 34,
-          "fSim": 56
+          "swap": 35,
+          "fSim": 58
         },
         "16": {
-          "swap": 37,
+          "swap": 41,
           "fSim": 64
         }
       },
       "layout_score": {
-        "4": 0.0,
-        "6": 0.0,
-        "8": 0.0,
-        "10": 0.0,
-        "12": 0.0,
-        "14": 0.0,
-        "16": 0.0
+        "4": 32.0,
+        "6": 44.0,
+        "8": 140.0,
+        "10": 240.0,
+        "12": 348.0,
+        "14": 612.0,
+        "16": 844.0
       },
       "edge_frequency": {
         "4": null,
@@ -129,55 +129,55 @@
     "QFT": {
       "duration": {
         "4": {
-          "fSim": 32
+          "fSim": 40
         },
         "6": {
-          "fSim": 64
+          "fSim": 72
         },
         "8": {
-          "fSim": 100
+          "fSim": 112
         },
         "10": {
-          "fSim": 132
+          "fSim": 136
         },
         "12": {
-          "fSim": 156
+          "fSim": 172
         },
         "14": {
           "fSim": 200
         },
         "16": {
-          "fSim": 260
+          "fSim": 248
         }
       },
       "preswap_gate_count": {
         "4": {
           "fSim": 32,
-          "swap": 8
+          "swap": 6
         },
         "6": {
           "fSim": 72,
-          "swap": 14
+          "swap": 16
         },
         "8": {
           "fSim": 128,
-          "swap": 28
+          "swap": 29
         },
         "10": {
           "fSim": 200,
-          "swap": 54
+          "swap": 61
         },
         "12": {
           "fSim": 288,
-          "swap": 73
+          "swap": 81
         },
         "14": {
           "fSim": 392,
-          "swap": 126
+          "swap": 106
         },
         "16": {
           "fSim": 512,
-          "swap": 160
+          "swap": 143
         }
       },
       "gate_count": {
@@ -185,62 +185,62 @@
           "fSim": 52
         },
         "6": {
-          "fSim": 116
+          "fSim": 120
         },
         "8": {
-          "fSim": 212
+          "fSim": 224
         },
         "10": {
-          "fSim": 348
+          "fSim": 356
         },
         "12": {
-          "fSim": 424
+          "fSim": 496
         },
         "14": {
-          "fSim": 632
+          "fSim": 656
         },
         "16": {
-          "fSim": 960
+          "fSim": 856
         }
       },
       "preswap_gate_count_crit": {
         "4": {
           "fSim": 24,
-          "swap": 5
+          "swap": 4
         },
         "6": {
           "fSim": 40,
-          "swap": 9
+          "swap": 10
         },
         "8": {
           "fSim": 56,
-          "swap": 12
+          "swap": 15
         },
         "10": {
           "fSim": 72,
-          "swap": 20
+          "swap": 23
         },
         "12": {
           "fSim": 88,
-          "swap": 23
+          "swap": 29
         },
         "14": {
           "fSim": 104,
-          "swap": 37
+          "swap": 33
         },
         "16": {
-          "fSim": 121,
-          "swap": 44
+          "fSim": 120,
+          "swap": 45
         }
       },
       "layout_score": {
-        "4": 0.0,
-        "6": 0.0,
-        "8": 0.0,
-        "10": 0.0,
-        "12": 0.0,
-        "14": 0.0,
-        "16": 0.0
+        "4": 24.0,
+        "6": 72.0,
+        "8": 160.0,
+        "10": 296.0,
+        "12": 432.0,
+        "14": 616.0,
+        "16": 896.0
       },
       "edge_frequency": {
         "4": null,
@@ -255,67 +255,67 @@
     "QAOA_Vanilla": {
       "duration": {
         "4": {
-          "fSim": 24,
+          "fSim": 28,
           "measure": 1
         },
         "6": {
-          "fSim": 64,
-          "measure": 2
+          "fSim": 68,
+          "measure": 1
         },
         "8": {
-          "fSim": 116,
+          "fSim": 124,
           "measure": 1
         },
         "10": {
-          "fSim": 180,
+          "fSim": 152,
           "measure": 1
         },
         "12": {
-          "fSim": 220,
+          "fSim": 188,
           "measure": 2
         },
         "14": {
-          "fSim": 292,
-          "measure": 1
+          "fSim": 264,
+          "measure": 2
         },
         "16": {
-          "fSim": 380,
+          "fSim": 384,
           "measure": 1
         }
       },
       "preswap_gate_count": {
         "4": {
+          "swap": 7,
           "fSim": 24,
-          "swap": 5,
           "measure": 4
         },
         "6": {
-          "swap": 15,
           "fSim": 60,
+          "swap": 14,
           "measure": 6
         },
         "8": {
-          "swap": 38,
+          "swap": 35,
           "fSim": 112,
           "measure": 8
         },
         "10": {
-          "swap": 55,
+          "swap": 62,
           "fSim": 180,
           "measure": 10
         },
         "12": {
-          "swap": 98,
+          "swap": 91,
           "fSim": 264,
           "measure": 12
         },
         "14": {
-          "swap": 145,
+          "swap": 137,
           "fSim": 364,
           "measure": 14
         },
         "16": {
-          "swap": 191,
+          "swap": 196,
           "fSim": 480,
           "measure": 16
         }
@@ -323,7 +323,7 @@
       "gate_count": {
         "4": {
           "measure": 4,
-          "fSim": 36
+          "fSim": 48
         },
         "6": {
           "measure": 6,
@@ -335,66 +335,66 @@
         },
         "10": {
           "measure": 10,
-          "fSim": 364
+          "fSim": 384
         },
         "12": {
           "measure": 12,
-          "fSim": 584
+          "fSim": 540
         },
         "14": {
           "measure": 14,
-          "fSim": 896
+          "fSim": 836
         },
         "16": {
           "measure": 16,
-          "fSim": 1132
+          "fSim": 1144
         }
       },
       "preswap_gate_count_crit": {
         "4": {
-          "fSim": 20,
-          "swap": 3,
+          "swap": 4,
+          "fSim": 16,
           "measure": 1
         },
         "6": {
-          "swap": 7,
-          "fSim": 44,
+          "fSim": 40,
+          "swap": 8,
           "measure": 1
         },
         "8": {
-          "swap": 19,
-          "fSim": 56,
+          "swap": 16,
+          "fSim": 72,
           "measure": 1
         },
         "10": {
-          "swap": 27,
-          "fSim": 88,
+          "swap": 21,
+          "fSim": 84,
           "measure": 1
         },
         "12": {
-          "swap": 33,
-          "fSim": 108,
+          "swap": 32,
+          "fSim": 92,
           "measure": 1
         },
         "14": {
-          "swap": 41,
-          "fSim": 128,
+          "swap": 38,
+          "fSim": 124,
           "measure": 1
         },
         "16": {
-          "swap": 61,
-          "fSim": 168,
+          "swap": 63,
+          "fSim": 164,
           "measure": 1
         }
       },
       "layout_score": {
-        "4": 0.0,
-        "6": 0.0,
-        "8": 0.0,
-        "10": 0.0,
-        "12": 0.0,
-        "14": 0.0,
-        "16": 0.0
+        "4": 16.0,
+        "6": 52.0,
+        "8": 128.0,
+        "10": 252.0,
+        "12": 384.0,
+        "14": 544.0,
+        "16": 800.0
       },
       "edge_frequency": {
         "4": null,
@@ -409,28 +409,28 @@
     "TIM_Hamiltonian": {
       "duration": {
         "4": {
-          "fSim": 80,
+          "fSim": 44,
           "measure": 1
         },
         "6": {
-          "fSim": 92,
+          "fSim": 76,
           "measure": 1
         },
         "8": {
-          "fSim": 72,
+          "fSim": 60,
           "measure": 1
         },
         "10": {
-          "fSim": 120,
-          "measure": 1
+          "fSim": 108,
+          "measure": 2
         },
         "12": {
           "fSim": 128,
-          "measure": 1
+          "measure": 2
         },
         "14": {
-          "fSim": 152,
-          "measure": 3
+          "fSim": 168,
+          "measure": 1
         },
         "16": {
           "fSim": 176,
@@ -439,116 +439,113 @@
       },
       "preswap_gate_count": {
         "4": {
-          "swap": 10,
           "fSim": 60,
           "measure": 4
         },
         "6": {
           "fSim": 100,
-          "swap": 12,
+          "swap": 13,
           "measure": 6
         },
         "8": {
-          "swap": 5,
           "fSim": 140,
+          "swap": 1,
           "measure": 8
         },
         "10": {
-          "swap": 33,
           "fSim": 180,
+          "swap": 20,
           "measure": 10
         },
         "12": {
           "fSim": 220,
-          "swap": 26,
+          "swap": 32,
           "measure": 12
         },
         "14": {
-          "swap": 44,
+          "swap": 52,
           "fSim": 260,
           "measure": 14
         },
         "16": {
           "fSim": 300,
-          "swap": 67,
+          "swap": 53,
           "measure": 16
         }
       },
       "gate_count": {
         "4": {
           "measure": 4,
-          "fSim": 100
+          "fSim": 60
         },
         "6": {
           "measure": 6,
-          "fSim": 148
+          "fSim": 144
         },
         "8": {
           "measure": 8,
-          "fSim": 152
+          "fSim": 144
         },
         "10": {
           "measure": 10,
-          "fSim": 300
+          "fSim": 256
         },
         "12": {
           "measure": 12,
-          "fSim": 308
+          "fSim": 344
         },
         "14": {
           "measure": 14,
-          "fSim": 428
+          "fSim": 452
         },
         "16": {
           "measure": 16,
-          "fSim": 560
+          "fSim": 492
         }
       },
       "preswap_gate_count_crit": {
         "4": {
-          "swap": 9,
           "fSim": 44,
           "measure": 1
         },
         "6": {
           "fSim": 52,
-          "swap": 10,
+          "swap": 7,
           "measure": 1
         },
         "8": {
-          "swap": 5,
           "fSim": 60,
           "measure": 1
         },
         "10": {
-          "swap": 15,
           "fSim": 68,
+          "swap": 11,
           "measure": 1
         },
         "12": {
           "fSim": 76,
-          "swap": 14,
+          "swap": 13,
           "measure": 1
         },
         "14": {
-          "swap": 17,
+          "swap": 22,
           "fSim": 84,
           "measure": 1
         },
         "16": {
           "fSim": 92,
-          "swap": 21,
+          "swap": 22,
           "measure": 1
         }
       },
       "layout_score": {
         "4": 0.0,
-        "6": 0.0,
-        "8": 0.0,
-        "10": 0.0,
-        "12": 0.0,
-        "14": 0.0,
-        "16": 0.0
+        "6": 20.0,
+        "8": 40.0,
+        "10": 100.0,
+        "12": 180.0,
+        "14": 360.0,
+        "16": 420.0
       },
       "edge_frequency": {
         "4": null,
@@ -566,96 +563,96 @@
           "fSim": 80
         },
         "6": {
-          "fSim": 136
+          "fSim": 116
         },
         "8": {
-          "fSim": 232
+          "fSim": 172
         },
         "10": {
-          "fSim": 256
+          "fSim": 244
         },
         "12": {
-          "fSim": 344
+          "fSim": 320
         },
         "14": {
-          "fSim": 380
+          "fSim": 372
         },
         "16": {
-          "fSim": 496
+          "fSim": 500
         }
       },
       "preswap_gate_count": {
         "4": {
           "fSim": 60,
-          "swap": 10
+          "swap": 7
         },
         "6": {
-          "swap": 10,
-          "fSim": 116
+          "fSim": 116,
+          "swap": 12
         },
         "8": {
-          "swap": 29,
+          "swap": 19,
           "fSim": 172
         },
         "10": {
-          "swap": 32,
+          "swap": 28,
           "fSim": 228
         },
         "12": {
-          "swap": 55,
+          "swap": 42,
           "fSim": 284
         },
         "14": {
-          "swap": 58,
+          "swap": 51,
           "fSim": 340
         },
         "16": {
-          "swap": 75,
+          "swap": 80,
           "fSim": 396
         }
       },
       "gate_count": {
         "4": {
-          "fSim": 92
+          "fSim": 84
         },
         "6": {
-          "fSim": 156
+          "fSim": 152
         },
         "8": {
-          "fSim": 284
+          "fSim": 228
         },
         "10": {
-          "fSim": 336
+          "fSim": 316
         },
         "12": {
-          "fSim": 468
+          "fSim": 428
         },
         "14": {
-          "fSim": 532
+          "fSim": 496
         },
         "16": {
-          "fSim": 688
+          "fSim": 700
         }
       },
       "preswap_gate_count_crit": {
         "4": {
           "fSim": 56,
-          "swap": 8
+          "swap": 7
         },
         "6": {
-          "swap": 8,
-          "fSim": 104
+          "fSim": 104,
+          "swap": 6
         },
         "8": {
-          "swap": 21,
+          "swap": 10,
           "fSim": 152
         },
         "10": {
-          "swap": 18,
+          "swap": 17,
           "fSim": 200
         },
         "12": {
-          "swap": 32,
+          "swap": 24,
           "fSim": 248
         },
         "14": {
@@ -663,18 +660,18 @@
           "fSim": 296
         },
         "16": {
-          "swap": 44,
-          "fSim": 345
+          "swap": 45,
+          "fSim": 346
         }
       },
       "layout_score": {
-        "4": 0.0,
-        "6": 0.0,
-        "8": 0.0,
-        "10": 0.0,
-        "12": 0.0,
-        "14": 0.0,
-        "16": 0.0
+        "4": 16.0,
+        "6": 28.0,
+        "8": 160.0,
+        "10": 244.0,
+        "12": 324.0,
+        "14": 440.0,
+        "16": 556.0
       },
       "edge_frequency": {
         "4": null,
@@ -689,120 +686,117 @@
     "GHZ": {
       "duration": {
         "4": {
-          "fSim": 24,
+          "fSim": 12,
           "measure": 1
         },
         "6": {
-          "fSim": 32,
+          "fSim": 24,
           "measure": 1
         },
         "8": {
-          "fSim": 44,
-          "measure": 2
+          "fSim": 28,
+          "measure": 1
         },
         "10": {
-          "fSim": 56,
-          "measure": 2
+          "fSim": 52,
+          "measure": 1
         },
         "12": {
           "fSim": 60,
           "measure": 1
         },
         "14": {
-          "fSim": 84,
-          "measure": 2
+          "fSim": 76,
+          "measure": 1
         },
         "16": {
-          "fSim": 76,
-          "measure": 3
+          "fSim": 84,
+          "measure": 2
         }
       },
       "preswap_gate_count": {
         "4": {
-          "swap": 3,
           "fSim": 12,
           "measure": 4
         },
         "6": {
           "fSim": 20,
-          "swap": 3,
-          "measure": 6
+          "measure": 6,
+          "swap": 2
         },
         "8": {
-          "swap": 7,
           "fSim": 28,
-          "measure": 8
+          "measure": 8,
+          "swap": 1
         },
         "10": {
-          "swap": 14,
           "fSim": 36,
-          "measure": 10
+          "measure": 10,
+          "swap": 6
         },
         "12": {
           "fSim": 44,
-          "swap": 9,
+          "swap": 11,
           "measure": 12
         },
         "14": {
-          "swap": 20,
+          "swap": 18,
           "fSim": 52,
           "measure": 14
         },
         "16": {
           "fSim": 60,
-          "swap": 18,
+          "swap": 23,
           "measure": 16
         }
       },
       "gate_count": {
         "4": {
           "measure": 4,
-          "fSim": 24
+          "fSim": 12
         },
         "6": {
           "measure": 6,
-          "fSim": 32
+          "fSim": 28
         },
         "8": {
           "measure": 8,
-          "fSim": 52
+          "fSim": 32
         },
         "10": {
           "measure": 10,
-          "fSim": 84
+          "fSim": 56
         },
         "12": {
           "measure": 12,
-          "fSim": 76
+          "fSim": 84
         },
         "14": {
           "measure": 14,
-          "fSim": 128
+          "fSim": 112
         },
         "16": {
           "measure": 16,
-          "fSim": 116
+          "fSim": 128
         }
       },
       "preswap_gate_count_crit": {
         "4": {
-          "swap": 3,
           "fSim": 12,
           "measure": 1
         },
         "6": {
           "fSim": 20,
-          "swap": 3,
+          "swap": 1,
           "measure": 1
         },
         "8": {
-          "swap": 5,
           "fSim": 28,
           "measure": 1
         },
         "10": {
-          "swap": 7,
           "fSim": 36,
+          "swap": 5,
           "measure": 1
         },
         "12": {
@@ -817,18 +811,18 @@
         },
         "16": {
           "fSim": 60,
-          "swap": 8,
+          "swap": 12,
           "measure": 1
         }
       },
       "layout_score": {
         "4": 0.0,
-        "6": 0.0,
-        "8": 0.0,
-        "10": 0.0,
-        "12": 0.0,
-        "14": 0.0,
-        "16": 0.0
+        "6": 4.0,
+        "8": 8.0,
+        "10": 20.0,
+        "12": 36.0,
+        "14": 72.0,
+        "16": 84.0
       },
       "edge_frequency": {
         "4": null,

@@ -49,7 +49,7 @@ class FakeHyperCubeSnail(ConfigurableFakeBackendV2):
 
 
         coupling_map = snail_to_connectivity(snail_edge_list)
-        qubits = list(range(max([el[0] for el in coupling_map])))
+        qubits = list(range(1 + max([el[0] for el in coupling_map])))
 
         gate_configuration = {}
         gate_configuration[IGate] = [(i,) for i in qubits]

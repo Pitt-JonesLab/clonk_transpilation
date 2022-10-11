@@ -9,7 +9,8 @@ from backend_utils.mock_backends.fake_allToAll import FakeAllToAll
 
 from backend_utils.mock_backends.fake_hexLattice import FakeHexLattice
 from backend_utils import *
-from utils.transpiler_passes import level_0_pass_manager, pass_manager_v2
+from utils.transpiler_passes import level_0_pass_manager
+from utils.transpiler_passes import level_1_pass_manager
 
 
 class BackendTranspilerBenchmark:
@@ -217,6 +218,7 @@ _small_results_part2 = [
     fake_small_tree_rr,
     fake_small_hypercube,
     fake_corralv1,
+    fake_corralv2
 ]
 
 _small_results_part3 = [
@@ -248,7 +250,7 @@ hpca_corrals = [corral_42_11, corral_42_12, corral_42_11_bridge]
 hpca_corrals.insert(0, fake_hypercube)
 hpca_corrals.insert(0, fake_heavy_hex)
 #####
-_results.append(corral_42_11)
+#_results.append(corral_42_11)
 
 # results, decompose swaps first, so it doesn't need to generate data twice
 # for small, need to adjust labels so differs in save data
@@ -260,11 +262,19 @@ for backend, basis_gate in zip(_small_results_part3, basis_gates):
     simple_backends.append(BackendTranspilerBenchmark(backend, pm, label))
 
 results_backends = []
-basis_gates = ["cx", "syc", "riswap", "riswap", "riswap", "riswap"] #temp extend for corral
+basis_gates = ["cx", "syc", "riswap", "riswap", "riswap"]#, "riswap"] #temp extend for corral
 for backend, basis_gate in zip(_results, basis_gates):
     pm = level_0_pass_manager(backend, basis_gate=basis_gate, decompose_swaps=True)
     label = backend.name
     results_backends.append(BackendTranspilerBenchmark(backend, pm, label))
+
+results_backendsv2 = []
+basis_gates = ["cx", "syc", "riswap", "riswap", "riswap"]#, "riswap"] #temp extend for corral
+for backend, basis_gate in zip(_results, basis_gates):
+    pm = level_1_pass_manager(backend, basis_gate=basis_gate, decompose_swaps=True)
+    label = backend.name+"-v2"
+    results_backendsv2.append(BackendTranspilerBenchmark(backend, pm, label))
+
 
 motivation_backends = []
 basis_gates = ["cx", "cx", "syc", "cx", "riswap"]
@@ -292,11 +302,18 @@ for backend, basis_gate in zip(_small_results, basis_gates):
     small_results_backends.append(BackendTranspilerBenchmark(backend, pm, label))
 
 small_results_part2_backends = []
-basis_gates = ["cx", "syc", "riswap", "riswap", "riswap", "riswap"]
+basis_gates = ["cx", "syc", "riswap", "riswap", "riswap", "riswap", "riswap"]
 for backend, basis_gate in zip(_small_results_part2, basis_gates):
     pm = level_0_pass_manager(backend, basis_gate=basis_gate, decompose_swaps=True)
     label = backend.name + "-small"
     small_results_part2_backends.append(BackendTranspilerBenchmark(backend, pm, label))
+
+small_results_part2_backendsv2 = []
+basis_gates = ["cx", "syc", "riswap", "riswap", "riswap", "riswap", "riswap"]
+for backend, basis_gate in zip(_small_results_part2, basis_gates):
+    pm = level_1_pass_manager(backend, basis_gate=basis_gate, decompose_swaps=True)
+    label = backend.name + "-smallv2"
+    small_results_part2_backendsv2.append(BackendTranspilerBenchmark(backend, pm, label))
 
 hpca_modular_backends = []
 for backend in hpca_modular_test:
@@ -414,3 +431,10 @@ for backend in hpca_corrals:
 # #     label = "beta" + backend.name
 # #     beta_small_modular_backends.append(BackendTranspilerBenchmark(backend, pm, label))
 # # ##################
+
+simple_backends_v3 = []
+basis_gates = ["cx", "syc", "riswap", "riswap"]
+for backend, basis_gate in zip(_small_results_part3, basis_gates):
+    pm = level_1_pass_manager(backend, basis_gate=basis_gate, decompose_swaps=True)
+    label = backend.name + "-smallv3"
+    simple_backends_v3.append(BackendTranspilerBenchmark(backend, pm, label))
