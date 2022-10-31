@@ -1,0 +1,1200 @@
+{
+  "0": {
+    "Quantum_Volume": {
+      "duration": {
+        "4": {
+          "fSim": 28
+        },
+        "6": {
+          "fSim": 40
+        },
+        "8": {
+          "fSim": 84
+        },
+        "16": {
+          "fSim": 268
+        },
+        "24": {
+          "fSim": 556
+        },
+        "32": {
+          "fSim": 924
+        },
+        "40": {
+          "fSim": 1796
+        },
+        "48": {
+          "fSim": 3176
+        },
+        "56": {
+          "fSim": 4976
+        },
+        "64": {
+          "fSim": 6520
+        },
+        "72": {
+          "fSim": 8564
+        },
+        "80": {
+          "fSim": 11208
+        }
+      },
+      "preswap_gate_count": {
+        "4": {
+          "unitary": 8,
+          "swap": 4
+        },
+        "6": {
+          "swap": 11,
+          "unitary": 13
+        },
+        "8": {
+          "swap": 38,
+          "unitary": 29
+        },
+        "16": {
+          "swap": 218,
+          "unitary": 123
+        },
+        "24": {
+          "swap": 541,
+          "unitary": 278
+        },
+        "32": {
+          "swap": 1294,
+          "unitary": 496
+        },
+        "40": {
+          "swap": 2571,
+          "unitary": 772
+        },
+        "48": {
+          "swap": 4274,
+          "unitary": 1132
+        },
+        "56": {
+          "swap": 6799,
+          "unitary": 1538
+        },
+        "64": {
+          "swap": 9753,
+          "unitary": 2017
+        },
+        "72": {
+          "swap": 13705,
+          "unitary": 2564
+        },
+        "80": {
+          "swap": 18536,
+          "unitary": 3168
+        }
+      },
+      "gate_count": {
+        "4": {
+          "fSim": 48
+        },
+        "6": {
+          "fSim": 96
+        },
+        "8": {
+          "fSim": 268
+        },
+        "16": {
+          "fSim": 1364
+        },
+        "24": {
+          "fSim": 3276
+        },
+        "32": {
+          "fSim": 7160
+        },
+        "40": {
+          "fSim": 13372
+        },
+        "48": {
+          "fSim": 21624
+        },
+        "56": {
+          "fSim": 33348
+        },
+        "64": {
+          "fSim": 47080
+        },
+        "72": {
+          "fSim": 65076
+        },
+        "80": {
+          "fSim": 86816
+        }
+      },
+      "preswap_gate_count_crit": {
+        "4": {
+          "unitary": 4,
+          "swap": 3
+        },
+        "6": {
+          "swap": 5,
+          "unitary": 5
+        },
+        "8": {
+          "swap": 13,
+          "unitary": 8
+        },
+        "16": {
+          "swap": 50,
+          "unitary": 17
+        },
+        "24": {
+          "swap": 103,
+          "unitary": 36
+        },
+        "32": {
+          "swap": 184,
+          "unitary": 47
+        },
+        "40": {
+          "swap": 353,
+          "unitary": 96
+        },
+        "48": {
+          "swap": 635,
+          "unitary": 159
+        },
+        "56": {
+          "swap": 990,
+          "unitary": 254
+        },
+        "64": {
+          "swap": 1309,
+          "unitary": 321
+        },
+        "72": {
+          "swap": 1734,
+          "unitary": 407
+        },
+        "80": {
+          "swap": 2265,
+          "unitary": 537
+        }
+      },
+      "layout_score": {
+        "4": 4.0,
+        "6": 14.0,
+        "8": 44.0,
+        "16": 275.0,
+        "24": 758.0,
+        "32": 1546.0,
+        "40": 2687.0,
+        "48": 4352.0,
+        "56": 6628.0,
+        "64": 9498.0,
+        "72": 12474.0,
+        "80": 16192.0
+      },
+      "edge_frequency": {
+        "4": null,
+        "6": null,
+        "8": null,
+        "16": null,
+        "24": null,
+        "32": null,
+        "40": null,
+        "48": null,
+        "56": null,
+        "64": null,
+        "72": null,
+        "80": null
+      }
+    },
+    "QFT": {
+      "duration": {
+        "8": {
+          "fSim": 108
+        },
+        "16": {
+          "fSim": 316
+        },
+        "24": {
+          "fSim": 584
+        },
+        "32": {
+          "fSim": 700
+        },
+        "40": {
+          "fSim": 1116
+        },
+        "48": {
+          "fSim": 1528
+        },
+        "56": {
+          "fSim": 1736
+        },
+        "64": {
+          "fSim": 2644
+        },
+        "72": {
+          "fSim": 3496
+        },
+        "80": {
+          "fSim": 4272
+        }
+      },
+      "preswap_gate_count": {
+        "8": {
+          "unitary": 32,
+          "swap": 27
+        },
+        "16": {
+          "unitary": 128,
+          "swap": 168
+        },
+        "24": {
+          "unitary": 288,
+          "swap": 458
+        },
+        "32": {
+          "unitary": 512,
+          "swap": 689
+        },
+        "40": {
+          "unitary": 800,
+          "swap": 1224
+        },
+        "48": {
+          "unitary": 1152,
+          "swap": 1970
+        },
+        "56": {
+          "unitary": 1568,
+          "swap": 2475
+        },
+        "64": {
+          "unitary": 2048,
+          "swap": 4069
+        },
+        "72": {
+          "unitary": 2592,
+          "swap": 5395
+        },
+        "80": {
+          "unitary": 3200,
+          "swap": 6931
+        }
+      },
+      "gate_count": {
+        "8": {
+          "fSim": 236
+        },
+        "16": {
+          "fSim": 1184
+        },
+        "24": {
+          "fSim": 2984
+        },
+        "32": {
+          "fSim": 4804
+        },
+        "40": {
+          "fSim": 8096
+        },
+        "48": {
+          "fSim": 12488
+        },
+        "56": {
+          "fSim": 16172
+        },
+        "64": {
+          "fSim": 24468
+        },
+        "72": {
+          "fSim": 31948
+        },
+        "80": {
+          "fSim": 40524
+        }
+      },
+      "preswap_gate_count_crit": {
+        "8": {
+          "unitary": 14,
+          "swap": 13
+        },
+        "16": {
+          "unitary": 30,
+          "swap": 49
+        },
+        "24": {
+          "unitary": 47,
+          "swap": 99
+        },
+        "32": {
+          "swap": 115,
+          "unitary": 60
+        },
+        "40": {
+          "unitary": 94,
+          "swap": 185
+        },
+        "48": {
+          "unitary": 117,
+          "swap": 265
+        },
+        "56": {
+          "unitary": 137,
+          "swap": 297
+        },
+        "64": {
+          "swap": 471,
+          "unitary": 190
+        },
+        "72": {
+          "unitary": 251,
+          "swap": 623
+        },
+        "80": {
+          "unitary": 316,
+          "swap": 752
+        }
+      },
+      "layout_score": {
+        "8": 40.0,
+        "16": 288.0,
+        "24": 812.0,
+        "32": 1606.0,
+        "40": 2806.0,
+        "48": 4496.0,
+        "56": 6854.0,
+        "64": 9616.0,
+        "72": 12742.0,
+        "80": 16560.0
+      },
+      "edge_frequency": {
+        "8": null,
+        "16": null,
+        "24": null,
+        "32": null,
+        "40": null,
+        "48": null,
+        "56": null,
+        "64": null,
+        "72": null,
+        "80": null
+      }
+    },
+    "QAOA_Vanilla": {
+      "duration": {
+        "8": {
+          "fSim": 128,
+          "measure": 1
+        },
+        "16": {
+          "fSim": 376,
+          "measure": 1
+        },
+        "24": {
+          "fSim": 808,
+          "measure": 1
+        },
+        "32": {
+          "fSim": 1252,
+          "measure": 1
+        },
+        "40": {
+          "fSim": 1868,
+          "measure": 3
+        },
+        "48": {
+          "fSim": 2440,
+          "measure": 1
+        },
+        "56": {
+          "fSim": 3264,
+          "measure": 1
+        },
+        "64": {
+          "fSim": 3996,
+          "measure": 1
+        },
+        "72": {
+          "fSim": 5080,
+          "measure": 1
+        },
+        "80": {
+          "fSim": 6196,
+          "measure": 2
+        }
+      },
+      "preswap_gate_count": {
+        "8": {
+          "swap": 38,
+          "unitary": 28,
+          "measure": 8
+        },
+        "16": {
+          "swap": 221,
+          "unitary": 120,
+          "measure": 16
+        },
+        "24": {
+          "swap": 626,
+          "unitary": 276,
+          "measure": 24
+        },
+        "32": {
+          "swap": 1336,
+          "unitary": 496,
+          "measure": 32
+        },
+        "40": {
+          "swap": 2380,
+          "unitary": 780,
+          "measure": 40
+        },
+        "48": {
+          "swap": 3810,
+          "unitary": 1128,
+          "measure": 48
+        },
+        "56": {
+          "swap": 5632,
+          "unitary": 1540,
+          "measure": 56
+        },
+        "64": {
+          "swap": 7957,
+          "unitary": 2016,
+          "measure": 64
+        },
+        "72": {
+          "swap": 11320,
+          "unitary": 2556,
+          "measure": 72
+        },
+        "80": {
+          "swap": 14813,
+          "unitary": 3160,
+          "measure": 80
+        }
+      },
+      "gate_count": {
+        "8": {
+          "measure": 8,
+          "fSim": 264
+        },
+        "16": {
+          "measure": 16,
+          "fSim": 1364
+        },
+        "24": {
+          "measure": 24,
+          "fSim": 3608
+        },
+        "32": {
+          "measure": 32,
+          "fSim": 7328
+        },
+        "40": {
+          "measure": 40,
+          "fSim": 12640
+        },
+        "48": {
+          "measure": 48,
+          "fSim": 19752
+        },
+        "56": {
+          "measure": 56,
+          "fSim": 28688
+        },
+        "64": {
+          "measure": 64,
+          "fSim": 39892
+        },
+        "72": {
+          "measure": 72,
+          "fSim": 55504
+        },
+        "80": {
+          "measure": 80,
+          "fSim": 71892
+        }
+      },
+      "preswap_gate_count_crit": {
+        "8": {
+          "swap": 16,
+          "unitary": 16,
+          "measure": 1
+        },
+        "16": {
+          "swap": 62,
+          "unitary": 32,
+          "measure": 1
+        },
+        "24": {
+          "swap": 139,
+          "unitary": 63,
+          "measure": 1
+        },
+        "32": {
+          "swap": 229,
+          "unitary": 84,
+          "measure": 1
+        },
+        "40": {
+          "swap": 358,
+          "unitary": 109,
+          "measure": 3
+        },
+        "48": {
+          "swap": 473,
+          "unitary": 136,
+          "measure": 2
+        },
+        "56": {
+          "swap": 641,
+          "unitary": 175,
+          "measure": 1
+        },
+        "64": {
+          "swap": 808,
+          "unitary": 190,
+          "measure": 2
+        },
+        "72": {
+          "swap": 1046,
+          "unitary": 223,
+          "measure": 2
+        },
+        "80": {
+          "swap": 1284,
+          "unitary": 264,
+          "measure": 3
+        }
+      },
+      "layout_score": {
+        "8": 31.0,
+        "16": 226.0,
+        "24": 679.0,
+        "32": 1540.0,
+        "40": 2709.0,
+        "48": 4381.0,
+        "56": 6678.0,
+        "64": 9415.0,
+        "72": 12516.0,
+        "80": 16298.0
+      },
+      "edge_frequency": {
+        "8": null,
+        "16": null,
+        "24": null,
+        "32": null,
+        "40": null,
+        "48": null,
+        "56": null,
+        "64": null,
+        "72": null,
+        "80": null
+      }
+    },
+    "TIM_Hamiltonian": {
+      "duration": {
+        "8": {
+          "fSim": 80,
+          "measure": 1
+        },
+        "16": {
+          "fSim": 192,
+          "measure": 2
+        },
+        "24": {
+          "fSim": 284,
+          "measure": 1
+        },
+        "32": {
+          "fSim": 340,
+          "measure": 1
+        },
+        "40": {
+          "fSim": 464,
+          "measure": 1
+        },
+        "48": {
+          "fSim": 604,
+          "measure": 1
+        },
+        "56": {
+          "fSim": 592,
+          "measure": 1
+        },
+        "64": {
+          "fSim": 748,
+          "measure": 1
+        },
+        "72": {
+          "fSim": 936,
+          "measure": 1
+        },
+        "80": {
+          "fSim": 912,
+          "measure": 2
+        }
+      },
+      "preswap_gate_count": {
+        "8": {
+          "swap": 5,
+          "unitary": 35,
+          "measure": 8
+        },
+        "16": {
+          "unitary": 75,
+          "swap": 60,
+          "measure": 16
+        },
+        "24": {
+          "unitary": 115,
+          "swap": 115,
+          "measure": 24
+        },
+        "32": {
+          "unitary": 155,
+          "swap": 141,
+          "measure": 32
+        },
+        "40": {
+          "unitary": 195,
+          "swap": 206,
+          "measure": 40
+        },
+        "48": {
+          "swap": 362,
+          "unitary": 235,
+          "measure": 48
+        },
+        "56": {
+          "unitary": 275,
+          "swap": 366,
+          "measure": 56
+        },
+        "64": {
+          "unitary": 315,
+          "swap": 477,
+          "measure": 64
+        },
+        "72": {
+          "swap": 645,
+          "unitary": 355,
+          "measure": 72
+        },
+        "80": {
+          "swap": 588,
+          "unitary": 395,
+          "measure": 80
+        }
+      },
+      "gate_count": {
+        "8": {
+          "measure": 8,
+          "fSim": 160
+        },
+        "16": {
+          "measure": 16,
+          "fSim": 540
+        },
+        "24": {
+          "measure": 24,
+          "fSim": 920
+        },
+        "32": {
+          "measure": 32,
+          "fSim": 1184
+        },
+        "40": {
+          "measure": 40,
+          "fSim": 1604
+        },
+        "48": {
+          "measure": 48,
+          "fSim": 2388
+        },
+        "56": {
+          "measure": 56,
+          "fSim": 2564
+        },
+        "64": {
+          "measure": 64,
+          "fSim": 3168
+        },
+        "72": {
+          "measure": 72,
+          "fSim": 4000
+        },
+        "80": {
+          "measure": 80,
+          "fSim": 3932
+        }
+      },
+      "preswap_gate_count_crit": {
+        "8": {
+          "swap": 5,
+          "unitary": 15,
+          "measure": 1
+        },
+        "16": {
+          "unitary": 22,
+          "swap": 26,
+          "measure": 2
+        },
+        "24": {
+          "unitary": 31,
+          "swap": 40,
+          "measure": 1
+        },
+        "32": {
+          "unitary": 39,
+          "swap": 46,
+          "measure": 1
+        },
+        "40": {
+          "unitary": 46,
+          "swap": 69,
+          "measure": 2
+        },
+        "48": {
+          "swap": 97,
+          "unitary": 53,
+          "measure": 2
+        },
+        "56": {
+          "unitary": 63,
+          "swap": 85,
+          "measure": 1
+        },
+        "64": {
+          "unitary": 71,
+          "swap": 116,
+          "measure": 1
+        },
+        "72": {
+          "swap": 156,
+          "unitary": 76,
+          "measure": 3
+        },
+        "80": {
+          "swap": 142,
+          "unitary": 85,
+          "measure": 3
+        }
+      },
+      "layout_score": {
+        "8": 15.0,
+        "16": 70.0,
+        "24": 185.0,
+        "32": 235.0,
+        "40": 330.0,
+        "48": 490.0,
+        "56": 495.0,
+        "64": 590.0,
+        "72": 780.0,
+        "80": 860.0
+      },
+      "edge_frequency": {
+        "8": null,
+        "16": null,
+        "24": null,
+        "32": null,
+        "40": null,
+        "48": null,
+        "56": null,
+        "64": null,
+        "72": null,
+        "80": null
+      }
+    },
+    "Adder": {
+      "duration": {
+        "8": {
+          "fSim": 200
+        },
+        "16": {
+          "fSim": 460
+        },
+        "24": {
+          "fSim": 924
+        },
+        "32": {
+          "fSim": 1120
+        },
+        "40": {
+          "fSim": 1512
+        },
+        "48": {
+          "fSim": 1900
+        },
+        "56": {
+          "fSim": 2316
+        },
+        "64": {
+          "fSim": 2504
+        },
+        "72": {
+          "fSim": 3128
+        },
+        "80": {
+          "fSim": 3396
+        }
+      },
+      "preswap_gate_count": {
+        "8": {
+          "swap": 18,
+          "unitary": 43
+        },
+        "16": {
+          "swap": 51,
+          "unitary": 99
+        },
+        "24": {
+          "swap": 187,
+          "unitary": 155
+        },
+        "32": {
+          "swap": 197,
+          "unitary": 211
+        },
+        "40": {
+          "swap": 345,
+          "unitary": 267
+        },
+        "48": {
+          "swap": 441,
+          "unitary": 323
+        },
+        "56": {
+          "swap": 572,
+          "unitary": 379
+        },
+        "64": {
+          "swap": 615,
+          "unitary": 435
+        },
+        "72": {
+          "swap": 807,
+          "unitary": 491
+        },
+        "80": {
+          "swap": 893,
+          "unitary": 547
+        }
+      },
+      "gate_count": {
+        "8": {
+          "fSim": 244
+        },
+        "16": {
+          "fSim": 600
+        },
+        "24": {
+          "fSim": 1368
+        },
+        "32": {
+          "fSim": 1632
+        },
+        "40": {
+          "fSim": 2448
+        },
+        "48": {
+          "fSim": 3056
+        },
+        "56": {
+          "fSim": 3804
+        },
+        "64": {
+          "fSim": 4200
+        },
+        "72": {
+          "fSim": 5192
+        },
+        "80": {
+          "fSim": 5760
+        }
+      },
+      "preswap_gate_count_crit": {
+        "8": {
+          "swap": 12,
+          "unitary": 38
+        },
+        "16": {
+          "swap": 30,
+          "unitary": 85
+        },
+        "24": {
+          "swap": 103,
+          "unitary": 128
+        },
+        "32": {
+          "swap": 102,
+          "unitary": 178
+        },
+        "40": {
+          "swap": 161,
+          "unitary": 217
+        },
+        "48": {
+          "swap": 204,
+          "unitary": 271
+        },
+        "56": {
+          "swap": 256,
+          "unitary": 323
+        },
+        "64": {
+          "swap": 262,
+          "unitary": 364
+        },
+        "72": {
+          "swap": 366,
+          "unitary": 416
+        },
+        "80": {
+          "swap": 398,
+          "unitary": 451
+        }
+      },
+      "layout_score": {
+        "8": 43.0,
+        "16": 142.0,
+        "24": 417.0,
+        "32": 593.0,
+        "40": 816.0,
+        "48": 1212.0,
+        "56": 1483.0,
+        "64": 1774.0,
+        "72": 1930.0,
+        "80": 2562.0
+      },
+      "edge_frequency": {
+        "8": null,
+        "16": null,
+        "24": null,
+        "32": null,
+        "40": null,
+        "48": null,
+        "56": null,
+        "64": null,
+        "72": null,
+        "80": null
+      }
+    },
+    "GHZ": {
+      "duration": {
+        "8": {
+          "fSim": 44,
+          "measure": 1
+        },
+        "16": {
+          "fSim": 104,
+          "measure": 1
+        },
+        "24": {
+          "fSim": 188,
+          "measure": 2
+        },
+        "32": {
+          "fSim": 228,
+          "measure": 1
+        },
+        "40": {
+          "fSim": 292,
+          "measure": 1
+        },
+        "48": {
+          "fSim": 444,
+          "measure": 1
+        },
+        "56": {
+          "fSim": 468,
+          "measure": 1
+        },
+        "64": {
+          "fSim": 584,
+          "measure": 1
+        },
+        "72": {
+          "fSim": 696,
+          "measure": 1
+        },
+        "80": {
+          "fSim": 768,
+          "measure": 1
+        }
+      },
+      "preswap_gate_count": {
+        "8": {
+          "swap": 5,
+          "unitary": 7,
+          "measure": 8
+        },
+        "16": {
+          "unitary": 15,
+          "measure": 16,
+          "swap": 16
+        },
+        "24": {
+          "unitary": 23,
+          "swap": 46,
+          "measure": 24
+        },
+        "32": {
+          "unitary": 31,
+          "swap": 50,
+          "measure": 32
+        },
+        "40": {
+          "unitary": 39,
+          "swap": 62,
+          "measure": 40
+        },
+        "48": {
+          "swap": 120,
+          "unitary": 47,
+          "measure": 48
+        },
+        "56": {
+          "unitary": 55,
+          "swap": 118,
+          "measure": 56
+        },
+        "64": {
+          "unitary": 63,
+          "swap": 154,
+          "measure": 64
+        },
+        "72": {
+          "swap": 213,
+          "unitary": 71,
+          "measure": 72
+        },
+        "80": {
+          "swap": 216,
+          "unitary": 79,
+          "measure": 80
+        }
+      },
+      "gate_count": {
+        "8": {
+          "measure": 8,
+          "fSim": 48
+        },
+        "16": {
+          "measure": 16,
+          "fSim": 124
+        },
+        "24": {
+          "measure": 24,
+          "fSim": 276
+        },
+        "32": {
+          "measure": 32,
+          "fSim": 324
+        },
+        "40": {
+          "measure": 40,
+          "fSim": 404
+        },
+        "48": {
+          "measure": 48,
+          "fSim": 668
+        },
+        "56": {
+          "measure": 56,
+          "fSim": 692
+        },
+        "64": {
+          "measure": 64,
+          "fSim": 868
+        },
+        "72": {
+          "measure": 72,
+          "fSim": 1136
+        },
+        "80": {
+          "measure": 80,
+          "fSim": 1180
+        }
+      },
+      "preswap_gate_count_crit": {
+        "8": {
+          "swap": 4,
+          "unitary": 7,
+          "measure": 1
+        },
+        "16": {
+          "unitary": 14,
+          "swap": 11,
+          "measure": 2
+        },
+        "24": {
+          "unitary": 22,
+          "swap": 25,
+          "measure": 2
+        },
+        "32": {
+          "unitary": 31,
+          "swap": 26,
+          "measure": 1
+        },
+        "40": {
+          "unitary": 38,
+          "swap": 34,
+          "measure": 2
+        },
+        "48": {
+          "swap": 64,
+          "unitary": 47,
+          "measure": 1
+        },
+        "56": {
+          "unitary": 55,
+          "swap": 62,
+          "measure": 1
+        },
+        "64": {
+          "unitary": 63,
+          "swap": 83,
+          "measure": 1
+        },
+        "72": {
+          "swap": 103,
+          "unitary": 71,
+          "measure": 1
+        },
+        "80": {
+          "swap": 113,
+          "unitary": 79,
+          "measure": 1
+        }
+      },
+      "layout_score": {
+        "8": 3.0,
+        "16": 14.0,
+        "24": 37.0,
+        "32": 47.0,
+        "40": 66.0,
+        "48": 98.0,
+        "56": 99.0,
+        "64": 118.0,
+        "72": 156.0,
+        "80": 172.0
+      },
+      "edge_frequency": {
+        "8": null,
+        "16": null,
+        "24": null,
+        "32": null,
+        "40": null,
+        "48": null,
+        "56": null,
+        "64": null,
+        "72": null,
+        "80": null
+      }
+    }
+  }
+}

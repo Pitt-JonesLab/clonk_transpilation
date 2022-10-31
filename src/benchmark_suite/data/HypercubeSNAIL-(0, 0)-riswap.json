@@ -1,0 +1,42 @@
+{
+  "0": {
+    "Quantum_Volume": {
+      "duration": {
+        "8": {
+          "rz": 137,
+          "sx": 92,
+          "riswap": 45
+        }
+      },
+      "preswap_gate_count": {
+        "8": {
+          "rz": 366,
+          "sx": 244,
+          "swap": 26,
+          "riswap": 57
+        }
+      },
+      "gate_count": {
+        "8": {
+          "riswap": 138,
+          "rz": 835,
+          "sx": 554
+        }
+      },
+      "preswap_gate_count_crit": {
+        "8": {
+          "rz": 60,
+          "sx": 40,
+          "swap": 8,
+          "riswap": 19
+        }
+      },
+      "layout_score": {
+        "8": 28.0
+      },
+      "edge_frequency": {
+        "8": null
+      }
+    }
+  }
+}
