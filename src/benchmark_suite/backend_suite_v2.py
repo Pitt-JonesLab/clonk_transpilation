@@ -18,10 +18,12 @@ class BackendTranspilerBenchmark:
         self.backend = backend
         self.pass_manager = pm
         self.label = label
-        self.filename = (
-            f"/home/evm9/transpilation_EM/benchmark_suite/data/{self.label}.json"
-        )
+        self.filename = f"src/benchmark_suite/data/{self.label}.json"
         self.load_data()
+        if "small" in self.label:
+            self.q_range = [4, 6,8,10,12,14,16] 
+        else:
+            self.q_range = [8, 16, 24, 32, 40, 48, 56, 64, 72, 80]
 
     def load_data(self):
         try:
