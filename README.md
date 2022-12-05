@@ -1,4 +1,6 @@
 # CLONK-CoupLing tOpology beNchmarKs
+Paper: McKinney, Evan, et al. "Co-Designed Architectures for Modular Superconducting Quantum Computers." arXiv preprint arXiv:2205.04387 (2022).
+
 ## 1. Set up list of coupling maps
 ### Begin by building a mock backend using the `ConfigurableFakeBackendV2` abstract class.
 ```python
