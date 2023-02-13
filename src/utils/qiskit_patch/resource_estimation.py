@@ -21,7 +21,7 @@ from qiskit.transpiler.passes.analysis.size import Size
 # from qiskit.transpiler.passes.analysis.count_ops_longest_path import CountOpsLongestPath
 import sys
 
-sys.path.append("../")
+sys.path.append("c:\\Users\\19bay\\qiskit_mine\\transpilation_EM")
 from src.utils.qiskit_patch import CountOps
 from src.utils.qiskit_patch import CountOpsLongestPath
 from qiskit.transpiler.passes.analysis.num_tensor_factors import NumTensorFactors

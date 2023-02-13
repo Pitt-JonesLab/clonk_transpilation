@@ -1,4 +1,4 @@
-# from cirq import cphase
+#from cirq import cphase
 import qiskit.circuit.quantumcircuit as qc
 from qiskit.circuit.equivalence_library import SessionEquivalenceLibrary
 import qiskit.extensions as qe

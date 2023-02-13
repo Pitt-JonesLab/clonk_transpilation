@@ -1,7 +1,7 @@
 from qiskit.transpiler.passes import CountOpsLongestPath
 import sys
 
-sys.path.append("..")
+sys.path.append("c:\\Users\\19bay\\qiskit_mine\\transpilation_EM")
 import fakeutils
 from qiskit.transpiler import PassManager
 import numpy as np

@@ -8,3 +8,4 @@ from .fake_hypercubeSNAIL import FakeHyperCubeSnail
 from .fake_hexLattice import FakeHexLattice
 from .fake_tree import FakeTree
 from .fake_modular import FakeModular
+from .Corral_backend_v1 import FakeCorral

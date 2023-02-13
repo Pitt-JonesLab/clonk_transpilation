@@ -4,7 +4,7 @@ import json
 import os
 from pathlib import Path
 
-sys.path.append("..")
+sys.path.append("c:\\Users\\19bay\\qiskit_mine\\transpilation_EM")
 from src.backend_utils import *
 from src.utils.transpiler_passes import level_0_pass_manager
 

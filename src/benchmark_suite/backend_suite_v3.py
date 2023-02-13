@@ -1,12 +1,11 @@
 """Define backends to test"""
 import sys
-
-sys.path.append("..")
+sys.path.append("c:\\Users\\19bay\\qiskit_mine\\transpilation_EM")
 import json
 import os
 from pathlib import Path
 from src.backend_utils.mock_backends.fake_allToAll import FakeAllToAll
-
+from src.backend_utils.mock_backends.Corral_backend_v1 import FakeCorral
 from src.backend_utils.mock_backends.fake_hexLattice import FakeHexLattice
 from src.backend_utils import *
 from src.utils.transpiler_passes import level_1_pass_manager
@@ -18,14 +17,14 @@ class BackendTranspilerBenchmark:
         self.pass_manager = pm
         self.label = label
         self.filename = (
-            f"src/benchmark_suite/data/{self.label}.json"
+            f"C:/Users/19bay/qiskit_mine/transpilation_EM/benchmark_suite/data/{self.label}.json"
         )
         self.load_data()
         if "small" in self.label:
             self.q_range = [4, 6,8,10,12,14,16] 
         else:
             self.q_range = [8, 16, 24, 32, 40, 48, 56, 64, 72, 80]
-
+    
     def load_data(self):
         try:
             with open(self.filename) as fp:
@@ -56,7 +55,7 @@ class BackendTranspilerBenchmark:
             json.dump(self.data, fp, indent=2)
 
 
-fake_heavy_hex = FakeHeavyHex(twoqubitgate="cx", enforce_max_84=True)
+"""fake_heavy_hex = FakeHeavyHex(twoqubitgate="cx", enforce_max_84=True)
 fake_hex_lattice = FakeHexLattice(twoqubitgate="cx", enforce_max_84=True)
 fake_surfaceCode = FakeSurfaceCode(twoqubitgate="syc", qubit_size=84, row_length=7)
 fake_penguin = PenguinVIdeal(twoqubitgate="cx")
@@ -91,20 +90,19 @@ fake_corralv3 = FakeHyperCubeSnail(corral_skip_pattern=(0, 2), twoqubitgate="ris
 fake_corralv4 = FakeHyperCubeSnail(corral_skip_pattern=(1, 2), twoqubitgate="riswap")
 fake_small_hypercube = FakeHyperCubeV2(
     n_dimension=4, twoqubitgate="riswap", enforce_max_84=False
-)
+)"""
+fake_corral_k_n_v0 = [FakeCorral(32, k, "riswap", jumpSizes=[1,2]) for k in range(4)]
 ###
 
-_small_results_part3 = [
-    fake_small_heavy_hex,
-    fake_small_surfaceCode,
-    fake_small_tree,
-    fake_corralv1,
-]
+_small_results_part3 = fake_corral_k_n_v0
+
 
 
 simple_backends_v3 = []
 basis_gates = ["cx", "syc", "riswap", "riswap"]
-for backend, basis_gate in zip(_small_results_part3, basis_gates):
-    pm = level_1_pass_manager(backend, basis_gate=basis_gate, decompose_swaps=True)
+#for backend, basis_gate in zip(_small_results_part3, basis_gates):
+for backend in _small_results_part3:
+    #pm = level_1_pass_manager(backend, basis_gate=basis_gate, decompose_swaps=True)
+    pm = level_1_pass_manager(backend, basis_gate="riswap", decompose_swaps=True)
     label = backend.name + "-smallv3"
     simple_backends_v3.append(BackendTranspilerBenchmark(backend, pm, label))

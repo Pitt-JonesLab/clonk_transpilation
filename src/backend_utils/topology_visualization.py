@@ -19,8 +19,8 @@ def pretty_print(pb):
     formatter2 = lambda _: dict(dir="none")
     dot_str = x.graph.to_dot(edge_attr=formatter2, graph_attr={"size":"0"})
     dot = pydot.graph_from_dot_data(dot_str)[0]
-    png = dot.create_png(prog="sfdp")
-    #png = dot.create_png(prog='fdp')
+    #png = dot.create_png(prog="sfdp")
+    png = dot.create_png(prog='fdp')
     #pdf = dot.create_pdf(prog="sfdp")
     #png = dot.create_png(prog="neato")
     return Image.open(io.BytesIO(png))

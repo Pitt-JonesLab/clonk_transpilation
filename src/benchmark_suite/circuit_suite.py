@@ -9,14 +9,14 @@ class CircuitTranspilerBenchmark:
     # TODO: circuit_lambda could take multiple params if desired
     def __init__(self, circuit_lambda, q_range, label):
         self.circuit_lambda = circuit_lambda
-        #self.q_range = q_range
+        self.q_range = q_range
         self.label = label
 
 
 # FIXME should this be a class, q_range is a parameter, instead of dict use get methods
 circuits = {}
 depth = 10
-q_range = None #deprecated, move to backendbenchmark object
+q_range = [2,4,8,16,32] #deprecated, move to backendbenchmark object
 
 # Random
 # from qiskit.circuit.random import random_circuit

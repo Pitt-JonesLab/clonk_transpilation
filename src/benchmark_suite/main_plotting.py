@@ -89,7 +89,7 @@ def benchmark_foo(
 
             # logging.info(f"Transpiler qc{q} for {backend.label}")
             print(f"Transpiler qc{q} for {backend.label}")
-            backend.pass_manager.run(qc)
+            backend.pass_manager.run(qc, optimization_level=3)
 
             # save data to dict
             # might be empty if not decomposing swaps, this comment is deprecated
@@ -310,10 +310,18 @@ def plot(
                 return "tab:gray"
             if "(1, 2)" in backend_label or 'split' in backend_label:
                 return "black"
+            if "K_0" in backend_label:
+                return "tab:red"
+            if "K_1" in backend_label:
+                return "tab:orange"
+            if "K_2" in backend_label:
+                return "tab:green"
+            if "K_3" in backend_label:
+                return "tab:purple"
             return "tab:purple"
         if "Hypercube" in backend_label:
             return "tab:brown"
-        pass
+        return "tab:black"
 
     if subfig is None:
         if duration == 2:
