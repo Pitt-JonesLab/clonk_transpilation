@@ -57,7 +57,10 @@ def level_1_pass_manager(
     else:
         basis_gate = CXGate()
     pm0 = PassManager()
-    """Stage 1. blocking"""
+    """Stage 1.
+
+    blocking
+    """
     additional_basis = []
     if not decompose_1q:
         additional_basis.append("u3")
@@ -72,7 +75,10 @@ def level_1_pass_manager(
 
     # transformation pass to move to SU(4), use CXGate here because gets overrided later
     pm0.append(ConsolidateBlocks(kak_basis_gate=CXGate(), force_consolidate=True))
-    """Stage 2. Routing"""
+    """Stage 2.
+
+    Routing
+    """
     # placement
     if placement_strategy == "dense":
         pm0.append(DenseLayout(backend))
@@ -120,7 +126,10 @@ def level_1_pass_manager(
     # pre-swap-decompose resource estimation
     # use preswap flag so we can distinguish data in propertyset
     pm0.append(ResourceEstimation(preswap=True))
-    """Stage 3. Decompose 2Q gates"""
+    """Stage 3.
+
+    Decompose 2Q gates
+    """
     # applies two qubit basis decomposition rule
     # TODO: rename, restructure, non-supercontroled
     pm0.append(RootiSwapWeylDecomposition(basis_gate=basis_gate))

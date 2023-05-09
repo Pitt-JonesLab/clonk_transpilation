@@ -62,7 +62,7 @@ backend_lattice = FakeSurfaceCode(twoqubitgate="cx")
 pm_lattice = level_0_pass_manager(backend_lattice, basis_gate="cx")
 label = "Lattice-CX"
 backends[label] = BackendTranspilerBenchmark(backend_lattice, pm_lattice, label)
-"""Large Backends"""
+"""Large Backends."""
 # Large Lattice
 backend_lattice = FakeSurfaceCode(twoqubitgate="cx", qubit_size=81, row_length=9)
 pm_lattice = level_0_pass_manager(backend_lattice, basis_gate="cx")

@@ -166,7 +166,7 @@ class BasisTranslatorFix(TransformationPass):
         basis_transforms = _basis_search(
             self._equiv_lib, source_basis, target_basis, _basis_heuristic
         )
-        """FIX"""
+        """FIX."""
         # before change this dictionary was not indexing the right keys
         # example, qarg in qargs_local_source_basis is (3,) but key in qargs_with_non_global_operation is frozenset({3})
         temp_dict_translate = defaultdict(set)

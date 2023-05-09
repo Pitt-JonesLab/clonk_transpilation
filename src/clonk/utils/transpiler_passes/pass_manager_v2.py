@@ -151,7 +151,10 @@ def level_0_pass_manager(
         # pre-swap-decompose resource estimation
         # use preswap flag so we can distinguish data in propertyset
         pm0.append(ResourceEstimation(preswap=True))
-        """Stage 3. Decompose Movement Swaps"""
+        """Stage 3.
+
+        Decompose Movement Swaps
+        """
         # TODO: empty target movement?
 
         foo = True
