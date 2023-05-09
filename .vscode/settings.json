@@ -1,4 +1,8 @@
 {
     "jupyter.jupyterServerType": "local",
-    "markdown.preview.fontSize": 0
+    "markdown.preview.fontSize": 0,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "python.formatting.provider": "none"
 }

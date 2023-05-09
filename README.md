@@ -1,5 +1,10 @@
 # CLONK-CoupLing tOpology beNchmarKs
-Paper: McKinney, Evan, et al. "Co-Designed Architectures for Modular Superconducting Quantum Computers." arXiv preprint arXiv:2205.04387 (2022).
+McKinney, Evan, et al. "Co-Designed Architectures for Modular Superconducting Quantum Computers." 2023 IEEE International Symposium on High-Performance Computer Architecture (HPCA). IEEE, 2023.
+
+![Tests](https://github.com/evmckinney9/python-template/actions/workflows/tests.yml/badge.svg?branch=main)
+![Format Check](https://github.com/evmckinney9/python-template/actions/workflows/format-check.yml/badge.svg?branch=main)
+
+Dependency for topology plots: `sudo apt install graphviz`
 
 ## 1. Set up list of coupling maps
 ### Begin by building a mock backend using the `ConfigurableFakeBackendV2` abstract class.
