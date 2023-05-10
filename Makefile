@@ -11,10 +11,10 @@ init:
 	@$(PRE_COMMIT) autoupdate
 
 clean:
-	@find ./ -name '*.pyc' -exec rm -f {} \;
-	@find ./ -name '__pycache__' -exec rm -rf {} \;
-	@find ./ -name 'Thumbs.db' -exec rm -f {} \;
-	@find ./ -name '*~' -exec rm -f {} \;
+	@find ./ -type f -name '*.pyc' -exec rm -f {} \; 2>/dev/null || true
+	@find ./ -type d -name '__pycache__' -exec rm -rf {} \; 2>/dev/null || true
+	@find ./ -type f -name 'Thumbs.db' -exec rm -f {} \; 2>/dev/null || true
+	@find ./ -type f -name '*~' -exec rm -f {} \; 2>/dev/null || true
 	@rm -rf .cache
 	@rm -rf .pytest_cache
 	@rm -rf .mypy_cache
@@ -25,6 +25,8 @@ clean:
 	@rm -rf .tox/
 	@rm -rf docs/_build
 	@rm -rf .ruff_cache
+	@rm -rf src/__pycache__
+	@rm -rf src/*.egg-info
 
 test:
 	@$(PIP) install -e .[test] --quiet
