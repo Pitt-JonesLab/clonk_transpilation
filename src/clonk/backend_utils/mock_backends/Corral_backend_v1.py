@@ -1,22 +1,23 @@
-from src.clonk.backend_utils.configurable_backend_v2 import ConfigurableFakeBackendV2
-from qiskit.circuit.library.standard_gates import *
-from src.clonk.utils.riswap_gates.riswap import RiSwapGate, fSim
 import numpy as np
-import time
+from qiskit.circuit.library.standard_gates import *
+
+from src.clonk.backend_utils.configurable_backend_v2 import ConfigurableFakeBackendV2
+from src.clonk.utils.riswap_gates.riswap import RiSwapGate, fSim
+
 
 class FakeCorral(ConfigurableFakeBackendV2):
-    def __init__(self, n=16, k=2, twoqubitgate="riswap", jumpSizes=[0,1]):
+    def __init__(self, n=16, k=2, twoqubitgate="riswap", jumpSizes=[0, 1]):
         qubits = list(range(n))
         coupling_map = []
         for j in jumpSizes:
             if j == 0:
                 continue
-            coupling_map.extend([[i,i+j] for i in range(n-j)])
+            coupling_map.extend([[i, i + j] for i in range(n - j)])
             for i in range(j):
-                coupling_map.append([i,n-j+i])
+                coupling_map.append([i, n - j + i])
         add_connections = self.divideCorralK_math(coupling_map, n, k)
         coupling_map.extend(add_connections)
-        qubit_coordinates = [[i, i] for i in range(n-1)]
+        qubit_coordinates = [[i, i] for i in range(n - 1)]
 
         gate_configuration = {}
         gate_configuration[IGate] = [(i,) for i in qubits]
@@ -42,7 +43,13 @@ class FakeCorral(ConfigurableFakeBackendV2):
         measurable_qubits = qubits
 
         super().__init__(
-            name="Corral_N_"+str(n)+"_"+str(tuple(jumpSizes)).replace(' ', '')+"_K_"+str(k)+"_v_1",
+            name="Corral_N_"
+            + str(n)
+            + "_"
+            + str(tuple(jumpSizes)).replace(" ", "")
+            + "_K_"
+            + str(k)
+            + "_v_1",
             description="a mock backend in a corral with n nodes and k additional connections across the corral",
             n_qubits=len(qubits),
             gate_configuration=gate_configuration,
@@ -65,6 +72,7 @@ class FakeCorral(ConfigurableFakeBackendV2):
             },
             single_qubit_gates=["rx", "ry"],
         )
+
     def snail_to_connectivity(self, snail_edge_list):
         # Convert snail edge list where nodes are snails and edges are qubits
         # To connectivity edge list where nodes are qubits and edges are coupling
@@ -80,27 +88,27 @@ class FakeCorral(ConfigurableFakeBackendV2):
         return edge_list
 
     def divideCorralK_math(self, connections, n, k):
+        """n determines jump length, k is how many connections to be added"""
         if k < 1:
             return []
-        jumpLength = int(n/2)
+        jumpLength = int(n / 2)
         newConnections = []
         for i in range(k):
-            start = int(i*jumpLength/k)
-            newConnections.append([start,start+jumpLength])
+            start = int(i * jumpLength / k)
+            newConnections.append([start, start + jumpLength])
         return newConnections
 
-
     def divideCorralK_complete(self, connections, n, k):
-        """takes in qubit nodes and returns new connections"""
+        """Takes in qubit nodes and returns new connections."""
         newConnections = []
         for i in range(k):
-            distances = np.array([[n+1 for j in range(n)] for k in range(n)])
+            distances = np.array([[n + 1 for j in range(n)] for k in range(n)])
             for j in range(n):
                 distances[j][j] = 0
-            for (j, k) in connections:
+            for j, k in connections:
                 distances[j][k] = 1
                 distances[k][j] = 1
-            for (j, k) in newConnections:
+            for j, k in newConnections:
                 distances[j][k] = 1
                 distances[k][j] = 1
             changed = True
@@ -113,24 +121,25 @@ class FakeCorral(ConfigurableFakeBackendV2):
                             if newDistance < distances[j][k]:
                                 distances[j][k] = newDistance
                                 changed = True
-            newConnections.append(np.unravel_index(np.argmax(distances), distances.shape))
-        
-        return newConnections
-    
+            newConnections.append(
+                np.unravel_index(np.argmax(distances), distances.shape)
+            )
 
-    #FIXME implement to return full node list
+        return newConnections
+
+    # FIXME implement to return full node list
     def divideCorralK_complete_snail_nodes(self, connections, n, k):
         newConnections = []
         n = len(connections)
         connections = self.snail_to_connectivity(connections)
         for i in range(k):
-            distances = np.array([[n+1 for j in range(n)] for k in range(n)])
+            distances = np.array([[n + 1 for j in range(n)] for k in range(n)])
             for j in range(n):
                 distances[j][j] = 0
-            for (j, k) in connections:
+            for j, k in connections:
                 distances[j][k] = 1
                 distances[k][j] = 1
-            for (j, k) in newConnections:
+            for j, k in newConnections:
                 distances[j][k] = 1
                 distances[k][j] = 1
             changed = True
@@ -143,6 +152,8 @@ class FakeCorral(ConfigurableFakeBackendV2):
                             if newDistance < distances[j][k]:
                                 distances[j][k] = newDistance
                                 changed = True
-            newConnections.append(np.unravel_index(np.argmax(distances), distances.shape))
-        
+            newConnections.append(
+                np.unravel_index(np.argmax(distances), distances.shape)
+            )
+
         return newConnections
