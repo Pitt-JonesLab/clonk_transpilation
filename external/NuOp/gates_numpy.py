@@ -1,8 +1,6 @@
 import numpy as np
-import qiskit
-from qiskit.extensions.unitary import UnitaryGate
 from qiskit.circuit.library.standard_gates import RZZGate
-
+from qiskit.extensions.unitary import UnitaryGate
 
 # class rootiswap_gate(qe.UnitaryGate):
 #     def __init__(self):

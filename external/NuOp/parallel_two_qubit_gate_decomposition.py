@@ -1,30 +1,21 @@
-import math
-import time
-from cirq import X
-import numpy as np
 import multiprocessing as mp
-from os import getpid
-from scipy.optimize import minimize
+import time
 
+import numpy as np
+from qiskit.converters import circuit_to_dag, dag_to_circuit
 from qiskit.dagcircuit import DAGCircuit
-from qiskit.quantum_info import Operator
-from qiskit.converters import dag_to_circuit, circuit_to_dag
-from qiskit.circuit.library.standard_gates import U1Gate, U2Gate, U3Gate
-from qiskit.extensions.unitary import UnitaryGate
 from qiskit.transpiler.passes.optimization.optimize_1q_gates import Optimize1qGates
+from scipy.optimize import minimize
 
 optimise1qgates = Optimize1qGates()
 
-from cirq.circuits.qasm_output import QasmUGate, QasmTwoQubitGate
 
 from external.NuOp.gates_numpy import get_gate_unitary_qiskit
 
 
 class GateTemplate:
-    """
-    Creates a unitary matrix using a specified two-qubit gate, number of layers
-    and single-qubit rotation parameters
-    """
+    """Creates a unitary matrix using a specified two-qubit gate, number of
+    layers and single-qubit rotation parameters."""
 
     def __init__(self, two_qubit_gate, two_qubit_gate_params):
         """
@@ -80,9 +71,8 @@ class GateTemplate:
 
 
 class TwoQubitGateSynthesizer:
-    """
-    Synthesises a gate implementation for a target unitary, using a specified gate template
-    """
+    """Synthesises a gate implementation for a target unitary, using a
+    specified gate template."""
 
     def __init__(self, target_unitary, gate_template_obj):
         self.target_unitary = target_unitary
@@ -150,9 +140,8 @@ class TwoQubitGateSynthesizer:
         results = []
         best_idx = 0
         best_fidelity = 0
-        verbose = False
 
-        if not force_gate_count is None:
+        if force_gate_count is not None:
             gate_range = range(force_gate_count - 1, force_gate_count)
         else:
             gate_range = range(max_num_layers)
@@ -211,7 +200,7 @@ def _driver_func(
             max_num_layers=x,
             force_gate_count=force_gate_count,
         )
-        if result_obj.success == True:
+        if result_obj.success is True:
             return [layer_count, result_obj, fidelity]
         else:
             if i == attempts - 1:
@@ -271,12 +260,7 @@ class ParallelGateReplacementPass(TransformationPass):
             target_unitary = get_gate_unitary_qiskit(gate.op)
             # Hardware qubits which are being operated on
             idx = (gate.qargs[0].index, gate.qargs[1].index)
-            """
-            print(idx)
-            print(gate)
-            print(gate.qargs)
-            print(gate.cargs)
-            """
+            """Print(idx) print(gate) print(gate.qargs) print(gate.cargs)"""
             gate_tuple = (min(idx), max(idx))
             for i in range(self.num_target_gates):
                 if exact_decom:
@@ -312,14 +296,14 @@ class ParallelGateReplacementPass(TransformationPass):
             for i in range(len(job_list)):
                 results.append([_driver_func(*job_list[i])])
         else:
-            start = time.time()
+            time.time()
             # print("Jobs:", len(job_list))
             # print("Threads:", num_threads)
             pool = mp.Pool(num_threads)
             # starmap guarentees ordering of results
             results = pool.starmap(_driver_func, job_list)
             pool.close()
-            end = time.time()
+            time.time()
             # print("Compile time:", end - start)
 
         # Stitch outputs
