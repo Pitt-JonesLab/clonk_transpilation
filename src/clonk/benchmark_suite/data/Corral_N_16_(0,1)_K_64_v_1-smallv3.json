@@ -1,0 +1,880 @@
+{
+  "0": {
+    "Quantum_Volume": {
+      "duration": {
+        "4": {
+          "rx": 49,
+          "ry": 25,
+          "cx": 24
+        },
+        "6": {
+          "rx": 89,
+          "ry": 45,
+          "cx": 48
+        },
+        "8": {
+          "rx": 116,
+          "ry": 59,
+          "cx": 60
+        },
+        "12": {
+          "rx": 177,
+          "ry": 91,
+          "cx": 93
+        },
+        "14": {
+          "rx": 256,
+          "ry": 131,
+          "cx": 135
+        },
+        "16": {
+          "rx": 335,
+          "ry": 171,
+          "cx": 177
+        }
+      },
+      "preswap_gate_count": {
+        "4": {
+          "swap": 5,
+          "unitary": 8
+        },
+        "6": {
+          "swap": 17,
+          "unitary": 16
+        },
+        "8": {
+          "swap": 32,
+          "unitary": 26
+        },
+        "12": {
+          "swap": 80,
+          "unitary": 66
+        },
+        "14": {
+          "swap": 118,
+          "unitary": 94
+        },
+        "16": {
+          "swap": 151,
+          "unitary": 124
+        }
+      },
+      "gate_count": {
+        "4": {
+          "cx": 39,
+          "rx": 144,
+          "ry": 84
+        },
+        "6": {
+          "cx": 99,
+          "rx": 332,
+          "ry": 198
+        },
+        "8": {
+          "cx": 174,
+          "rx": 583,
+          "ry": 351
+        },
+        "12": {
+          "cx": 438,
+          "rx": 1451,
+          "ry": 867
+        },
+        "14": {
+          "cx": 636,
+          "rx": 2088,
+          "ry": 1239
+        },
+        "16": {
+          "cx": 825,
+          "rx": 2695,
+          "ry": 1612
+        }
+      },
+      "preswap_gate_count_crit": {
+        "4": {
+          "swap": 4,
+          "unitary": 4
+        },
+        "6": {
+          "swap": 10,
+          "unitary": 6
+        },
+        "8": {
+          "swap": 12,
+          "unitary": 8
+        },
+        "12": {
+          "swap": 19,
+          "unitary": 12
+        },
+        "14": {
+          "swap": 30,
+          "unitary": 15
+        },
+        "16": {
+          "swap": 39,
+          "unitary": 20
+        }
+      },
+      "layout_score": {
+        "4": 4.0,
+        "6": 15.0,
+        "8": 25.0,
+        "12": 102.0,
+        "14": 146.0,
+        "16": 208.0
+      },
+      "edge_frequency": {
+        "4": null,
+        "6": null,
+        "8": null,
+        "12": null,
+        "14": null,
+        "16": null
+      }
+    },
+    "QFT": {
+      "duration": {
+        "4": {
+          "rx": 50,
+          "ry": 25,
+          "cx": 26
+        },
+        "6": {
+          "rx": 102,
+          "ry": 52,
+          "cx": 58
+        },
+        "8": {
+          "rx": 142,
+          "ry": 72,
+          "cx": 76
+        },
+        "12": {
+          "rx": 233,
+          "ry": 116,
+          "cx": 127
+        },
+        "14": {
+          "rx": 300,
+          "ry": 150,
+          "cx": 162
+        },
+        "16": {
+          "rx": 368,
+          "ry": 185,
+          "cx": 200
+        }
+      },
+      "preswap_gate_count": {
+        "4": {
+          "unitary": 8,
+          "swap": 8
+        },
+        "6": {
+          "unitary": 18,
+          "swap": 23
+        },
+        "8": {
+          "unitary": 32,
+          "swap": 32
+        },
+        "12": {
+          "unitary": 72,
+          "swap": 75
+        },
+        "14": {
+          "unitary": 98,
+          "swap": 99
+        },
+        "16": {
+          "unitary": 128,
+          "swap": 163
+        }
+      },
+      "gate_count": {
+        "4": {
+          "cx": 42,
+          "rx": 141,
+          "ry": 84
+        },
+        "6": {
+          "cx": 108,
+          "rx": 342,
+          "ry": 203
+        },
+        "8": {
+          "cx": 164,
+          "rx": 522,
+          "ry": 307
+        },
+        "12": {
+          "cx": 375,
+          "rx": 1176,
+          "ry": 691
+        },
+        "14": {
+          "cx": 500,
+          "rx": 1606,
+          "ry": 919
+        },
+        "16": {
+          "cx": 751,
+          "rx": 2333,
+          "ry": 1359
+        }
+      },
+      "preswap_gate_count_crit": {
+        "4": {
+          "swap": 5,
+          "unitary": 5
+        },
+        "6": {
+          "unitary": 10,
+          "swap": 12
+        },
+        "8": {
+          "unitary": 14,
+          "swap": 15
+        },
+        "12": {
+          "unitary": 22,
+          "swap": 27
+        },
+        "14": {
+          "unitary": 26,
+          "swap": 36
+        },
+        "16": {
+          "unitary": 31,
+          "swap": 45
+        }
+      },
+      "layout_score": {
+        "4": 4.0,
+        "6": 16.0,
+        "8": 38.0,
+        "12": 112.0,
+        "14": 158.0,
+        "16": 213.0
+      },
+      "edge_frequency": {
+        "4": null,
+        "6": null,
+        "8": null,
+        "12": null,
+        "14": null,
+        "16": null
+      }
+    },
+    "QAOA_Vanilla": {
+      "duration": {
+        "4": {
+          "rx": 39,
+          "ry": 21,
+          "cx": 20,
+          "measure": 1
+        },
+        "6": {
+          "rx": 89,
+          "ry": 45,
+          "cx": 47,
+          "measure": 1
+        },
+        "8": {
+          "rx": 125,
+          "ry": 67,
+          "cx": 72,
+          "measure": 1
+        },
+        "12": {
+          "rx": 268,
+          "ry": 137,
+          "cx": 155,
+          "measure": 1
+        },
+        "14": {
+          "rx": 349,
+          "ry": 186,
+          "cx": 192,
+          "measure": 1
+        },
+        "16": {
+          "rx": 413,
+          "ry": 207,
+          "cx": 234,
+          "measure": 1
+        }
+      },
+      "preswap_gate_count": {
+        "4": {
+          "swap": 6,
+          "unitary": 6,
+          "measure": 4
+        },
+        "6": {
+          "swap": 16,
+          "unitary": 15,
+          "measure": 6
+        },
+        "8": {
+          "swap": 31,
+          "unitary": 28,
+          "measure": 8
+        },
+        "12": {
+          "swap": 101,
+          "unitary": 66,
+          "measure": 12
+        },
+        "14": {
+          "swap": 140,
+          "unitary": 91,
+          "measure": 14
+        },
+        "16": {
+          "swap": 183,
+          "unitary": 120,
+          "measure": 16
+        }
+      },
+      "gate_count": {
+        "4": {
+          "measure": 4,
+          "cx": 30,
+          "rx": 105,
+          "ry": 62
+        },
+        "6": {
+          "measure": 6,
+          "cx": 78,
+          "rx": 253,
+          "ry": 153
+        },
+        "8": {
+          "measure": 8,
+          "cx": 149,
+          "rx": 458,
+          "ry": 275
+        },
+        "12": {
+          "measure": 12,
+          "cx": 435,
+          "rx": 1326,
+          "ry": 780
+        },
+        "14": {
+          "measure": 14,
+          "cx": 602,
+          "rx": 1839,
+          "ry": 1112
+        },
+        "16": {
+          "measure": 16,
+          "cx": 789,
+          "rx": 2397,
+          "ry": 1396
+        }
+      },
+      "preswap_gate_count_crit": {
+        "4": {
+          "swap": 4,
+          "unitary": 4,
+          "measure": 1
+        },
+        "6": {
+          "swap": 9,
+          "unitary": 9,
+          "measure": 2
+        },
+        "8": {
+          "swap": 14,
+          "unitary": 14,
+          "measure": 2
+        },
+        "12": {
+          "swap": 33,
+          "unitary": 28,
+          "measure": 1
+        },
+        "14": {
+          "swap": 42,
+          "unitary": 33,
+          "measure": 1
+        },
+        "16": {
+          "swap": 52,
+          "unitary": 37,
+          "measure": 2
+        }
+      },
+      "layout_score": {
+        "4": 3.0,
+        "6": 12.0,
+        "8": 31.0,
+        "12": 100.0,
+        "14": 145.0,
+        "16": 192.0
+      },
+      "edge_frequency": {
+        "4": null,
+        "6": null,
+        "8": null,
+        "12": null,
+        "14": null,
+        "16": null
+      }
+    },
+    "TIM_Hamiltonian": {
+      "duration": {
+        "4": {
+          "rx": 84,
+          "ry": 44,
+          "cx": 45,
+          "measure": 1
+        },
+        "6": {
+          "rx": 67,
+          "ry": 36,
+          "cx": 38,
+          "measure": 1
+        },
+        "8": {
+          "rx": 75,
+          "ry": 40,
+          "cx": 42,
+          "measure": 1
+        },
+        "12": {
+          "rx": 121,
+          "ry": 62,
+          "cx": 70,
+          "measure": 1
+        },
+        "14": {
+          "rx": 147,
+          "ry": 77,
+          "cx": 87,
+          "measure": 1
+        },
+        "16": {
+          "rx": 206,
+          "ry": 106,
+          "cx": 119,
+          "measure": 1
+        }
+      },
+      "preswap_gate_count": {
+        "4": {
+          "swap": 12,
+          "unitary": 15,
+          "measure": 4
+        },
+        "6": {
+          "swap": 5,
+          "unitary": 25,
+          "measure": 6
+        },
+        "8": {
+          "swap": 4,
+          "unitary": 35,
+          "measure": 8
+        },
+        "12": {
+          "swap": 28,
+          "unitary": 55,
+          "measure": 12
+        },
+        "14": {
+          "swap": 17,
+          "unitary": 65,
+          "measure": 14
+        },
+        "16": {
+          "swap": 67,
+          "unitary": 75,
+          "measure": 16
+        }
+      },
+      "gate_count": {
+        "4": {
+          "measure": 4,
+          "cx": 66,
+          "rx": 214,
+          "ry": 121
+        },
+        "6": {
+          "measure": 6,
+          "cx": 65,
+          "rx": 228,
+          "ry": 115
+        },
+        "8": {
+          "measure": 8,
+          "cx": 82,
+          "rx": 292,
+          "ry": 141
+        },
+        "12": {
+          "measure": 12,
+          "cx": 194,
+          "rx": 628,
+          "ry": 330
+        },
+        "14": {
+          "measure": 14,
+          "cx": 181,
+          "rx": 616,
+          "ry": 312
+        },
+        "16": {
+          "measure": 16,
+          "cx": 351,
+          "rx": 1102,
+          "ry": 619
+        }
+      },
+      "preswap_gate_count_crit": {
+        "4": {
+          "swap": 7,
+          "unitary": 11,
+          "measure": 1
+        },
+        "6": {
+          "swap": 4,
+          "unitary": 13,
+          "measure": 1
+        },
+        "8": {
+          "swap": 4,
+          "unitary": 15,
+          "measure": 1
+        },
+        "12": {
+          "swap": 11,
+          "unitary": 18,
+          "measure": 1
+        },
+        "14": {
+          "swap": 15,
+          "unitary": 21,
+          "measure": 1
+        },
+        "16": {
+          "swap": 24,
+          "unitary": 22,
+          "measure": 2
+        }
+      },
+      "layout_score": {
+        "4": 5.0,
+        "6": 10.0,
+        "8": 15.0,
+        "12": 25.0,
+        "14": 30.0,
+        "16": 100.0
+      },
+      "edge_frequency": {
+        "4": null,
+        "6": null,
+        "8": null,
+        "12": null,
+        "14": null,
+        "16": null
+      }
+    },
+    "Adder": {
+      "duration": {
+        "4": {
+          "cx": 35,
+          "rx": 62,
+          "ry": 32
+        },
+        "6": {
+          "rx": 81,
+          "ry": 48,
+          "cx": 48
+        },
+        "8": {
+          "rx": 131,
+          "ry": 78,
+          "cx": 82
+        },
+        "12": {
+          "rx": 245,
+          "ry": 138,
+          "cx": 145
+        },
+        "14": {
+          "rx": 305,
+          "ry": 176,
+          "cx": 184
+        },
+        "16": {
+          "rx": 365,
+          "ry": 211,
+          "cx": 220
+        }
+      },
+      "preswap_gate_count": {
+        "4": {
+          "unitary": 15,
+          "swap": 7
+        },
+        "6": {
+          "unitary": 29,
+          "swap": 10
+        },
+        "8": {
+          "swap": 22,
+          "unitary": 43
+        },
+        "12": {
+          "swap": 44,
+          "unitary": 71
+        },
+        "14": {
+          "swap": 52,
+          "unitary": 85
+        },
+        "16": {
+          "swap": 67,
+          "unitary": 99
+        }
+      },
+      "gate_count": {
+        "4": {
+          "cx": 38,
+          "rx": 110,
+          "ry": 68
+        },
+        "6": {
+          "cx": 63,
+          "rx": 177,
+          "ry": 114
+        },
+        "8": {
+          "cx": 115,
+          "rx": 331,
+          "ry": 215
+        },
+        "12": {
+          "cx": 213,
+          "rx": 623,
+          "ry": 401
+        },
+        "14": {
+          "cx": 253,
+          "rx": 724,
+          "ry": 462
+        },
+        "16": {
+          "cx": 314,
+          "rx": 905,
+          "ry": 575
+        }
+      },
+      "preswap_gate_count_crit": {
+        "4": {
+          "unitary": 14,
+          "swap": 5
+        },
+        "6": {
+          "swap": 6,
+          "unitary": 25
+        },
+        "8": {
+          "swap": 13,
+          "unitary": 37
+        },
+        "12": {
+          "swap": 23,
+          "unitary": 62
+        },
+        "14": {
+          "swap": 33,
+          "unitary": 70
+        },
+        "16": {
+          "swap": 42,
+          "unitary": 84
+        }
+      },
+      "layout_score": {
+        "4": 7.0,
+        "6": 16.0,
+        "8": 43.0,
+        "12": 111.0,
+        "14": 135.0,
+        "16": 148.0
+      },
+      "edge_frequency": {
+        "4": null,
+        "6": null,
+        "8": null,
+        "12": null,
+        "14": null,
+        "16": null
+      }
+    },
+    "GHZ": {
+      "duration": {
+        "4": {
+          "rx": 22,
+          "ry": 12,
+          "cx": 12,
+          "measure": 1
+        },
+        "6": {
+          "rx": 20,
+          "ry": 12,
+          "cx": 14,
+          "measure": 1
+        },
+        "8": {
+          "rx": 30,
+          "ry": 18,
+          "cx": 21,
+          "measure": 1
+        },
+        "12": {
+          "rx": 27,
+          "ry": 15,
+          "cx": 21,
+          "measure": 2
+        },
+        "14": {
+          "rx": 54,
+          "ry": 32,
+          "cx": 36,
+          "measure": 2
+        },
+        "16": {
+          "rx": 86,
+          "ry": 50,
+          "cx": 54,
+          "measure": 1
+        }
+      },
+      "preswap_gate_count": {
+        "4": {
+          "swap": 3,
+          "unitary": 3,
+          "measure": 4
+        },
+        "6": {
+          "swap": 3,
+          "unitary": 5,
+          "measure": 6
+        },
+        "8": {
+          "swap": 8,
+          "unitary": 7,
+          "measure": 8
+        },
+        "12": {
+          "swap": 6,
+          "unitary": 11,
+          "measure": 12
+        },
+        "14": {
+          "swap": 8,
+          "unitary": 13,
+          "measure": 14
+        },
+        "16": {
+          "swap": 21,
+          "unitary": 15,
+          "measure": 16
+        }
+      },
+      "gate_count": {
+        "4": {
+          "measure": 4,
+          "cx": 12,
+          "rx": 34,
+          "ry": 24
+        },
+        "6": {
+          "measure": 6,
+          "cx": 14,
+          "rx": 32,
+          "ry": 23
+        },
+        "8": {
+          "measure": 8,
+          "cx": 31,
+          "rx": 88,
+          "ry": 61
+        },
+        "12": {
+          "measure": 12,
+          "cx": 29,
+          "rx": 66,
+          "ry": 47
+        },
+        "14": {
+          "measure": 14,
+          "cx": 37,
+          "rx": 90,
+          "ry": 65
+        },
+        "16": {
+          "measure": 16,
+          "cx": 78,
+          "rx": 228,
+          "ry": 162
+        }
+      },
+      "preswap_gate_count_crit": {
+        "4": {
+          "swap": 3,
+          "unitary": 3,
+          "measure": 1
+        },
+        "6": {
+          "swap": 3,
+          "unitary": 5,
+          "measure": 1
+        },
+        "8": {
+          "swap": 4,
+          "unitary": 7,
+          "measure": 1
+        },
+        "12": {
+          "swap": 3,
+          "unitary": 11,
+          "measure": 1
+        },
+        "14": {
+          "swap": 8,
+          "unitary": 12,
+          "measure": 2
+        },
+        "16": {
+          "swap": 13,
+          "unitary": 15,
+          "measure": 1
+        }
+      },
+      "layout_score": {
+        "4": 1.0,
+        "6": 2.0,
+        "8": 3.0,
+        "12": 5.0,
+        "14": 6.0,
+        "16": 20.0
+      },
+      "edge_frequency": {
+        "4": null,
+        "6": null,
+        "8": null,
+        "12": null,
+        "14": null,
+        "16": null
+      }
+    }
+  }
+}
