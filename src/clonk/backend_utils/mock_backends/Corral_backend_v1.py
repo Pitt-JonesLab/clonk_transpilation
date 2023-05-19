@@ -11,15 +11,23 @@ from src.clonk.utils.riswap_gates.riswap import RiSwapGate, fSim
 
 
 class FakeCorral(ConfigurableFakeBackendV2):
-    def __init__(self, n=16, k=2, twoqubitgate="riswap", jumpSizes=[0, 1]):
-        
+    def __init__(self, n=16, k=2, twoqubitgate="riswap", jumpSizes=[0, 1], connect = False):
+        """connect: if true will make two corrals of snail size n/2 and connect them """
         #FIXME delete all?
         qubits = list(range(n))
         coupling_map = []
         #call corral()
-        coupling_map = self.corral(n,2) #n number of snail, 2 is number of levels
-        #call add_new_edges
-        coupling_map = self.add_new_edges(coupling_map, k)
+        if connect:
+            c1 = self.corral(n//2, 2)
+            c2 = self.corral(n//2, 2)
+            c1 = list(self.add_new_edges(c1, k//2))
+            c2 = list(self.add_new_edges(c2, k//2))
+            coupling_map = self.connect_corrals(c1, c2)
+        else:
+            coupling_map = self.corral(n,2) #n number of snail, 2 is number of levels
+            #call add_new_edges
+            coupling_map = self.add_new_edges(coupling_map, k)
+        coupling_map = self.snail_to_connectivity(coupling_map)
         # for j in jumpSizes:
         #     if j == 0:
         #         continue
@@ -61,6 +69,9 @@ class FakeCorral(ConfigurableFakeBackendV2):
             + str(tuple(jumpSizes)).replace(" ", "")
             + "_K_"
             + str(k)
+            + "_"
+            + "Connect_"
+            + str(connect)
             + "_v_1",
             description="a mock backend in a corral with n nodes and k additional connections across the corral",
             n_qubits=len(qubits),
@@ -135,7 +146,7 @@ class FakeCorral(ConfigurableFakeBackendV2):
         k is how many edges to add"""
 
         graph = retworkx.PyGraph() #convert corral to graph to use retworkx libraries
-        graph.add_nodes_from(list(range( max(max(corral_list))+1 )))
+        graph.add_nodes_from(list(range( self.get_max_from_tupleList(corral_list)+1 )))
         for edge in corral_list:
             graph.add_edge(edge[0],edge[1], 1)
         # self.display_graph(graph)
@@ -208,6 +219,61 @@ class FakeCorral(ConfigurableFakeBackendV2):
                 break
         return remove_edge_1, remove_edge_2, (newNode_1, newNode_2)
     
+    def connect_corrals(self, cor_1, cor_2):
+        cor_1, cor_2 = self.updateCorralNodeNames(cor_1, cor_2) #update corral node numbers so no overlap between the two corrals with names
+        cor1_n1 = cor_1[0][0] #get first node of first tuple
+        cor1_n2 = cor_1[0][1] #get second node of tuple to connect with other corral
+        cor2_n1 = cor_2[0][0] 
+        cor2_n2 = cor_2[0][1] 
+
+        newEdges = []
+        newEdges.append((cor1_n1, cor2_n1))
+        newEdges.append((cor1_n1, cor2_n2))
+        newEdges.append((cor1_n2, cor2_n1))
+        newEdges.append((cor1_n2,cor2_n2))
+        
+        removeEdges = []
+        cor_1.remove((cor1_n1,cor1_n2)) #remove edges connecting nodes in same corral
+        cor_2.remove((cor2_n1,cor2_n2))
+        #remove another edge from each node
+        for e in cor_1:
+            if cor1_n1 == e[0]:
+                n1_temp = e[1]
+                remove1 = e
+            elif cor1_n1 == e[1]:
+                n1_temp = e[0]
+                remove1 = e
+            elif cor1_n2 == e[0]:
+                n2_temp = e[1]
+                remove2 = e
+            elif cor1_n2 == e[1]:
+                n2_temp = e[0]
+                remove2 = e
+        for e in cor_2:
+            if cor2_n1 == e[0]:
+                n3_temp = e[1]
+                remove3 = e
+            elif cor2_n1 == e[1]:
+                n3_temp = e[0]
+                remove3 = e
+            elif cor2_n2 == e[0]:
+                n4_temp = e[1]
+                remove4 = e
+            elif cor2_n2 == e[1]:
+                n4_temp = e[0]
+                remove4 = e
+
+        cor_1.remove(remove1)
+        cor_1.remove(remove2)
+        cor_2.remove(remove3)
+        cor_2.remove(remove4)
+        newEdges.append((n1_temp,n2_temp))
+        newEdges.append((n3_temp,n4_temp))
+        
+        combinedCorral = cor_1 + cor_2
+        combinedCorral = np.append(combinedCorral, newEdges, axis=0)
+        return combinedCorral
+
     def divideCorralK_complete(self, connections, n, k):
         """Takes in qubit nodes and returns new connections."""
         newConnections = []
@@ -237,7 +303,29 @@ class FakeCorral(ConfigurableFakeBackendV2):
 
         return newConnections
     
+    def updateCorralNodeNames(self, c1,c2):
+        c1_offset = self.get_max_from_tupleList(c1) + 1 #increment by one to get offset
+        c2_offset = self.get_max_from_tupleList(c2) + 1
+        new1, new2 = [], []
+        if c2_offset < c1_offset: #offset c2 by c1_max
+            new1 = c1
+            for e in c2:
+                first = e[0] + c1_offset
+                second = e[1] + c1_offset
+                new2.append((first,second))
+        else:
+            new2 = c2
+            for e in c1:
+                first = e[0] + c2_offset
+                second = e[1] + c2_offset
+                new1.append((first,second))
+        return new1, new2    
     
+    def get_max_from_tupleList(self, tuptup):
+        x = max(tuptup, key=lambda item:item[1])[1] #find max looking at second item
+        y = max(tuptup)[0] #find max looking at first item
+
+        return max(x,y) #return max item of all tuple pairs
 
     # FIXME implement to return full node list
     def divideCorralK_complete_snail_nodes(self, connections, n, k):

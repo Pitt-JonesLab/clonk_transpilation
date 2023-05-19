@@ -7,7 +7,6 @@ from pathlib import Path
 
 from src.clonk.backend_utils import *
 from src.clonk.backend_utils.mock_backends.Corral_backend_v1 import FakeCorral
-
 from src.clonk.utils.transpiler_passes.pass_manager_v3 import level_1_pass_manager
 
 
@@ -52,24 +51,20 @@ class BackendTranspilerBenchmark:
         with open(self.filename, "w") as fp:
             json.dump(self.data, fp, indent=2)
 
+
 ###
 
-fake_corralv1 = FakeCorral(n=16,k=16, twoqubitgate="riswap")
-fake_corralv2 = FakeCorral(n=64,k=64, twoqubitgate="riswap")
-fake_corralv3 = FakeCorral(n=128,k=128, twoqubitgate="riswap")
-fake_corralv4 = FakeCorral(n=128,k=256, twoqubitgate="riswap")
+fake_corralv1 = FakeCorral(n=16, k=0, twoqubitgate="cx")
+fake_corralv2 = FakeCorral(n=16, k=0, twoqubitgate="cx", connect=True) #connect two smaller corrals
+fake_corralv3 = FakeCorral(n=16, k=4, twoqubitgate="cx")
+fake_corralv4 = FakeCorral(n=16, k=4, twoqubitgate="cx", connect=True) #update connections for big corral and smaller connected ones
 ###
 
-_small_results_part3 = [
-    fake_corralv1,
-    fake_corralv2,
-    fake_corralv3,
-    fake_corralv4
-]
+_small_results_part3 = [fake_corralv1, fake_corralv2, fake_corralv3, fake_corralv4]
 
 
 simple_backends_v3 = []
-basis_gates = ["cx", "syc", "riswap", "riswap"]
+basis_gates = ["cx", "cx", "cx", "cx"]
 for backend, basis_gate in zip(_small_results_part3, basis_gates):
     pm = level_1_pass_manager(backend, basis_gate=basis_gate, decompose_swaps=True)
     label = backend.name + "-smallv3"
