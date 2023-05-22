@@ -22,7 +22,7 @@ class FakeCorral(ConfigurableFakeBackendV2):
             c2 = self.corral(n//2, 2)
             c1 = list(self.add_new_edges(c1, k//2))
             c2 = list(self.add_new_edges(c2, k//2))
-            coupling_map = self.connect_corrals(c1, c2)
+            coupling_map = self.connect_corrals_way2(c1, c2)
         else:
             coupling_map = self.corral(n,2) #n number of snail, 2 is number of levels
             #call add_new_edges
@@ -269,6 +269,70 @@ class FakeCorral(ConfigurableFakeBackendV2):
         cor_2.remove(remove4)
         newEdges.append((n1_temp,n2_temp))
         newEdges.append((n3_temp,n4_temp))
+        
+        combinedCorral = cor_1 + cor_2
+        combinedCorral = np.append(combinedCorral, newEdges, axis=0)
+        return combinedCorral
+    
+    #diff connection type,  way 2, 3 nodes
+    def connect_corrals_way2(self, cor_1, cor_2):
+        cor_1, cor_2 = self.updateCorralNodeNames(cor_1, cor_2) #update corral node numbers so no overlap between the two corrals with names
+        n0 = cor_1[0][0] #get first node of first tuple
+        n1 = cor_1[0][1] #get second node of tuple to connect with other corral
+        n2 = -1
+        n3 = cor_2[0][0] 
+        n4 = cor_2[0][1]
+        n5 = -1
+        outerN1 =-1 #nodes connected together at end after having edge removed
+        outerN2 =-1 
+
+        newEdges = []
+        cor_1.remove((n0,n1)) #remove edges connecting nodes in same corral
+        cor_2.remove((n3,n4))
+        #find 3rd node, which is connected to either n1, or n2
+        for e in cor_1:
+            if n1 == e[0]:
+                n2 = e[1]
+                remove1 = e
+            elif n1 == e[1]:
+                n2 = e[0]
+                remove1 = e
+        for e in cor_2:
+            if n4 == e[0]:
+                n5 = e[1]
+                remove2 = e
+            elif n4 == e[1]:
+                n5 = e[0]
+                remove2 = e
+
+        for e in cor_1:
+            if n2 == e[0]:
+                outerN1 = e[1]
+                remove3 = e
+            elif n2 == e[1]:
+                outerN1 = e[0]
+                remove3 = e
+        for e in cor_2:
+            if n5 == e[0]:
+                outerN2 = e[1]
+                remove4 = e
+            elif n5 == e[1]:
+                outerN2 = e[0]
+                remove4 = e
+
+        cor_1.remove(remove1) #remove edges connecting nodes in same corral 
+        cor_1.remove(remove3)
+        cor_2.remove(remove2)
+        cor_2.remove(remove4)
+
+        #connect 0-3,0-4 ; 1-4,1-5 ; 2-5, + nodes connected previously to n0 and n5 
+        newEdges.append((n0,n3))
+        newEdges.append((n0,n4))
+        newEdges.append((n1,n4))
+        newEdges.append((n1,n5))
+        newEdges.append((n2,n5))
+        newEdges.append((outerN1,outerN2))
+
         
         combinedCorral = cor_1 + cor_2
         combinedCorral = np.append(combinedCorral, newEdges, axis=0)
