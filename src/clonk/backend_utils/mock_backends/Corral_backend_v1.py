@@ -5,26 +5,36 @@ import os
 import tempfile
 from PIL import Image
 from qiskit.circuit.library.standard_gates import *
+import logging
 
 from src.clonk.backend_utils.configurable_backend_v2 import ConfigurableFakeBackendV2
 from src.clonk.utils.riswap_gates.riswap import RiSwapGate, fSim
 
 
 class FakeCorral(ConfigurableFakeBackendV2):
-    def __init__(self, n=16, k=2, twoqubitgate="riswap", jumpSizes=[0, 1], connect = False):
+    def __init__(self, n=16, k=2, twoqubitgate="riswap", jumpSizes=[1, 1], connect = False):
         """connect: if true will make two corrals of snail size n/2 and connect them """
+
+        logging.basicConfig(level=logging.INFO)
         #FIXME delete all?
         qubits = list(range(n))
         coupling_map = []
         #call corral()
         if connect:
-            c1 = self.corral(n//2, 2)
-            c2 = self.corral(n//2, 2)
+            c1 = self.corral_skip(n//2, 2, 
+                                  level_1_skip=jumpSizes[0], 
+                                  level_2_skip=jumpSizes[1])
+            c2 = self.corral(n//2, 2,
+                             level_1_skip=jumpSizes[0], 
+                             level_2_skip=jumpSizes[1])
             c1 = list(self.add_new_edges(c1, k//2))
             c2 = list(self.add_new_edges(c2, k//2))
             coupling_map = self.connect_corrals_way2(c1, c2)
         else:
-            coupling_map = self.corral(n,2) #n number of snail, 2 is number of levels
+            coupling_map = self.corral_skip( num_snails= n, 
+                                            num_levels= 2, 
+                                            level_1_skip=jumpSizes[0],
+                                            level_2_skip=jumpSizes[1]) #n number of snail, 2 is number of levels
             #call add_new_edges
             coupling_map = self.add_new_edges(coupling_map, k)
         coupling_map = self.snail_to_connectivity(coupling_map)
@@ -129,7 +139,7 @@ class FakeCorral(ConfigurableFakeBackendV2):
             newConnections.append([start, start + jumpLength])
         return newConnections
 
-    # define corral, use for init? TODO
+    # define corral
     def corral(self, num_snails=32, num_levels=2):
         """returns edge list of a corral of size specified
         snails are nodes, edges are qubits"""
@@ -138,6 +148,20 @@ class FakeCorral(ConfigurableFakeBackendV2):
         for snail0, snail1 in zip(range(num_snails), range(1, num_snails + 1)):
             for i in range(num_levels):
                 snail_edge_list.append((snail0, snail1 % num_snails))
+        return snail_edge_list
+
+    # define corral
+    def corral_skip(self, num_snails=32, num_levels=2, level_1_skip = 1, level_2_skip = 1):
+        """returns edge list of a corral of size specified
+        snails are nodes, edges are qubits"""
+
+        snail_edge_list = []
+        for snail0, snail1 in zip(range(num_snails), range(1, num_snails + 1)):
+            for i in range(1,num_levels+1): 
+                if i == 1: 
+                    snail_edge_list.append(((snail0 +level_1_skip)% num_snails, snail0))
+                elif i == 2:
+                    snail_edge_list.append((snail0, (snail0 +level_2_skip)% num_snails))
         return snail_edge_list
 
     def add_new_edges(self, corral_list, num_new_edges=1): 
@@ -304,7 +328,10 @@ class FakeCorral(ConfigurableFakeBackendV2):
             elif n4 == e[1]:
                 n5 = e[0]
                 remove2 = e
+        cor_1.remove(remove1) #remove edges connecting nodes in same corral 
+        cor_2.remove(remove2)
 
+        #find outer nodes that lost an edge, and connect them
         for e in cor_1:
             if n2 == e[0]:
                 outerN1 = e[1]
@@ -320,9 +347,9 @@ class FakeCorral(ConfigurableFakeBackendV2):
                 outerN2 = e[0]
                 remove4 = e
 
-        cor_1.remove(remove1) #remove edges connecting nodes in same corral 
-        cor_1.remove(remove3)
-        cor_2.remove(remove2)
+        #logging.info(f'remove 1: {remove1}, 2: {remove2}, 3: {remove3}, 4: {remove4}')
+        
+        cor_1.remove(remove3) #remove edges connecting nodes in same corral 
         cor_2.remove(remove4)
 
         #connect 0-3,0-4 ; 1-4,1-5 ; 2-5, + nodes connected previously to n0 and n5 
