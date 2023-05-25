@@ -54,10 +54,10 @@ class BackendTranspilerBenchmark:
 
 ###
 
-fake_corralv1 = FakeCorral(n=16, k=0, twoqubitgate="cx")
-fake_corralv2 = FakeCorral(n=16, k=0, twoqubitgate="cx", connect=True) #connect two smaller corrals
-fake_corralv3 = FakeCorral(n=16, k=4, twoqubitgate="cx")
-fake_corralv4 = FakeCorral(n=16, k=4, twoqubitgate="cx", connect=True) #update connections for big corral and smaller connected ones
+fake_corralv1 = FakeCorral(n=16, k=0, twoqubitgate="cx", jumpSizes=[1,1])
+fake_corralv2 = FakeCorral(n=16, k=0, twoqubitgate="cx", jumpSizes= [1,4] )
+fake_corralv3 = FakeCorral(n=16, k=0, twoqubitgate="cx", jumpSizes=[1,6])
+fake_corralv4 = FakeCorral(n=16, k=0, twoqubitgate="cx",jumpSizes=[1,8])
 ###
 
 _small_results_part3 = [fake_corralv1, fake_corralv2, fake_corralv3, fake_corralv4]
@@ -68,4 +68,5 @@ basis_gates = ["cx", "cx", "cx", "cx"]
 for backend, basis_gate in zip(_small_results_part3, basis_gates):
     pm = level_1_pass_manager(backend, basis_gate=basis_gate, decompose_swaps=True)
     label = backend.name + "-smallv3"
+    # label = backend.name #test larger size
     simple_backends_v3.append(BackendTranspilerBenchmark(backend, pm, label))
