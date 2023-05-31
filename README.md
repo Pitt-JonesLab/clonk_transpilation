@@ -1,9 +1,18 @@
 # CLONK-CoupLing tOpology beNchmarKs
-McKinney, Evan, et al. "Co-Designed Architectures for Modular Superconducting Quantum Computers." 2023 IEEE International Symposium on High-Performance Computer Architecture (HPCA). IEEE, 2023.
-
+```
+@inproceedings{mckinney2023co,
+  title={Co-Designed Architectures for Modular Superconducting Quantum Computers},
+  author={McKinney, Evan and Xia, Mingkang and Zhou, Chao and Lu, Pinlei and Hatridge, Michael and Jones, Alex K},
+  booktitle={2023 IEEE International Symposium on High-Performance Computer Architecture (HPCA)},
+  pages={759--772},
+  year={2023},
+  organization={IEEE}
+}
+```
 ![Tests](https://github.com/Pitt-JonesLab/clonk_transpilation/actions/workflows/tests.yml/badge.svg?branch=main)
 ![Format Check](https://github.com/Pitt-JonesLab/clonk_transpilation/actions/workflows/format-check.yml/badge.svg?branch=main)
 
+___
 Dependency for topology plots: `sudo apt install graphviz`
 
 ## 1. Set up list of coupling maps
