@@ -1,4 +1,3 @@
-
 import os
 import tempfile
 
@@ -26,7 +25,7 @@ class FakeCorral(ConfigurableFakeBackendV2):
             c1 = self.corral_skip(
                 n // 2, 2, level_1_skip=jumpSizes[0], level_2_skip=jumpSizes[1]
             )
-            c2 = self.corral(
+            c2 = self.corral_skip(
                 n // 2, 2, level_1_skip=jumpSizes[0], level_2_skip=jumpSizes[1]
             )
             c1 = list(self.add_new_edges(c1, k // 2))
