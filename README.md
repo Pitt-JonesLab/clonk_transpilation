@@ -44,7 +44,7 @@ pb = FakeModular(module_size=5, children=4, total_levels=2)
 pretty_print(pb)
 ```
 
-![png](HPCA_artifact_files/HPCA_artifact_2_0.png)
+![png](images/HPCA_artifact_2_0.png)
     
 
 #### Decomposition Transpiler Pass
@@ -172,7 +172,7 @@ plot_wrap(simple_backends_v3, circuits.keys(), motivation=True, plot_average=Tru
     Starting benchmark for GHZ
 
     
-![png](HPCA_artifact_files/HPCA_artifact_9_1.png)
+![png](images/HPCA_artifact_9_1.png)
     
 
 ## 📊 Results & Comparisons
@@ -202,7 +202,7 @@ plot_wrap(motivation_backends, circuits.keys(), motivation=True, plot_average=Tr
     Starting benchmark for GHZ
 
     
-![png](HPCA_artifact_files/HPCA_artifact_11_1.png)
+![png](images/HPCA_artifact_11_1.png)
     
 
 ```python
@@ -229,7 +229,7 @@ plot_wrap(small_results_backends, circuits.keys(), motivation=True, plot_average
     Starting benchmark for GHZ
 
 
-![png](HPCA_artifact_files/HPCA_artifact_12_1.png)
+![png](images/HPCA_artifact_12_1.png)
     
 ```python
 # """Fig 12"""
@@ -255,7 +255,7 @@ plot_wrap(results_backends, circuits.keys(), motivation=True, plot_average=True)
     Starting benchmark for GHZ
 
 
-![png](HPCA_artifact_files/HPCA_artifact_13_1.png)
+![png](images/HPCA_artifact_13_1.png)
     
 ```python
 """Fig 13"""
@@ -283,7 +283,7 @@ plot_wrap(
     Starting benchmark for GHZ
 
     
-![png](HPCA_artifact_files/HPCA_artifact_14_1.png)
+![png](images/HPCA_artifact_14_1.png)
     
     
 ```python
@@ -291,7 +291,7 @@ plot_wrap(
 plot_wrap(results_backends, circuits.keys(), motivation=False, plot_average=True)
 ```
 
-![png](HPCA_artifact_files/HPCA_artifact_15_0.png)
+![png](images/HPCA_artifact_15_0.png)
 
 
 ### Finally, we use a quick calculation which converts the transpiled circuit data into useable numbers for the fidelity models.
@@ -350,14 +350,14 @@ gate_error, decomp_error, fidelity_error = collect_random2q_data(
 create_plot2(gate_error, decomp_error, fidelity_error, plot_bool=0, fn=filename);
 ```
 
-![png](HPCA_artifact_files/HPCA_artifact_22_1.png)
+![png](images/HPCA_artifact_22_1.png)
 
 
 ```python
 create_plot2(gate_error, decomp_error, fidelity_error, plot_bool=1, fn=filename);
 ```
 
-![png](HPCA_artifact_files/HPCA_artifact_23_0.png)
+![png](images/HPCA_artifact_23_0.png)
     
 
 ## 📚 Reference
