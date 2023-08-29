@@ -6,9 +6,15 @@ Link to paper: [https://ieeexplore.ieee.org/abstract/document/10071036](https://
 ![Format Check](https://github.com/Pitt-JonesLab/clonk_transpilation/actions/workflows/format-check.yml/badge.svg?branch=main)
 
 ## 📌 Project Overview
+- **Overview**: This project innovates in the field of superconducting quantum computers by employing a SNAIL modulator to mitigate noise challenges prevalent in NISQ systems. It enhances qubit coupling and overall performance, offering a robust alternative to traditional designs.
+  
+- **Objective**: To develop, optimize, and benchmark a SNAIL-based quantum computing architecture that excels in noise management and qubit coupling efficiency.
 
-- **Overview**: This project introduces a superconducting quantum computer design using the SNAIL modulator to address the noise challenges in NISQ computers, enhancing qubit coupling and performance.
-- **Objective**: To optimize and benchmark the SNAIL-based quantum computer against traditional designs, aiming for efficient noise management and superior qubit coupling.
+- **What's Inside**: 
+  - **ConfigurableBackendV2**: A module for programmatically creating qubit-connectivity backends.
+  - **Transpilation Pass Manager**: Designed for quick basis gate translation.
+  - **Circuit and Backend Suites**: Includes `circuit_suite.py` and `backend_suite_v3.py` for various benchmarks.
+  - **Demo**: See `HPCA_artifact.ipynb` for a comprehensive demo focused on topology diameters and data movement operations.
 
 ## 🚀 Getting Started
 
