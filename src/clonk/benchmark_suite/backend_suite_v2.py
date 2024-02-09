@@ -5,9 +5,9 @@ sys.path.append("..")
 import json
 from pathlib import Path
 
-from src.clonk.backend_utils import *
-from src.clonk.backend_utils.mock_backends.fake_hexLattice import FakeHexLattice
-from src.clonk.utils.transpiler_passes import level_0_pass_manager, level_1_pass_manager
+from clonk.backend_utils import *
+from clonk.backend_utils.mock_backends.fake_hexLattice import FakeHexLattice
+from clonk.utils.transpiler_passes import level_0_pass_manager, level_1_pass_manager
 
 
 class BackendTranspilerBenchmark:

@@ -1,6 +1,6 @@
 from qiskit.circuit.library.standard_gates import *
 
-from src.clonk.backend_utils.configurable_backend_v2 import ConfigurableFakeBackendV2
+from clonk.backend_utils.configurable_backend_v2 import ConfigurableFakeBackendV2
 
 
 class FakeExampleV2(ConfigurableFakeBackendV2):

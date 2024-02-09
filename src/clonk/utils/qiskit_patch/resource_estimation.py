@@ -24,7 +24,7 @@ sys.path.append("../")
 from qiskit.transpiler.passes.analysis.num_qubits import NumQubits
 from qiskit.transpiler.passes.analysis.num_tensor_factors import NumTensorFactors
 
-from src.clonk.utils.qiskit_patch import CountOps, CountOpsLongestPath
+from clonk.utils.qiskit_patch import CountOps, CountOpsLongestPath
 
 
 class ResourceEstimation(AnalysisPass):

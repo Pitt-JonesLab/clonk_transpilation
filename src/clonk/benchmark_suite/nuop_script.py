@@ -5,7 +5,7 @@ from qiskit import QuantumCircuit
 from tqdm import tqdm
 
 from external.NuOp.parallel_two_qubit_gate_decomposition import *
-from src.clonk.utils.riswap_gates.riswap import RiSwapGate
+from clonk.utils.riswap_gates.riswap import RiSwapGate
 
 # test
 

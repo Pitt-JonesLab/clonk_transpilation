@@ -2,8 +2,8 @@
 # from qiskit.test.mock.utils.configurable_backend import ConfigurableFakeBackend
 from qiskit.circuit.library.standard_gates import *
 
-from src.clonk.backend_utils.configurable_backend_v2 import ConfigurableFakeBackendV2
-from src.clonk.utils.riswap_gates.riswap import RiSwapGate
+from clonk.backend_utils.configurable_backend_v2 import ConfigurableFakeBackendV2
+from clonk.utils.riswap_gates.riswap import RiSwapGate
 
 
 class FakeHyperCubeSnail(ConfigurableFakeBackendV2):

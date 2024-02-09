@@ -2,7 +2,7 @@
 # %%
 from qiskit.transpiler.coupling import CouplingMap
 
-from src.clonk.backend_utils.mock_backends.ibm import *
+from clonk.backend_utils.mock_backends.ibm import *
 
 
 def pretty_print(pb):
@@ -33,7 +33,7 @@ def pretty_print(pb):
 
 
 # # %%
-# from src.clonk.backend_utils.mock_backends import FakeHeavyHex
+# from clonk.backend_utils.mock_backends import FakeHeavyHex
 # pb = FakeHeavyHex(twoqubitgate="cx", enforce_max_84=False, small=True)
 # print(pb.num_qubits)
 # pretty_print(pb)

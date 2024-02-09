@@ -25,11 +25,11 @@ from qiskit.quantum_info.synthesis.two_qubit_decompose import *
 from qiskit.transpiler.basepasses import TransformationPass
 from qiskit.transpiler.exceptions import TranspilerError
 
-from src.clonk.utils.qiskit_patch.two_qubit_decompose import TwoQubitBasisDecomposer
-from src.clonk.utils.riswap_gates.equivalence_library import SessionEquivalenceLibrary
+from clonk.utils.qiskit_patch.two_qubit_decompose import TwoQubitBasisDecomposer
+from clonk.utils.riswap_gates.equivalence_library import SessionEquivalenceLibrary
 
 # from qiskit.circuit.library.standard_gates import *
-from src.clonk.utils.riswap_gates.riswap import RiSwapGate, fSim
+from clonk.utils.riswap_gates.riswap import RiSwapGate, fSim
 
 _sel = SessionEquivalenceLibrary
 

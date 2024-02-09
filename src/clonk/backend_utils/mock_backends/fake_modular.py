@@ -1,35 +1,30 @@
 import itertools
 
 import numpy as np
-from qiskit.circuit.library.standard_gates import *
 
-from src.clonk.backend_utils.configurable_backend_v2 import ConfigurableFakeBackendV2
-from src.clonk.utils.riswap_gates.riswap import RiSwapGate, fSim
+# from qiskit.circuit.library.standard_gates import *
+from qiskit.circuit.library import (
+    IGate,
+    RZGate,
+    RYGate,
+    RZXGate,
+    XGate,
+    CXGate,
+    U3Gate,
+    SXGate,
+    SXdgGate,
+    YGate,
+)
+
+from clonk.backend_utils.configurable_backend_v2 import ConfigurableFakeBackendV2
+
+# from clonk.utils.riswap_gates.riswap import RiSwapGate, fSim
 
 
 class FakeModular(ConfigurableFakeBackendV2):
     """A mock backendv2."""
 
     def __init__(self, twoqubitgate="cx", module_size=4, children=4, total_levels=3):
-        assert children <= module_size
-        assert (
-            children > 1
-        )  # I think this would break things with the flattening checks
-        # children refers to children per module
-
-        coupling_map = []  # TODO
-
-        def get_unit_module(qubit_counter, reserved_qubits=[]):
-            temp_qubits = []
-            temp_qubits.extend(reserved_qubits)
-            for i in range(module_size - len(temp_qubits)):
-                temp_qubits.append(qubit_counter)
-                qubit_counter += 1
-            temp_edges = [
-                el for el in itertools.product(temp_qubits, repeat=2) if el[0] != el[1]
-            ]
-            return qubit_counter, temp_qubits, temp_edges
-
         # brainstorming:
         # recursive case, get #children of (target_level-1) module which are joined by +1 (target_level-1) module
         # then create convention that the last child to be the overlapping one and combine qubits at the end
@@ -64,6 +59,29 @@ class FakeModular(ConfigurableFakeBackendV2):
                 )
                 return qubit_counter, temp_module_qubits
 
+        assert children <= module_size
+        assert (
+            children > 1
+        )  # I think this would break things with the flattening checks
+        # children refers to children per module
+
+        coupling_map = []  # TODO
+        self.modules = {}
+        self.module_counter = 0
+
+        def get_unit_module(qubit_counter, reserved_qubits=[]):
+            temp_qubits = []
+            temp_qubits.extend(reserved_qubits)
+            for i in range(module_size - len(temp_qubits)):
+                temp_qubits.append(qubit_counter)
+                qubit_counter += 1
+            self.modules[self.module_counter] = temp_qubits
+            self.module_counter += 1
+            temp_edges = [
+                el for el in itertools.product(temp_qubits, repeat=2) if el[0] != el[1]
+            ]
+            return qubit_counter, temp_qubits, temp_edges
+
         qubit_counter, _ = recursive_foo(
             qubit_counter=0, current_level=total_levels, reserved=[]
         )
@@ -93,10 +111,10 @@ class FakeModular(ConfigurableFakeBackendV2):
         if twoqubitgate == "cx":
             # can do CX on all pairs in coupling map
             gate_configuration[CXGate] = [(i, j) for i, j in coupling_map]
-        if twoqubitgate == "riswap":
-            gate_configuration[RiSwapGate] = [(i, j) for i, j in coupling_map]
-        if twoqubitgate == "syc":
-            gate_configuration[fSim] = [(i, j) for i, j in coupling_map]
+        # if twoqubitgate == "riswap":
+        #     gate_configuration[RiSwapGate] = [(i, j) for i, j in coupling_map]
+        # if twoqubitgate == "syc":
+        #     gate_configuration[fSim] = [(i, j) for i, j in coupling_map]
 
         # global measure
         measurable_qubits = qubits
@@ -109,10 +127,10 @@ class FakeModular(ConfigurableFakeBackendV2):
             parameterized_gates={
                 RZGate: ["theta"],
                 RYGate: ["theta"],
-                RiSwapGate: ["alpha"],
+                # RiSwapGate: ["alpha"],
                 U3Gate: ["theta", "phi", "lambda"],
                 RZXGate: ["theta"],
-                fSim: ["theta", "phi"],
+                # fSim: ["theta", "phi"],
             },
             measurable_qubits=measurable_qubits,
             gate_durations={  # deprecated
@@ -124,10 +142,10 @@ class FakeModular(ConfigurableFakeBackendV2):
                 SXGate: 0,
                 SXdgGate: 0,
                 CXGate: 1,
-                RiSwapGate: 1,  # time of iSwap
+                # RiSwapGate: 1,  # time of iSwap
                 U3Gate: 0,
                 RZXGate: 1,
-                fSim: 0.748,
+                # fSim: 0.748,
             },
             single_qubit_gates=["rz", "x", "y", "sx", "sxdg"]
             # qubit_coordinates=qubit_coordinates,

@@ -12,24 +12,24 @@ from qiskit.transpiler.passes import (
     UnrollCustomDefinitions,
 )
 
-from src.clonk.utils.qiskit_patch.basis_translator import BasisTranslator
-from src.clonk.utils.qiskit_patch.dense_layout import DenseLayout
-from src.clonk.utils.qiskit_patch.resource_estimation import ResourceEstimation
+from clonk.utils.qiskit_patch.basis_translator import BasisTranslator
+from clonk.utils.qiskit_patch.dense_layout import DenseLayout
+from clonk.utils.qiskit_patch.resource_estimation import ResourceEstimation
 
 # utils
-from src.clonk.utils.riswap_gates.equivalence_library import (
+from clonk.utils.riswap_gates.equivalence_library import (
     SessionEquivalenceLibrary as _sel,
 )
-from src.clonk.utils.riswap_gates.riswap import RiSwapGate, fSim
+from clonk.utils.riswap_gates.riswap import RiSwapGate, fSim
 
 # routing passes
-from src.clonk.utils.transpiler_passes.nonglobal_swap import NonGlobalSwapPass
+from clonk.utils.transpiler_passes.nonglobal_swap import NonGlobalSwapPass
 
 # placement pass
-from src.clonk.utils.transpiler_passes.nonglobal_trivial_layout import (
+from clonk.utils.transpiler_passes.nonglobal_trivial_layout import (
     NonGlobalTrivialLayout,
 )
-from src.clonk.utils.transpiler_passes.weyl_decompose import RootiSwapWeylDecomposition
+from clonk.utils.transpiler_passes.weyl_decompose import RootiSwapWeylDecomposition
 
 # duration analysis
 
@@ -165,7 +165,7 @@ def level_0_pass_manager(
     pm0.append(ResourceEstimation(preswap=False))
 
     # edge contention
-    # from src.clonk.utils.transpiler_passes.cost_analysis_pass import EdgeContentionPass
+    # from clonk.utils.transpiler_passes.cost_analysis_pass import EdgeContentionPass
 
     # pm0.append(EdgeContentionPass(backend))
 
